@@ -1,0 +1,672 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Begin Consultation" description="Start your Filthy Rich Soil Co. consultation. Quick Quote or Full Discovery — find out exactly what your property needs and what it will cost.">
+
+<style is:global>
+  :root {
+    --forest: #013220; --forest-mid: #024d32;
+    --gold: #B8860B; --gold-lite: #d4a017;
+    --cream: #FAF7F0; --bg-dark: #080e08; --bg-card: #0a140a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg-dark); color: var(--cream); overflow-x: hidden; min-height: 100vh; }
+
+  /* ── LANDING ── */
+  .landing {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px 24px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, var(--bg-dark) 100%),
+                url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center 40% / cover no-repeat;
+    position: relative;
+  }
+  .landing::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(1,50,32,0.8) 100%); pointer-events: none; }
+  .landing > * { position: relative; z-index: 1; }
+  .landing-eyebrow { font-size: 0.62rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-lite); margin-bottom: 24px; }
+  .landing h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; font-style: italic; line-height: 1.1; margin-bottom: 20px; max-width: 600px; }
+  .landing > p { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 480px; margin-bottom: 48px; }
+  .mode-cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+  .mode-card { background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px 32px; width: 260px; text-align: left; cursor: pointer; transition: all 0.25s ease; }
+  .mode-card:hover { background: rgba(1,50,32,0.35); border-color: rgba(1,100,60,0.5); transform: translateY(-3px); }
+  .mode-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; font-style: italic; margin-bottom: 6px; }
+  .mode-card .mode-time { font-size: 0.7rem; color: var(--gold-lite); letter-spacing: 1px; font-weight: 600; margin-bottom: 10px; }
+  .mode-card p { font-size: 0.82rem; color: rgba(255,255,255,0.48); line-height: 1.65; margin-bottom: 0; }
+  .trust-row { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+  .trust-item { font-size: 0.72rem; color: rgba(255,255,255,0.32); font-weight: 500; }
+  .trust-item span { color: var(--gold-lite); margin-right: 6px; }
+
+  /* ── FULLSCREEN OVERLAY ── */
+  .flow-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: var(--bg-dark); flex-direction: column; }
+  .flow-overlay.open { display: flex; }
+  .flow-topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+  .flow-logo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 900; font-style: italic; color: white; }
+  .flow-logo small { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.55rem; font-weight: 400; font-style: normal; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 2px; }
+  .flow-close { background: none; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: rgba(255,255,255,0.4); font-size: 0.78rem; padding: 10px 20px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; font-weight: 500; letter-spacing: 0.5px; }
+  .flow-close:hover { color: white; border-color: rgba(255,255,255,0.3); }
+  .flow-progress { flex-shrink: 0; padding: 0 32px; }
+  .flow-progress-bar { height: 2px; background: rgba(255,255,255,0.06); border-radius: 2px; }
+  .flow-progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+  .flow-content { flex: 1; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 24px 32px; }
+  .flow-step { display: none; max-width: 820px; width: 100%; margin: auto 0; }
+  .flow-step.active { display: block; animation: fadeUp 0.3s ease forwards; min-height: 0; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .flow-step .step-number { font-size: 0.62rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-lite); margin-bottom: 8px; }
+  .flow-step h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem,2.8vw,2rem); font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.2; margin-bottom: 6px; }
+  .flow-step .step-desc { font-size: 0.9rem; color: rgba(255,255,255,0.42); line-height: 1.55; margin-bottom: 18px; }
+
+  /* ── GRID OPTIONS ── */
+  .flow-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .flow-options.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .flow-option {
+    padding: 16px 18px; border-radius: 12px; text-align: left;
+    background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.65); font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s ease; line-height: 1.3; display: flex; align-items: center; gap: 12px;
+  }
+  .flow-option:hover { background: rgba(1,50,32,0.3); border-color: rgba(1,100,60,0.5); color: white; }
+  .flow-option.selected { background: rgba(1,50,32,0.5); border-color: #4a8c5c; color: white; }
+  .flow-option.route-hidden { display: none !important; }
+  .flow-option .opt-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .flow-option .opt-label { flex: 1; min-width: 0; }
+  .flow-option .opt-sub { font-size: 0.72rem; display: block; opacity: 0.5; margin-top: 2px; font-weight: 400; line-height: 1.3; }
+
+  /* ── CHIP OPTIONS ── */
+  .chip-group { margin-bottom: 16px; }
+  .chip-group-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 8px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 100px;
+    background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s ease; white-space: nowrap; -webkit-user-select: none; user-select: none;
+  }
+  .chip:hover { background: rgba(1,50,32,0.3); border-color: rgba(1,100,60,0.45); color: white; }
+  .chip.selected { background: rgba(1,50,32,0.5); border-color: #4a8c5c; color: white; }
+  .chip.hidden-chip { display: none !important; }
+  .chip .chip-icon { font-size: 1.1rem; line-height: 1; }
+  .chip-group.hidden-group { display: none !important; }
+
+  .context-badge { display: inline-block; font-size: 0.62rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 100px; padding: 4px 14px; margin-bottom: 14px; }
+  .context-badge span { color: var(--gold-lite); }
+  .multi-hint { font-size: 0.78rem; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+  .multi-hint .count { color: var(--gold-lite); font-weight: 600; }
+
+  .flow-btn { width: 100%; padding: 16px; border-radius: 12px; background: var(--gold); color: var(--forest); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 8px; }
+  .flow-btn:hover { background: var(--gold-lite); transform: translateY(-1px); }
+  .flow-btn.ghost { background: transparent; color: rgba(255,255,255,0.35); border: 1.5px solid rgba(255,255,255,0.1); margin-top: 10px; }
+  .flow-btn.ghost:hover { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.25); transform: none; }
+
+  .flow-form-group { margin-bottom: 14px; }
+  .flow-form-group label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
+  .flow-form-group input, .flow-form-group textarea { width: 100%; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+  .flow-form-group input:focus, .flow-form-group textarea:focus { border-color: #4a8c5c; }
+  .flow-form-group textarea { resize: vertical; min-height: 70px; }
+  .flow-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-error { display: none; color: #e07070; font-size: 0.85rem; text-align: center; margin-top: 12px; }
+
+  .result-card { background: rgba(1,50,32,0.22); border: 1px solid rgba(1,80,48,0.4); border-radius: 16px; padding: 28px; text-align: center; margin-bottom: 20px; }
+  .result-badge { display: inline-block; background: var(--gold); color: var(--bg-dark); font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; margin-bottom: 12px; }
+  .result-price { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: white; line-height: 1; }
+  .result-price sup { font-size: 1.1rem; vertical-align: super; margin-right: 2px; }
+  .result-price .unit { font-size: 0.92rem; font-weight: 400; opacity: 0.5; }
+  .result-season { font-size: 0.75rem; color: rgba(255,255,255,0.36); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; }
+  .result-annual { font-size: 0.88rem; color: var(--gold-lite); margin-top: 8px; }
+  .result-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 5px 14px; font-size: 0.78rem; color: rgba(255,255,255,0.55); font-weight: 500; }
+  .result-include-row { font-size: 0.88rem; color: rgba(255,255,255,0.6); display: flex; align-items: center; line-height: 1.4; }
+  .result-addon-pill { display: inline-block; background: rgba(184,134,11,0.1); border: 1px solid rgba(184,134,11,0.25); border-radius: 100px; padding: 4px 14px; font-size: 0.78rem; color: var(--gold-lite); }
+  .result-next-step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; }
+  .result-next-step:last-child { margin-bottom: 0; }
+  .result-next-num { min-width: 28px; height: 28px; border-radius: 50%; background: var(--forest); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 900; color: var(--gold); font-size: 0.82rem; flex-shrink: 0; margin-top: 2px; }
+
+  .flow-bottombar { flex-shrink: 0; padding: 12px 32px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+  .flow-step-label { font-size: 0.75rem; color: rgba(255,255,255,0.25); letter-spacing: 1px; text-transform: uppercase; }
+  .flow-back-btn { background: none; border: none; color: rgba(255,255,255,0.3); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; cursor: pointer; padding: 8px 16px; transition: color 0.2s; }
+  .flow-back-btn:hover { color: rgba(255,255,255,0.7); }
+  .flow-back-btn.hidden { opacity: 0; pointer-events: none; }
+
+  /* Mobile: fill the screen, don't shrink */
+  @media (max-width: 600px) {
+    .mode-cards { flex-direction: column; align-items: center; }
+    .mode-card { width: 100%; max-width: 340px; }
+    .trust-row { gap: 16px; }
+
+    /* Flow layout — fill available height */
+    .flow-topbar { padding: 8px 16px; }
+    .flow-progress { padding: 0 16px; }
+    .flow-content { padding: 12px 16px; }
+    .flow-bottombar { padding: 8px 16px; }
+    .flow-step { display: none; margin: auto 0; }
+    .flow-step.active { display: flex; flex-direction: column; }
+    .flow-step h2 { font-size: 1.25rem; margin-bottom: 2px; }
+    .flow-step .step-desc { margin-bottom: 10px; }
+
+    /* Options — generous tap targets */
+    .flow-options { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; flex: 1; align-content: center; }
+    .flow-options.grid-3 { grid-template-columns: 1fr 1fr; }
+    .flow-option { padding: 12px 10px; font-size: 0.78rem; gap: 8px; border-radius: 10px; }
+    .flow-option .opt-icon { font-size: 1.1rem; }
+    .flow-option .opt-sub { display: block; font-size: 0.58rem; }
+
+    /* Chips — horizontal scroll instead of wrap */
+    .chip { padding: 10px 14px; font-size: 0.78rem; }
+    .chip .chip-icon { font-size: 0.95rem; }
+    .chip-row { gap: 8px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none; }
+    .chip-row::-webkit-scrollbar { display: none; }
+    .chip-group { margin-bottom: 8px; }
+    .chip-group-label { font-size: 0.55rem; margin-bottom: 4px; }
+
+    /* Buttons */
+    .flow-btn { padding: 14px; font-size: 0.78rem; border-radius: 12px; }
+
+    /* Form fields */
+    .flow-form-row { grid-template-columns: 1fr; }
+    .flow-form-group input, .flow-form-group textarea { padding: 12px 14px; font-size: 0.9rem; }
+
+    /* Results screen — this one scrolls, that's fine */
+    .result-card { padding: 20px 16px; }
+    .result-price { font-size: 2.4rem; }
+  }
+</style>
+
+<!-- ══════════ LANDING ══════════ -->
+<div class="landing" id="landing">
+  <div class="landing-eyebrow">Begin Your Consultation</div>
+  <h1>Let's Start Putting Down Roots</h1>
+  <p>Tell us about your land. We'll tell you what it can become — and build a program to get it there.</p>
+  <div class="mode-cards">
+    <div class="mode-card" id="btn-qq"><h3>Quick Quote</h3><div class="mode-time">~4 minutes · estimate range</div><p>Answer a few questions and get a ballpark estimate for your property. Great if you're exploring.</p></div>
+    <div class="mode-card" id="btn-dd"><h3>Full Discovery</h3><div class="mode-time">~8 minutes · custom profile</div><p>A deeper dive that generates your full stewardship profile with service comparison and 3-year roadmap.</p></div>
+  </div>
+  <div class="trust-row">
+    <div class="trust-item"><span>✓</span> Free on-site assessment</div>
+    <div class="trust-item"><span>✓</span> Response within 24 hours</div>
+    <div class="trust-item"><span>✓</span> No commitment required</div>
+    <div class="trust-item"><span>✓</span> Residential, farm & commercial</div>
+    <div class="trust-item"><span>✓</span> Programs built to improve every year</div>
+  </div>
+</div>
+
+<!-- ══════════ FULLSCREEN FLOW ══════════ -->
+<div class="flow-overlay" id="flowOverlay">
+  <div class="flow-topbar">
+    <div class="flow-logo">Filthy Rich Soil Co.<small>Chester County, PA</small></div>
+    <button class="flow-close" id="btn-close">Save & Exit</button>
+  </div>
+  <div class="flow-progress"><div class="flow-progress-bar"><div class="flow-progress-fill" id="progressFill"></div></div></div>
+
+  <div class="flow-content" id="flowContent">
+
+    <!-- ══ SHARED: Step 1 — Property Type ══ -->
+    <div class="flow-step active" id="fs-type">
+      <div class="step-number" id="sn-type">Step 1</div>
+      <h2>What kind of property is this?</h2>
+      <div class="step-desc">Helps us tailor everything that follows.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select-type" data-val="residential" data-next="fs-size-res"><span class="opt-icon">🏠</span><span class="opt-label">Residential home</span></button>
+        <button class="flow-option" data-action="select-type" data-val="farm" data-next="fs-size-land"><span class="opt-icon">🌾</span><span class="opt-label">Farm or working land</span></button>
+        <button class="flow-option" data-action="select-type" data-val="commercial" data-next="fs-size-com"><span class="opt-icon">🏢</span><span class="opt-label">Commercial property</span></button>
+        <button class="flow-option" data-action="select-type" data-val="estate" data-next="fs-size-land"><span class="opt-icon">🌳</span><span class="opt-label">Estate / large residential</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Step 2a — Size (Residential) ══ -->
+    <div class="flow-step" id="fs-size-res">
+      <div class="step-number">Step 2</div>
+      <h2>How large is the property?</h2>
+      <div class="step-desc">Approximate is fine — we confirm on-site.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select-size" data-val="condo"><span class="opt-icon">🏡</span><span class="opt-label">Condo / townhome</span></button>
+        <button class="flow-option" data-action="select-size" data-val="small"><span class="opt-icon">🏠</span><span class="opt-label">Under ¼ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="quarter"><span class="opt-icon">🏘️</span><span class="opt-label">¼ – ½ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="half"><span class="opt-icon">🌳</span><span class="opt-label">½ – 1 acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acre"><span class="opt-icon">🗺️</span><span class="opt-label">1 – 3 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="large"><span class="opt-icon">🏔️</span><span class="opt-label">3 – 5 acres</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Step 2b — Size (Commercial) ══ -->
+    <div class="flow-step" id="fs-size-com">
+      <div class="step-number">Step 2</div>
+      <h2>How large is the property?</h2>
+      <div class="step-desc">Approximate is fine — we confirm on-site.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select-size" data-val="small"><span class="opt-icon">🏠</span><span class="opt-label">Under ¼ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="quarter"><span class="opt-icon">🏘️</span><span class="opt-label">¼ – ½ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="half"><span class="opt-icon">🌳</span><span class="opt-label">½ – 1 acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acre"><span class="opt-icon">🗺️</span><span class="opt-label">1 – 3 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="large"><span class="opt-icon">🏔️</span><span class="opt-label">3 – 5 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres5"><span class="opt-icon">🌿</span><span class="opt-label">5+ acres</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Step 2c — Size (Estate / Farm) ══ -->
+    <div class="flow-step" id="fs-size-land">
+      <div class="step-number">Step 2</div>
+      <h2>How large is the property?</h2>
+      <div class="step-desc">Approximate is fine — we confirm on-site.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select-size" data-val="acres5"><span class="opt-icon">🌿</span><span class="opt-label">5 – 10 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres10"><span class="opt-icon">🏔️</span><span class="opt-label">10 – 25 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres25"><span class="opt-icon">🗺️</span><span class="opt-label">25 – 50 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres50"><span class="opt-icon">🚜</span><span class="opt-label">50+ acres</span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Land Use ══ -->
+    <div class="flow-step" id="fs-landuse">
+      <div class="step-number">Step 3 of 13</div>
+      <h2>How is this land currently used?</h2>
+      <div class="step-desc">Tells us which program categories apply.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="lawn" data-next="fs-challenges" data-route="residential estate"><span class="opt-icon">🌿</span><span class="opt-label">Lawn & manicured gardens<span class="opt-sub">Turf, beds, ornamentals</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="garden" data-next="fs-challenges" data-route="residential"><span class="opt-icon">🌺</span><span class="opt-label">Mostly garden beds<span class="opt-sub">Little to no lawn</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="mixed" data-next="fs-challenges" data-route="residential estate farm"><span class="opt-icon">🌳</span><span class="opt-label">Mixed yard + naturalized<span class="opt-sub">Some cultivated, some wild</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="wooded" data-next="fs-challenges" data-route="residential estate"><span class="opt-icon">🌲</span><span class="opt-label">Wooded or naturalized<span class="opt-sub">Mostly trees, shrubs, wild growth</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="newbuild" data-next="fs-challenges" data-route="residential"><span class="opt-icon">🏗️</span><span class="opt-label">New build / bare lot<span class="opt-sub">Recently built, nothing established</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="overgrown" data-next="fs-challenges" data-route="residential estate"><span class="opt-icon">🌿</span><span class="opt-label">Overgrown / neglected<span class="opt-sub">Hasn't been maintained in a while</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="pasture" data-next="fs-challenges" data-route="farm estate"><span class="opt-icon">🐄</span><span class="opt-label">Active pasture / livestock<span class="opt-sub">Horses, cattle, sheep, etc.</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="hay" data-next="fs-challenges" data-route="farm estate"><span class="opt-icon">🌾</span><span class="opt-label">Hay field / field crops<span class="opt-sub">Cut fields, crop rotation</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="orchard" data-next="fs-challenges" data-route="estate"><span class="opt-icon">🍎</span><span class="opt-label">Orchard or food-producing<span class="opt-sub">Fruit, nut, or kitchen garden</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="workfarm" data-next="fs-challenges" data-route="farm"><span class="opt-icon">🚜</span><span class="opt-label">Working farm (mixed use)<span class="opt-sub">Livestock + hay + gardens</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="commercial" data-next="fs-challenges" data-route="commercial"><span class="opt-icon">🏢</span><span class="opt-label">Commercial / institutional<span class="opt-sub">Business grounds or HOA</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="comnat" data-next="fs-challenges" data-route="commercial"><span class="opt-icon">🌱</span><span class="opt-label">Commercial + naturalized<span class="opt-sub">Green corridors, native buffers</span></span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Challenges (expanded) ══ -->
+    <div class="flow-step" id="fs-challenges">
+      <div class="step-number">Step 4 of 13</div>
+      <h2>What challenges are you dealing with?</h2>
+      <div class="context-badge" id="challBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Confidential — helps us prepare. <span class="count" id="challCount">0</span> selected</div>
+      <div id="chall-groups">
+        <div class="chip-group" data-group="chall-soil">
+          <div class="chip-group-label">Soil & Turf</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="turfpoor"><span class="chip-icon">😞</span> Poor turf or bare patches</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="compaction"><span class="chip-icon">🪨</span> Compaction / hard clay</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="inputs"><span class="chip-icon">🧪</span> High fertilizer / chemical costs</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="chall-water">
+          <div class="chip-group-label">Water & Plantings</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="drainage"><span class="chip-icon">💧</span> Drainage / standing water</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="invasives"><span class="chip-icon">🌱</span> Invasive plant species</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="chall-land">
+          <div class="chip-group-label">Land & Operations</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="pasture"><span class="chip-icon">🐄</span> Overworked pasture</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="hay"><span class="chip-icon">🌾</span> Declining hay yield</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="vendors"><span class="chip-icon">👥</span> Too many separate vendors</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="chall-results">
+          <div class="chip-group-label">Vision</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="noresults"><span class="chip-icon">🔄</span> Not seeing results from current care</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="novision"><span class="chip-icon">💭</span> No ecological identity or vision</button>
+          </div>
+        </div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-dd-services-maint">Continue →</button>
+    </div>
+
+    <!-- ══ SHARED: QQ Problems (chips) ══ -->
+    <div class="flow-step" id="fs-problems">
+      <div class="step-number">Step 3 of 8</div>
+      <h2>What's not working right now?</h2>
+      <div class="context-badge" id="probBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="probCount">0</span> selected</div>
+      <div id="prob-groups">
+        <div class="chip-group" data-group="prob-soil">
+          <div class="chip-group-label">Soil & Turf</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="turfpoor"><span class="chip-icon">😞</span> Poor turf quality</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="compaction"><span class="chip-icon">🪨</span> Compaction / clay</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="inputs"><span class="chip-icon">🧪</span> High chemical costs</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="prob-water">
+          <div class="chip-group-label">Water & Plantings</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="drainage"><span class="chip-icon">💧</span> Drainage / flooding</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="plants"><span class="chip-icon">🌿</span> Struggling plantings</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="trees"><span class="chip-icon">🌳</span> Dying trees / shrubs</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="prob-ecology">
+          <div class="chip-group-label">Ecology & Land</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="invasives"><span class="chip-icon">🌱</span> Invasive species</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="pasture"><span class="chip-icon">🐄</span> Overworked pasture</button>
+          </div>
+        </div>
+      </div>
+      <div class="chip-group" style="margin-top:2px;"><div class="chip-row">
+        <button class="chip" data-action="chip-toggle" data-set="problems" data-val="nothing" data-exclusive="true"><span class="chip-icon">🔄</span> No issues — ready to upgrade</button>
+      </div></div>
+      <button class="flow-btn" data-action="goto" data-next="fs-qq-services-maint">Continue →</button>
+    </div>
+
+    <!-- ══ QQ: Services — Seasonal & Maintenance ══ -->
+    <div class="flow-step" id="fs-qq-services-maint">
+      <div class="step-number">Step 4 of 8</div>
+      <h2>Which seasonal services interest you?</h2>
+      <div class="context-badge" id="qqSvcMaintBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="qqSvcCount">0</span> selected</div>
+      <div id="qq-svc-maint-groups">
+        <div class="chip-group" data-group="qqsvcm-turf"><div class="chip-group-label">Turf & Soil</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="turf"><span class="chip-icon">🌾</span> Lawn & turf health</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="soil"><span class="chip-icon">🧪</span> Soil testing</button>
+        </div></div>
+        <div class="chip-group" data-group="qqsvcm-seasonal"><div class="chip-group-label">Seasonal & Maintenance</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="pruning"><span class="chip-icon">✂️</span> Pruning & trimming</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="annuals"><span class="chip-icon">🌷</span> Annual plantings</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="cleanup"><span class="chip-icon">🍂</span> Seasonal cleanups</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="leaf"><span class="chip-icon">🍁</span> Leaf & debris management</button>
+        </div></div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-qq-services-eco">Continue →</button>
+    </div>
+
+    <!-- ══ QQ: Services — Ecological & Land ══ -->
+    <div class="flow-step" id="fs-qq-services-eco">
+      <div class="step-number">Step 5 of 8</div>
+      <h2>Any ecological or land services?</h2>
+      <div class="context-badge" id="qqSvcEcoBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="qqSvcCount2">0</span> selected</div>
+      <div id="qq-svc-eco-groups">
+        <div class="chip-group" data-group="qqsvce-design"><div class="chip-group-label">Design & Water</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="native"><span class="chip-icon">🌺</span> Native plant design</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="water"><span class="chip-icon">💧</span> Water & drainage</button>
+        </div></div>
+        <div class="chip-group" data-group="qqsvce-habitat"><div class="chip-group-label">Habitat & Land</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="habitat"><span class="chip-icon">🦋</span> Habitat & wildlife</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="meadow"><span class="chip-icon">🌿</span> Meadow conversion</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="woodland"><span class="chip-icon">🌳</span> Woodland management</button>
+        </div></div>
+        <div class="chip-group" data-group="qqsvce-farm"><div class="chip-group-label">Farm & Pasture</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="pasture"><span class="chip-icon">🐄</span> Pasture & livestock</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="hay"><span class="chip-icon">🌾</span> Hay field health</button>
+        </div></div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-timeline">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Services — Seasonal & Maintenance ══ -->
+    <div class="flow-step" id="fs-dd-services-maint">
+      <div class="step-number">Step 5 of 13</div>
+      <h2>Which seasonal services are you interested in?</h2>
+      <div class="context-badge" id="ddSvcMaintBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="ddSvcCount">0</span> selected</div>
+      <div id="dd-svc-maint-groups">
+        <div class="chip-group" data-group="ddsvcm-turf"><div class="chip-group-label">Turf & Soil</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="turf"><span class="chip-icon">🌾</span> Lawn & turf health</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="soil"><span class="chip-icon">🧪</span> Soil testing & amendment</button>
+        </div></div>
+        <div class="chip-group" data-group="ddsvcm-seasonal"><div class="chip-group-label">Seasonal & Maintenance</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="pruning"><span class="chip-icon">✂️</span> Pruning & trimming</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="annuals"><span class="chip-icon">🌷</span> Annual plantings</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="cleanup"><span class="chip-icon">🍂</span> Seasonal cleanups</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="leaf"><span class="chip-icon">🍁</span> Leaf & debris management</button>
+        </div></div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-dd-services-eco">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Services — Ecological & Land ══ -->
+    <div class="flow-step" id="fs-dd-services-eco">
+      <div class="step-number">Step 6 of 13</div>
+      <h2>Any ecological or land services?</h2>
+      <div class="context-badge" id="ddSvcEcoBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="ddSvcCount2">0</span> selected</div>
+      <div id="dd-svc-eco-groups">
+        <div class="chip-group" data-group="ddsvce-design"><div class="chip-group-label">Design & Water</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="native"><span class="chip-icon">🌺</span> Native plant design & install</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="water"><span class="chip-icon">💧</span> Water management & drainage</button>
+        </div></div>
+        <div class="chip-group" data-group="ddsvce-habitat"><div class="chip-group-label">Habitat & Land</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="habitat"><span class="chip-icon">🦋</span> Habitat corridors & wildlife</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="meadow"><span class="chip-icon">🌿</span> Meadow & field conversion</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="woodland"><span class="chip-icon">🌳</span> Woodland edge management</button>
+        </div></div>
+        <div class="chip-group" data-group="ddsvce-farm"><div class="chip-group-label">Farm & Pasture</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="pasture"><span class="chip-icon">🐄</span> Pasture rotation & livestock</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="hay"><span class="chip-icon">🌾</span> Hay field soil & yield</button>
+        </div></div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-setup">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Current Service Setup ══ -->
+    <div class="flow-step" id="fs-setup">
+      <div class="step-number">Step 7 of 13</div>
+      <h2>What does your current service setup look like?</h2>
+      <div class="step-desc">Helps us understand what we'd be replacing or adding to.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="setup" data-val="self" data-next="fs-spend"><span class="opt-icon">🧑‍🌾</span><span class="opt-label">We handle it ourselves<span class="opt-sub">No outside service</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="mowing" data-next="fs-spend"><span class="opt-icon">🚜</span><span class="opt-label">Basic mowing service only<span class="opt-sub">Cuts the grass, nothing more</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="fullservice" data-next="fs-spend"><span class="opt-icon">🏢</span><span class="opt-label">Full-service landscape company<span class="opt-sub">One company, multiple services</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="multi" data-next="fs-spend"><span class="opt-icon">👥</span><span class="opt-label">Multiple separate vendors<span class="opt-sub">Mowing + fert + others</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="hoa" data-next="fs-spend" data-route="residential commercial"><span class="opt-icon">🏘️</span><span class="opt-label">HOA or property management<span class="opt-sub">Managed through association</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="consultant" data-next="fs-spend" data-route="farm estate"><span class="opt-icon">📋</span><span class="opt-label">Farm management consultant<span class="opt-sub">Agronomist or farm advisor</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="none" data-next="fs-spend"><span class="opt-icon">🌱</span><span class="opt-label">No current service<span class="opt-sub">Starting from scratch</span></span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Annual Spending ══ -->
+    <div class="flow-step" id="fs-spend">
+      <div class="step-number">Step 8 of 13</div>
+      <h2>What do you spend on land services annually?</h2>
+      <div class="step-desc">Total across all vendors — rough estimates help us build the comparison.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select" data-key="spend" data-val="low" data-next="fs-goals"><span class="opt-icon">💵</span><span class="opt-label">Under $1,500 / yr</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="mid1" data-next="fs-goals"><span class="opt-icon">💵</span><span class="opt-label">$1,500 – $3,500</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="mid2" data-next="fs-goals"><span class="opt-icon">💰</span><span class="opt-label">$3,500 – $7,500</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="high" data-next="fs-goals"><span class="opt-icon">💰</span><span class="opt-label">$7,500 – $15,000</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="premium" data-next="fs-goals"><span class="opt-icon">💎</span><span class="opt-label">$15,000+ / yr</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="unsure" data-next="fs-goals"><span class="opt-icon">🤷</span><span class="opt-label">Not sure</span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Ecological Goals ══ -->
+    <div class="flow-step" id="fs-goals">
+      <div class="step-number">Step 9 of 13</div>
+      <h2>What are your ecological goals?</h2>
+      <div class="step-desc">The long-term vision behind your program.</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="goalsCount">0</span> selected</div>
+      <div class="chip-row" style="margin-bottom:10px;">
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="habitat"><span class="chip-icon">🦋</span> Wildlife habitat & certification</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="organic"><span class="chip-icon">🌿</span> Organic / chemical-free</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="watershed"><span class="chip-icon">💧</span> Watershed & water quality</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="costs"><span class="chip-icon">📉</span> Reduce long-term input costs</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="beauty"><span class="chip-icon">🌸</span> Beauty & seasonal interest</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="lowmaint"><span class="chip-icon">🔄</span> Low-maintenance / self-sustaining</button>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-priority">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Priority (multi-select) ══ -->
+    <div class="flow-step" id="fs-priority">
+      <div class="step-number">Step 10 of 13</div>
+      <h2>What matters most to you?</h2>
+      <div class="step-desc">Helps your Lead Steward know what to lead with in your proposal.</div>
+      <div class="multi-hint">Select all that apply — <span class="count" id="prioCount">0</span> selected</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="toggle" data-set="priorities" data-val="soil" data-counter="prioCount"><span class="opt-icon">🌱</span><span class="opt-label">Soil health & long-term results<span class="opt-sub">Build something that lasts</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="priorities" data-val="beauty" data-counter="prioCount"><span class="opt-icon">✨</span><span class="opt-label">Curb appeal & visual beauty<span class="opt-sub">A property that looks its best</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="priorities" data-val="safe" data-counter="prioCount"><span class="opt-icon">🛡️</span><span class="opt-label">Chemical-free & safe for family<span class="opt-sub">Kids, pets, peace of mind</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="priorities" data-val="lowmaint" data-counter="prioCount"><span class="opt-icon">🔄</span><span class="opt-label">Low maintenance & less hassle<span class="opt-sub">One call handles everything</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="priorities" data-val="environment" data-counter="prioCount"><span class="opt-icon">🌍</span><span class="opt-label">Environmental impact<span class="opt-sub">Do right by the land</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="priorities" data-val="value" data-counter="prioCount"><span class="opt-icon">💰</span><span class="opt-label">Value & cost efficiency<span class="opt-sub">Get more for what I spend</span></span></button>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-savings">Continue →</button>
+    </div>
+
+    <!-- ══ SHARED: Timeline (QQ only) ══ -->
+    <div class="flow-step" id="fs-timeline">
+      <div class="step-number">Step 6 of 8</div>
+      <h2>When are you looking to start?</h2>
+      <div class="step-desc">No commitment — helps us prioritize scheduling.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="asap" data-next="fs-savings"><span class="opt-icon">⚡</span><span class="opt-label">As soon as possible</span></button>
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="season" data-next="fs-savings"><span class="opt-icon">📅</span><span class="opt-label">This season</span></button>
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="next" data-next="fs-savings"><span class="opt-icon">🌤️</span><span class="opt-label">Next season</span></button>
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="exploring" data-next="fs-savings"><span class="opt-icon">💭</span><span class="opt-label">Just exploring</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Partnerships ══ -->
+    <div class="flow-step" id="fs-savings">
+      <div class="step-number" id="sn-savings">Step 6 of 7</div>
+      <h2>Would you consider a partnership?</h2>
+      <div class="step-desc">Each earns a rate reduction — terms confirmed on your consultation call.</div>
+      <div class="multi-hint">Select all that interest you — <span class="count" id="savCount">0</span> selected</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="trainees" data-counter="savCount"><span class="opt-icon">👥</span><span class="opt-label">Stewards in Training<span class="opt-sub">Supervised trainees join your senior Steward</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="content" data-counter="savCount"><span class="opt-icon">📸</span><span class="opt-label">Property as Content<span class="opt-sub">We document the transformation for media</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="pilot" data-counter="savCount"><span class="opt-icon">🔬</span><span class="opt-label">Pilot Program<span class="opt-sub">Living lab for new techniques on your land</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="flexible" data-counter="savCount"><span class="opt-icon">📅</span><span class="opt-label">Full Schedule Flex<span class="opt-sub">No day restrictions — most efficient route</span></span></button>
+      </div>
+      <button class="flow-btn" id="btn-savings-continue">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Decision Maker ══ -->
+    <div class="flow-step" id="fs-decision">
+      <div class="step-number">Step 12 of 13</div>
+      <h2>Who makes property decisions?</h2>
+      <div class="step-desc">Helps us structure our proposal and follow-up.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="decision" data-val="sole" data-next="fs-dd-contact"><span class="opt-icon">👤</span><span class="opt-label">I own it — sole decision<span class="opt-sub">Personal or business owner</span></span></button>
+        <button class="flow-option" data-action="select" data-key="decision" data-val="joint" data-next="fs-dd-contact"><span class="opt-icon">👫</span><span class="opt-label">Joint family decision<span class="opt-sub">Spouse, partner, or family</span></span></button>
+        <button class="flow-option" data-action="select" data-key="decision" data-val="manager" data-next="fs-dd-contact"><span class="opt-icon">📋</span><span class="opt-label">Property or farm manager<span class="opt-sub">Managing on behalf of owner</span></span></button>
+        <button class="flow-option" data-action="select" data-key="decision" data-val="hoa" data-next="fs-dd-contact"><span class="opt-icon">🏘️</span><span class="opt-label">HOA / board approval needed<span class="opt-sub">Requires committee sign-off</span></span></button>
+      </div>
+    </div>
+
+    <!-- ══ QQ: Contact ══ -->
+    <div class="flow-step" id="fs-qq-contact">
+      <div class="step-number">Step 8 of 8</div>
+      <h2>Where should we send your profile?</h2>
+      <div class="step-desc">A Lead Steward follows up personally — no automated sequences, no spam.</div>
+      <div class="flow-form-row">
+        <div class="flow-form-group"><label>First Name</label><input type="text" id="qqFirst" placeholder="Jane"></div>
+        <div class="flow-form-group"><label>Last Name</label><input type="text" id="qqLast" placeholder="Smith"></div>
+      </div>
+      <div class="flow-form-group"><label>Email Address</label><input type="email" id="qqEmail" placeholder="jane@email.com"></div>
+      <div class="flow-form-group"><label>Phone (optional)</label><input type="tel" id="qqPhone" placeholder="(610) 555-0100"></div>
+      <div class="flow-form-group"><label>Town or municipality</label><input type="text" id="qqTown" placeholder="Malvern, PA"></div>
+      <p class="form-error" id="qqErr">Please enter your name and email so your Lead Steward can reach you.</p>
+      <button class="flow-btn" id="btn-qq-generate">Generate My Profile →</button>
+    </div>
+
+    <!-- ══ DD: Contact (expanded) ══ -->
+    <div class="flow-step" id="fs-dd-contact">
+      <div class="step-number">Step 13 of 13</div>
+      <h2>Let's build your stewardship profile</h2>
+      <div class="step-desc">Almost ready — we'll generate your full custom document.</div>
+      <div class="flow-form-row">
+        <div class="flow-form-group"><label>First Name</label><input type="text" id="ddFirst" placeholder="Jane"></div>
+        <div class="flow-form-group"><label>Last Name</label><input type="text" id="ddLast" placeholder="Smith"></div>
+      </div>
+      <div class="flow-form-group"><label>Email Address</label><input type="email" id="ddEmail" placeholder="jane@email.com"></div>
+      <div class="flow-form-group"><label>Phone (optional)</label><input type="tel" id="ddPhone" placeholder="(610) 555-0100"></div>
+      <div class="flow-form-group"><label>Property address or town</label><input type="text" id="ddAddr" placeholder="123 Farm Rd, Malvern, PA"></div>
+      <div class="flow-form-group"><label>Anything else we should know? (optional)</label><textarea id="ddNotes" rows="3" placeholder="Specific history, challenges, or context about the property..."></textarea></div>
+      <p class="form-error" id="ddErr">Please enter your name and email so your Lead Steward can reach you.</p>
+      <button class="flow-btn" id="btn-dd-generate">Generate My Profile →</button>
+    </div>
+
+    <!-- ══ SHARED: Result ══ -->
+    <div class="flow-step" id="fs-result">
+
+      <!-- Program name + personalized greeting -->
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:0.55rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lite);margin-bottom:6px;">Putting Down Roots</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:900;font-style:italic;color:var(--cream);line-height:1.2;margin-bottom:4px;">Your program is ready, <span id="resultName">there</span>.</h2>
+        <p style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin:0;">Here's what we built based on your answers.</p>
+      </div>
+
+      <!-- Selections reflected -->
+      <div id="resultSelections" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px;">
+        <span class="result-tag" id="resultTypeTag"></span>
+        <span class="result-tag" id="resultSizeTag"></span>
+        <span id="resultPriorityTags" style="display:contents;"></span>
+      </div>
+
+      <!-- Estimate card -->
+      <div class="result-card">
+        <span class="result-badge">Your Estimate</span>
+        <div class="result-price"><sup>$</sup><span id="resultWeekly">155</span><span class="unit">/week</span></div>
+        <div class="result-season">Based on a 36-week season</div>
+        <div class="result-annual" id="resultAnnual"></div>
+      </div>
+
+      <!-- What's included -->
+      <div style="background:rgba(1,50,32,0.15);border:1px solid rgba(1,80,48,0.3);border-radius:10px;padding:14px 16px;margin-bottom:12px;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-lite);margin-bottom:8px;">Included every week</div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <div class="result-include-row"><span style="color:#5fa870;margin-right:8px;font-size:0.8rem;">✓</span> Lawn mowing (biological practices)</div>
+          <div class="result-include-row"><span style="color:#5fa870;margin-right:8px;font-size:0.8rem;">✓</span> Full-land sustainable fertilization</div>
+          <div class="result-include-row"><span style="color:#5fa870;margin-right:8px;font-size:0.8rem;">✓</span> Invasive species management</div>
+          <div class="result-include-row"><span style="color:#5fa870;margin-right:8px;font-size:0.8rem;">✓</span> Weed-free bed maintenance</div>
+          <div class="result-include-row"><span style="color:#5fa870;margin-right:8px;font-size:0.8rem;">✓</span> Dedicated Lead Steward</div>
+        </div>
+        <div id="resultAddons" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="font-size:0.58rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:5px;">Add-ons you selected — scoped on-site</div>
+          <div id="resultAddonList" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
+        </div>
+      </div>
+
+      <!-- What happens next -->
+      <div style="background:rgba(184,134,11,0.06);border:1px solid rgba(184,134,11,0.18);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-lite);margin-bottom:10px;">What happens next</div>
+        <div class="result-next-step">
+          <div class="result-next-num">1</div>
+          <div><strong style="color:var(--cream);font-size:0.82rem;">Your Lead Steward reaches out</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">A real call or email within 24 hours — not an automated sequence.</span></div>
+        </div>
+        <div class="result-next-step">
+          <div class="result-next-num">2</div>
+          <div><strong style="color:var(--cream);font-size:0.82rem;">Free on-site soil assessment</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">They walk the property with you. Soil samples, drainage, plant health.</span></div>
+        </div>
+        <div class="result-next-step">
+          <div class="result-next-num">3</div>
+          <div><strong style="color:var(--cream);font-size:0.82rem;">Your custom proposal</strong><br><span style="font-size:0.72rem;color:rgba(255,255,255,0.4);">Ecological goals, services, schedule, and your all-inclusive number.</span></div>
+        </div>
+      </div>
+
+      <!-- Profile button -->
+      <button class="flow-btn" id="btn-profile">Open Your Stewardship Profile →</button>
+      <p style="font-size:0.78rem;color:#5fa870;font-weight:600;text-align:center;margin:10px 0 4px;letter-spacing:0.3px;">✓ Details sent to your Lead Steward</p>
+
+      <!-- Guarantee + legal -->
+      <div style="text-align:center;margin-top:10px;">
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.35);line-height:1.5;margin:0 0 6px;">No commitment required. Free assessment. You decide — no pressure.</p>
+        <p style="font-size:0.58rem;color:rgba(255,255,255,0.18);line-height:1.5;margin:0;">Estimate is informational, not a binding offer. Final pricing confirmed after on-site assessment. By submitting you agree to our <a href="/privacy" style="color:rgba(255,255,255,0.25);text-decoration:underline;">Privacy Policy</a> & <a href="/terms" style="color:rgba(255,255,255,0.25);text-decoration:underline;">Terms</a>.</p>
+      </div>
+      <button class="flow-btn ghost" id="btn-done" style="margin-top:10px;">Done</button>
+    </div>
+
+  </div>
+
+  <div class="flow-bottombar">
+    <button class="flow-back-btn hidden" id="backBtn">← Back</button>
+    <div class="flow-step-label" id="stepLabel">Step 1</div>
+  </div>
+</div>
+
+
+<script>
+  import { initializeEventHandlers } from '../scripts/event-handlers.js';
+  initializeEventHandlers();
+</script>
+
+</Base>

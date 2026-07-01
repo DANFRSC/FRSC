@@ -1,0 +1,64 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  transparentNav?: boolean;
+}
+
+const {
+  title,
+  description = 'Ecological stewardship for residential and commercial properties across Chester County, PA. Soil health, native planting, and biodiversity programs that build lasting value.',
+  transparentNav = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Filthy Rich Soil Co.</title>
+  <meta name="description" content={description} />
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Filthy Rich Soil Co." />
+  <meta property="og:title" content={`${title} | Filthy Rich Soil Co.`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=1200&h=630&q=80" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content={Astro.url.href} />
+
+  <!-- Twitter / iMessage card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${title} | Filthy Rich Soil Co.`} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=1200&h=630&q=80" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <Nav currentPath={Astro.url.pathname} transparent={transparentNav} />
+  <slot />
+  <Footer />
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

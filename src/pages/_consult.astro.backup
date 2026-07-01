@@ -1,0 +1,1165 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Begin Consultation" description="Start your Filthy Rich Soil Co. consultation. Quick Quote or Full Discovery — find out exactly what your property needs and what it will cost.">
+
+<style is:global>
+  :root {
+    --forest: #013220; --forest-mid: #024d32;
+    --gold: #B8860B; --gold-lite: #d4a017;
+    --cream: #FAF7F0; --bg-dark: #080e08; --bg-card: #0a140a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg-dark); color: var(--cream); overflow-x: hidden; min-height: 100vh; }
+
+  /* ── LANDING ── */
+  .landing {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px 24px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, var(--bg-dark) 100%),
+                url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center 40% / cover no-repeat;
+    position: relative;
+  }
+  .landing::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(1,50,32,0.8) 100%); pointer-events: none; }
+  .landing > * { position: relative; z-index: 1; }
+  .landing-eyebrow { font-size: 0.62rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-lite); margin-bottom: 24px; }
+  .landing h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; font-style: italic; line-height: 1.1; margin-bottom: 20px; max-width: 600px; }
+  .landing > p { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 480px; margin-bottom: 48px; }
+  .mode-cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+  .mode-card { background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px 32px; width: 260px; text-align: left; cursor: pointer; transition: all 0.25s ease; }
+  .mode-card:hover { background: rgba(1,50,32,0.35); border-color: rgba(1,100,60,0.5); transform: translateY(-3px); }
+  .mode-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; font-style: italic; margin-bottom: 6px; }
+  .mode-card .mode-time { font-size: 0.7rem; color: var(--gold-lite); letter-spacing: 1px; font-weight: 600; margin-bottom: 10px; }
+  .mode-card p { font-size: 0.82rem; color: rgba(255,255,255,0.48); line-height: 1.65; margin-bottom: 0; }
+  .trust-row { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+  .trust-item { font-size: 0.72rem; color: rgba(255,255,255,0.32); font-weight: 500; }
+  .trust-item span { color: var(--gold-lite); margin-right: 6px; }
+
+  /* ── FULLSCREEN OVERLAY ── */
+  .flow-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: var(--bg-dark); flex-direction: column; }
+  .flow-overlay.open { display: flex; }
+  .flow-topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); flex-shrink: 0; }
+  .flow-logo { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 900; font-style: italic; color: white; }
+  .flow-logo small { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.52rem; font-weight: 400; font-style: normal; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 2px; }
+  .flow-close { background: none; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: rgba(255,255,255,0.4); font-size: 0.72rem; padding: 8px 16px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; font-weight: 500; letter-spacing: 0.5px; }
+  .flow-close:hover { color: white; border-color: rgba(255,255,255,0.3); }
+  .flow-progress { flex-shrink: 0; padding: 0 24px; }
+  .flow-progress-bar { height: 2px; background: rgba(255,255,255,0.06); border-radius: 2px; }
+  .flow-progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+  .flow-content { flex: 1; display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 16px 24px; }
+  .flow-step { display: none; max-width: 640px; width: 100%; }
+  .flow-step.active { display: block; animation: fadeUp 0.3s ease forwards; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .flow-step .step-number { font-size: 0.55rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-lite); margin-bottom: 6px; }
+  .flow-step h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem,2.5vw,1.6rem); font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.2; margin-bottom: 4px; }
+  .flow-step .step-desc { font-size: 0.78rem; color: rgba(255,255,255,0.42); line-height: 1.5; margin-bottom: 12px; }
+
+  /* ── GRID OPTIONS ── */
+  .flow-options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .flow-options.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .flow-option {
+    padding: 8px 10px; border-radius: 8px; text-align: left;
+    background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.65); font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s ease; line-height: 1.25; display: flex; align-items: center; gap: 8px;
+  }
+  .flow-option:hover { background: rgba(1,50,32,0.3); border-color: rgba(1,100,60,0.5); color: white; }
+  .flow-option.selected { background: rgba(1,50,32,0.5); border-color: #4a8c5c; color: white; }
+  .flow-option.route-hidden { display: none !important; }
+  .flow-option .opt-icon { font-size: 1rem; flex-shrink: 0; }
+  .flow-option .opt-label { flex: 1; min-width: 0; }
+  .flow-option .opt-sub { font-size: 0.6rem; display: block; opacity: 0.5; margin-top: 1px; font-weight: 400; line-height: 1.2; }
+
+  /* ── CHIP OPTIONS ── */
+  .chip-group { margin-bottom: 12px; }
+  .chip-group-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 7px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 16px; border-radius: 100px;
+    background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s ease; white-space: nowrap; -webkit-user-select: none; user-select: none;
+  }
+  .chip:hover { background: rgba(1,50,32,0.3); border-color: rgba(1,100,60,0.45); color: white; }
+  .chip.selected { background: rgba(1,50,32,0.5); border-color: #4a8c5c; color: white; }
+  .chip.hidden-chip { display: none !important; }
+  .chip .chip-icon { font-size: 0.95rem; line-height: 1; }
+  .chip-group.hidden-group { display: none !important; }
+
+  .context-badge { display: inline-block; font-size: 0.55rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 100px; padding: 3px 10px; margin-bottom: 10px; }
+  .context-badge span { color: var(--gold-lite); }
+  .multi-hint { font-size: 0.68rem; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
+  .multi-hint .count { color: var(--gold-lite); font-weight: 600; }
+
+  .flow-btn { width: 100%; padding: 12px; border-radius: 10px; background: var(--gold); color: var(--forest); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 6px; }
+  .flow-btn:hover { background: var(--gold-lite); transform: translateY(-1px); }
+  .flow-btn.ghost { background: transparent; color: rgba(255,255,255,0.35); border: 1.5px solid rgba(255,255,255,0.1); margin-top: 8px; }
+  .flow-btn.ghost:hover { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.25); transform: none; }
+
+  .flow-form-group { margin-bottom: 10px; }
+  .flow-form-group label { display: block; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 5px; }
+  .flow-form-group input, .flow-form-group textarea { width: 100%; padding: 10px 14px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s; }
+  .flow-form-group input:focus, .flow-form-group textarea:focus { border-color: #4a8c5c; }
+  .flow-form-group textarea { resize: vertical; min-height: 60px; }
+  .flow-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .form-error { display: none; color: #e07070; font-size: 0.78rem; text-align: center; margin-top: 10px; }
+
+  .result-card { background: rgba(1,50,32,0.22); border: 1px solid rgba(1,80,48,0.4); border-radius: 14px; padding: 24px; text-align: center; margin-bottom: 16px; }
+  .result-badge { display: inline-block; background: var(--gold); color: var(--bg-dark); font-size: 0.55rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 100px; margin-bottom: 10px; }
+  .result-price { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 900; color: white; line-height: 1; }
+  .result-price sup { font-size: 1rem; vertical-align: super; margin-right: 2px; }
+  .result-price .unit { font-size: 0.85rem; font-weight: 400; opacity: 0.5; }
+  .result-season { font-size: 0.68rem; color: rgba(255,255,255,0.36); letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; }
+  .result-annual { font-size: 0.8rem; color: var(--gold-lite); margin-top: 6px; }
+
+  .flow-bottombar { flex-shrink: 0; padding: 10px 24px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: space-between; }
+  .flow-step-label { font-size: 0.68rem; color: rgba(255,255,255,0.25); letter-spacing: 1px; text-transform: uppercase; }
+  .flow-back-btn { background: none; border: none; color: rgba(255,255,255,0.3); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; cursor: pointer; padding: 8px 16px; transition: color 0.2s; }
+  .flow-back-btn:hover { color: rgba(255,255,255,0.7); }
+  .flow-back-btn.hidden { opacity: 0; pointer-events: none; }
+
+  @media (max-width: 600px) {
+    .flow-options { grid-template-columns: 1fr 1fr; }
+    .flow-options.grid-3 { grid-template-columns: 1fr 1fr; }
+    .flow-form-row { grid-template-columns: 1fr; }
+    .mode-cards { flex-direction: column; align-items: center; }
+    .mode-card { width: 100%; max-width: 340px; }
+    .flow-content { padding: 12px 16px; }
+    .flow-step h2 { font-size: 1.15rem; }
+    .flow-option { padding: 7px 8px; font-size: 0.7rem; gap: 6px; }
+    .flow-option .opt-icon { font-size: 0.9rem; }
+    .flow-option .opt-sub { display: none; }
+    .chip { padding: 7px 12px; font-size: 0.72rem; }
+    .chip .chip-icon { font-size: 0.82rem; }
+    .trust-row { gap: 16px; }
+  }
+</style>
+
+<!-- ══════════ LANDING ══════════ -->
+<div class="landing" id="landing">
+  <div class="landing-eyebrow">Begin Your Consultation</div>
+  <h1>Let's Build Your Stewardship Plan</h1>
+  <p>Tell us about your land. We'll tell you what it can become — and build a program to get it there.</p>
+  <div class="mode-cards">
+    <div class="mode-card" id="btn-qq"><h3>Quick Quote</h3><div class="mode-time">~4 minutes · estimate range</div><p>Answer a few questions and get a ballpark estimate for your property. Great if you're exploring.</p></div>
+    <div class="mode-card" id="btn-dd"><h3>Full Discovery</h3><div class="mode-time">~8 minutes · custom profile</div><p>A deeper dive that generates your full stewardship profile with service comparison and 3-year roadmap.</p></div>
+  </div>
+  <div class="trust-row">
+    <div class="trust-item"><span>✓</span> Free on-site assessment</div>
+    <div class="trust-item"><span>✓</span> Response within 24 hours</div>
+    <div class="trust-item"><span>✓</span> No commitment required</div>
+    <div class="trust-item"><span>✓</span> Residential, farm & commercial</div>
+    <div class="trust-item"><span>✓</span> Programs built to improve every year</div>
+  </div>
+</div>
+
+<!-- ══════════ FULLSCREEN FLOW ══════════ -->
+<div class="flow-overlay" id="flowOverlay">
+  <div class="flow-topbar">
+    <div class="flow-logo">Filthy Rich Soil Co.<small>Chester County, PA</small></div>
+    <button class="flow-close" id="btn-close">Save & Exit</button>
+  </div>
+  <div class="flow-progress"><div class="flow-progress-bar"><div class="flow-progress-fill" id="progressFill"></div></div></div>
+
+  <div class="flow-content" id="flowContent">
+
+    <!-- ══ SHARED: Step 1 — Property Type ══ -->
+    <div class="flow-step active" id="fs-type">
+      <div class="step-number" id="sn-type">Step 1</div>
+      <h2>What kind of property is this?</h2>
+      <div class="step-desc">Helps us tailor everything that follows.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select-type" data-val="residential" data-next="fs-size-res"><span class="opt-icon">🏠</span><span class="opt-label">Residential home</span></button>
+        <button class="flow-option" data-action="select-type" data-val="farm" data-next="fs-size-land"><span class="opt-icon">🌾</span><span class="opt-label">Farm or working land</span></button>
+        <button class="flow-option" data-action="select-type" data-val="commercial" data-next="fs-size-com"><span class="opt-icon">🏢</span><span class="opt-label">Commercial property</span></button>
+        <button class="flow-option" data-action="select-type" data-val="estate" data-next="fs-size-land"><span class="opt-icon">🌳</span><span class="opt-label">Estate / large residential</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Step 2a — Size (Residential) ══ -->
+    <div class="flow-step" id="fs-size-res">
+      <div class="step-number">Step 2</div>
+      <h2>How large is the property?</h2>
+      <div class="step-desc">Approximate is fine — we confirm on-site.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select-size" data-val="small"><span class="opt-icon">🏠</span><span class="opt-label">Under ¼ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="quarter"><span class="opt-icon">🏘️</span><span class="opt-label">¼ – ½ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="half"><span class="opt-icon">🌳</span><span class="opt-label">½ – 1 acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acre"><span class="opt-icon">🗺️</span><span class="opt-label">1 – 3 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="large"><span class="opt-icon">🏔️</span><span class="opt-label">3 – 5 acres</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Step 2b — Size (Commercial) ══ -->
+    <div class="flow-step" id="fs-size-com">
+      <div class="step-number">Step 2</div>
+      <h2>How large is the property?</h2>
+      <div class="step-desc">Approximate is fine — we confirm on-site.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select-size" data-val="small"><span class="opt-icon">🏠</span><span class="opt-label">Under ¼ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="quarter"><span class="opt-icon">🏘️</span><span class="opt-label">¼ – ½ acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="half"><span class="opt-icon">🌳</span><span class="opt-label">½ – 1 acre</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acre"><span class="opt-icon">🗺️</span><span class="opt-label">1 – 3 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="large"><span class="opt-icon">🏔️</span><span class="opt-label">3 – 5 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres5"><span class="opt-icon">🌿</span><span class="opt-label">5+ acres</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Step 2c — Size (Estate / Farm) ══ -->
+    <div class="flow-step" id="fs-size-land">
+      <div class="step-number">Step 2</div>
+      <h2>How large is the property?</h2>
+      <div class="step-desc">Approximate is fine — we confirm on-site.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select-size" data-val="acres5"><span class="opt-icon">🌿</span><span class="opt-label">5 – 10 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres10"><span class="opt-icon">🏔️</span><span class="opt-label">10 – 25 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres25"><span class="opt-icon">🗺️</span><span class="opt-label">25 – 50 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres50"><span class="opt-icon">🌾</span><span class="opt-label">50 – 100 acres</span></button>
+        <button class="flow-option" data-action="select-size" data-val="acres100"><span class="opt-icon">🚜</span><span class="opt-label">100+ acres</span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Land Use ══ -->
+    <div class="flow-step" id="fs-landuse">
+      <div class="step-number">Step 3 of 11</div>
+      <h2>How is this land currently used?</h2>
+      <div class="step-desc">Tells us which program categories apply.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="lawn" data-next="fs-challenges" data-route="residential estate"><span class="opt-icon">🌿</span><span class="opt-label">Lawn & manicured gardens<span class="opt-sub">Turf, beds, ornamentals</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="garden" data-next="fs-challenges" data-route="residential"><span class="opt-icon">🌺</span><span class="opt-label">Mostly garden beds<span class="opt-sub">Little to no lawn</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="mixed" data-next="fs-challenges" data-route="residential estate farm"><span class="opt-icon">🌳</span><span class="opt-label">Mixed yard + naturalized<span class="opt-sub">Some cultivated, some wild</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="wooded" data-next="fs-challenges" data-route="residential estate"><span class="opt-icon">🌲</span><span class="opt-label">Wooded or naturalized<span class="opt-sub">Mostly trees, shrubs, wild growth</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="pasture" data-next="fs-challenges" data-route="farm estate"><span class="opt-icon">🐄</span><span class="opt-label">Active pasture / livestock<span class="opt-sub">Horses, cattle, sheep, etc.</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="hay" data-next="fs-challenges" data-route="farm estate"><span class="opt-icon">🌾</span><span class="opt-label">Hay field / field crops<span class="opt-sub">Cut fields, crop rotation</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="orchard" data-next="fs-challenges" data-route="estate"><span class="opt-icon">🍎</span><span class="opt-label">Orchard or food-producing<span class="opt-sub">Fruit, nut, or kitchen garden</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="workfarm" data-next="fs-challenges" data-route="farm"><span class="opt-icon">🚜</span><span class="opt-label">Working farm (mixed use)<span class="opt-sub">Livestock + hay + gardens</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="commercial" data-next="fs-challenges" data-route="commercial"><span class="opt-icon">🏢</span><span class="opt-label">Commercial / institutional<span class="opt-sub">Business grounds or HOA</span></span></button>
+        <button class="flow-option" data-action="select" data-key="landuse" data-val="comnat" data-next="fs-challenges" data-route="commercial"><span class="opt-icon">🌱</span><span class="opt-label">Commercial + naturalized<span class="opt-sub">Green corridors, native buffers</span></span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Challenges (expanded) ══ -->
+    <div class="flow-step" id="fs-challenges">
+      <div class="step-number">Step 4 of 11</div>
+      <h2>What challenges are you dealing with?</h2>
+      <div class="context-badge" id="challBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Confidential — helps us prepare. <span class="count" id="challCount">0</span> selected</div>
+      <div id="chall-groups">
+        <div class="chip-group" data-group="chall-soil">
+          <div class="chip-group-label">Soil & Turf</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="turfpoor"><span class="chip-icon">😞</span> Poor turf or bare patches</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="compaction"><span class="chip-icon">🪨</span> Compaction / hard clay</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="inputs"><span class="chip-icon">🧪</span> High fertilizer / chemical costs</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="chall-water">
+          <div class="chip-group-label">Water & Plantings</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="drainage"><span class="chip-icon">💧</span> Drainage / standing water</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="invasives"><span class="chip-icon">🌱</span> Invasive plant species</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="chall-land">
+          <div class="chip-group-label">Land & Operations</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="pasture"><span class="chip-icon">🐄</span> Overworked pasture</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="hay"><span class="chip-icon">🌾</span> Declining hay yield</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="vendors"><span class="chip-icon">👥</span> Too many separate vendors</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="chall-results">
+          <div class="chip-group-label">Vision</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="noresults"><span class="chip-icon">🔄</span> Not seeing results from current care</button>
+            <button class="chip" data-action="chip-toggle" data-set="challenges" data-val="novision"><span class="chip-icon">💭</span> No ecological identity or vision</button>
+          </div>
+        </div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-dd-services">Continue →</button>
+    </div>
+
+    <!-- ══ SHARED: QQ Problems (chips) ══ -->
+    <div class="flow-step" id="fs-problems">
+      <div class="step-number">Step 3 of 7</div>
+      <h2>What's not working right now?</h2>
+      <div class="context-badge" id="probBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="probCount">0</span> selected</div>
+      <div id="prob-groups">
+        <div class="chip-group" data-group="prob-soil">
+          <div class="chip-group-label">Soil & Turf</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="turfpoor"><span class="chip-icon">😞</span> Poor turf quality</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="compaction"><span class="chip-icon">🪨</span> Compaction / clay</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="inputs"><span class="chip-icon">🧪</span> High chemical costs</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="prob-water">
+          <div class="chip-group-label">Water & Plantings</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="drainage"><span class="chip-icon">💧</span> Drainage / flooding</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="plants"><span class="chip-icon">🌿</span> Struggling plantings</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="trees"><span class="chip-icon">🌳</span> Dying trees / shrubs</button>
+          </div>
+        </div>
+        <div class="chip-group" data-group="prob-ecology">
+          <div class="chip-group-label">Ecology & Land</div>
+          <div class="chip-row">
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="invasives"><span class="chip-icon">🌱</span> Invasive species</button>
+            <button class="chip" data-action="chip-toggle" data-set="problems" data-val="pasture"><span class="chip-icon">🐄</span> Overworked pasture</button>
+          </div>
+        </div>
+      </div>
+      <div class="chip-group" style="margin-top:2px;"><div class="chip-row">
+        <button class="chip" data-action="chip-toggle" data-set="problems" data-val="nothing" data-exclusive="true"><span class="chip-icon">🔄</span> No issues — ready to upgrade</button>
+      </div></div>
+      <button class="flow-btn" data-action="goto" data-next="fs-qq-services">Continue →</button>
+    </div>
+
+    <!-- ══ SHARED: QQ Services (chips) ══ -->
+    <div class="flow-step" id="fs-qq-services">
+      <div class="step-number">Step 4 of 7</div>
+      <h2>Which services interest you?</h2>
+      <div class="context-badge" id="qqSvcBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="qqSvcCount">0</span> selected</div>
+      <div id="qq-svc-groups">
+        <div class="chip-group" data-group="qqsvc-turf"><div class="chip-group-label">Turf & Soil</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="turf"><span class="chip-icon">🌾</span> Lawn & turf health</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="soil"><span class="chip-icon">🧪</span> Soil testing</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="seasonal"><span class="chip-icon">🍂</span> Seasonal stewardship</button>
+        </div></div>
+        <div class="chip-group" data-group="qqsvc-design"><div class="chip-group-label">Design & Water</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="native"><span class="chip-icon">🌺</span> Native plant design</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="water"><span class="chip-icon">💧</span> Water & drainage</button>
+        </div></div>
+        <div class="chip-group" data-group="qqsvc-habitat"><div class="chip-group-label">Habitat & Land</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="habitat"><span class="chip-icon">🦋</span> Habitat & wildlife</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="meadow"><span class="chip-icon">🌿</span> Meadow conversion</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="woodland"><span class="chip-icon">🌳</span> Woodland management</button>
+        </div></div>
+        <div class="chip-group" data-group="qqsvc-farm"><div class="chip-group-label">Farm & Pasture</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="pasture"><span class="chip-icon">🐄</span> Pasture & livestock</button>
+          <button class="chip" data-action="chip-toggle" data-set="services" data-val="hay"><span class="chip-icon">🌾</span> Hay field health</button>
+        </div></div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-timeline">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Services (chips) ══ -->
+    <div class="flow-step" id="fs-dd-services">
+      <div class="step-number">Step 5 of 11</div>
+      <h2>Which services are you interested in?</h2>
+      <div class="context-badge" id="ddSvcBadge"><span>🏠</span> Tailored for residential</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="ddSvcCount">0</span> selected</div>
+      <div id="dd-svc-groups">
+        <div class="chip-group" data-group="ddsvc-turf"><div class="chip-group-label">Turf & Soil</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="turf"><span class="chip-icon">🌾</span> Lawn & turf health</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="soil"><span class="chip-icon">🧪</span> Soil testing & amendment</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="seasonal"><span class="chip-icon">🍂</span> Year-round stewardship</button>
+        </div></div>
+        <div class="chip-group" data-group="ddsvc-design"><div class="chip-group-label">Design & Water</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="native"><span class="chip-icon">🌺</span> Native plant design & install</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="water"><span class="chip-icon">💧</span> Water management & drainage</button>
+        </div></div>
+        <div class="chip-group" data-group="ddsvc-habitat"><div class="chip-group-label">Habitat & Land</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="habitat"><span class="chip-icon">🦋</span> Habitat corridors & wildlife</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="meadow"><span class="chip-icon">🌿</span> Meadow & field conversion</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="woodland"><span class="chip-icon">🌳</span> Woodland edge management</button>
+        </div></div>
+        <div class="chip-group" data-group="ddsvc-farm"><div class="chip-group-label">Farm & Pasture</div><div class="chip-row">
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="pasture"><span class="chip-icon">🐄</span> Pasture rotation & livestock</button>
+          <button class="chip" data-action="chip-toggle" data-set="ddservices" data-val="hay"><span class="chip-icon">🌾</span> Hay field soil & yield</button>
+        </div></div>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-setup">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Current Service Setup ══ -->
+    <div class="flow-step" id="fs-setup">
+      <div class="step-number">Step 6 of 11</div>
+      <h2>What does your current service setup look like?</h2>
+      <div class="step-desc">Helps us understand what we'd be replacing or adding to.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="setup" data-val="self" data-next="fs-spend"><span class="opt-icon">🧑‍🌾</span><span class="opt-label">We handle it ourselves<span class="opt-sub">No outside service</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="mowing" data-next="fs-spend"><span class="opt-icon">🚜</span><span class="opt-label">Basic mowing service only<span class="opt-sub">Cuts the grass, nothing more</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="fullservice" data-next="fs-spend"><span class="opt-icon">🏢</span><span class="opt-label">Full-service landscape company<span class="opt-sub">One company, multiple services</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="multi" data-next="fs-spend"><span class="opt-icon">👥</span><span class="opt-label">Multiple separate vendors<span class="opt-sub">Mowing + fert + others</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="hoa" data-next="fs-spend" data-route="residential commercial"><span class="opt-icon">🏘️</span><span class="opt-label">HOA or property management<span class="opt-sub">Managed through association</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="consultant" data-next="fs-spend" data-route="farm estate"><span class="opt-icon">📋</span><span class="opt-label">Farm management consultant<span class="opt-sub">Agronomist or farm advisor</span></span></button>
+        <button class="flow-option" data-action="select" data-key="setup" data-val="none" data-next="fs-spend"><span class="opt-icon">🌱</span><span class="opt-label">No current service<span class="opt-sub">Starting from scratch</span></span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Annual Spending ══ -->
+    <div class="flow-step" id="fs-spend">
+      <div class="step-number">Step 7 of 11</div>
+      <h2>What do you spend on land services annually?</h2>
+      <div class="step-desc">Total across all vendors — rough estimates help us build the comparison.</div>
+      <div class="flow-options grid-3">
+        <button class="flow-option" data-action="select" data-key="spend" data-val="low" data-next="fs-goals"><span class="opt-icon">💵</span><span class="opt-label">Under $1,500 / yr</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="mid1" data-next="fs-goals"><span class="opt-icon">💵</span><span class="opt-label">$1,500 – $3,500</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="mid2" data-next="fs-goals"><span class="opt-icon">💰</span><span class="opt-label">$3,500 – $7,500</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="high" data-next="fs-goals"><span class="opt-icon">💰</span><span class="opt-label">$7,500 – $15,000</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="premium" data-next="fs-goals"><span class="opt-icon">💎</span><span class="opt-label">$15,000+ / yr</span></button>
+        <button class="flow-option" data-action="select" data-key="spend" data-val="unsure" data-next="fs-goals"><span class="opt-icon">🤷</span><span class="opt-label">Not sure</span></button>
+      </div>
+    </div>
+
+    <!-- ══ DD ONLY: Ecological Goals ══ -->
+    <div class="flow-step" id="fs-goals">
+      <div class="step-number">Step 8 of 11</div>
+      <h2>What are your ecological goals?</h2>
+      <div class="step-desc">The long-term vision behind your program.</div>
+      <div class="multi-hint">Tap all that apply — <span class="count" id="goalsCount">0</span> selected</div>
+      <div class="chip-row" style="margin-bottom:10px;">
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="habitat"><span class="chip-icon">🦋</span> Wildlife habitat & certification</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="organic"><span class="chip-icon">🌿</span> Organic / chemical-free</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="watershed"><span class="chip-icon">💧</span> Watershed & water quality</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="costs"><span class="chip-icon">📉</span> Reduce long-term input costs</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="beauty"><span class="chip-icon">🌸</span> Beauty & seasonal interest</button>
+        <button class="chip" data-action="chip-toggle" data-set="goals" data-val="lowmaint"><span class="chip-icon">🔄</span> Low-maintenance / self-sustaining</button>
+      </div>
+      <button class="flow-btn" data-action="goto" data-next="fs-savings">Continue →</button>
+    </div>
+
+    <!-- ══ SHARED: Timeline (QQ only) ══ -->
+    <div class="flow-step" id="fs-timeline">
+      <div class="step-number">Step 5 of 7</div>
+      <h2>When are you looking to start?</h2>
+      <div class="step-desc">No commitment — helps us prioritize scheduling.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="asap" data-next="fs-savings"><span class="opt-icon">⚡</span><span class="opt-label">As soon as possible</span></button>
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="season" data-next="fs-savings"><span class="opt-icon">📅</span><span class="opt-label">This season</span></button>
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="next" data-next="fs-savings"><span class="opt-icon">🌤️</span><span class="opt-label">Next season</span></button>
+        <button class="flow-option" data-action="select" data-key="timeline" data-val="exploring" data-next="fs-savings"><span class="opt-icon">💭</span><span class="opt-label">Just exploring</span></button>
+      </div>
+    </div>
+
+    <!-- ══ SHARED: Partnerships ══ -->
+    <div class="flow-step" id="fs-savings">
+      <div class="step-number" id="sn-savings">Step 6 of 7</div>
+      <h2>Would you consider a partnership?</h2>
+      <div class="step-desc">Each earns a rate reduction — terms confirmed on your consultation call.</div>
+      <div class="multi-hint">Select all that interest you — <span class="count" id="savCount">0</span> selected</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="trainees" data-counter="savCount"><span class="opt-icon">👥</span><span class="opt-label">Stewards in Training<span class="opt-sub">Supervised trainees join your senior Steward</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="content" data-counter="savCount"><span class="opt-icon">📸</span><span class="opt-label">Property as Content<span class="opt-sub">We document the transformation for media</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="pilot" data-counter="savCount"><span class="opt-icon">🔬</span><span class="opt-label">Pilot Program<span class="opt-sub">Living lab for new techniques on your land</span></span></button>
+        <button class="flow-option" data-action="toggle" data-set="savings" data-val="flexible" data-counter="savCount"><span class="opt-icon">📅</span><span class="opt-label">Full Schedule Flex<span class="opt-sub">No day restrictions — most efficient route</span></span></button>
+      </div>
+      <button class="flow-btn" id="btn-savings-continue">Continue →</button>
+    </div>
+
+    <!-- ══ DD ONLY: Decision Maker ══ -->
+    <div class="flow-step" id="fs-decision">
+      <div class="step-number">Step 10 of 11</div>
+      <h2>Who makes property decisions?</h2>
+      <div class="step-desc">Helps us structure our proposal and follow-up.</div>
+      <div class="flow-options">
+        <button class="flow-option" data-action="select" data-key="decision" data-val="sole" data-next="fs-dd-contact"><span class="opt-icon">👤</span><span class="opt-label">I own it — sole decision<span class="opt-sub">Personal or business owner</span></span></button>
+        <button class="flow-option" data-action="select" data-key="decision" data-val="joint" data-next="fs-dd-contact"><span class="opt-icon">👫</span><span class="opt-label">Joint family decision<span class="opt-sub">Spouse, partner, or family</span></span></button>
+        <button class="flow-option" data-action="select" data-key="decision" data-val="manager" data-next="fs-dd-contact"><span class="opt-icon">📋</span><span class="opt-label">Property or farm manager<span class="opt-sub">Managing on behalf of owner</span></span></button>
+        <button class="flow-option" data-action="select" data-key="decision" data-val="hoa" data-next="fs-dd-contact"><span class="opt-icon">🏘️</span><span class="opt-label">HOA / board approval needed<span class="opt-sub">Requires committee sign-off</span></span></button>
+      </div>
+    </div>
+
+    <!-- ══ QQ: Contact ══ -->
+    <div class="flow-step" id="fs-qq-contact">
+      <div class="step-number">Step 7 of 7</div>
+      <h2>Where should we send your profile?</h2>
+      <div class="step-desc">A Lead Steward follows up personally — no automated sequences, no spam.</div>
+      <div class="flow-form-row">
+        <div class="flow-form-group"><label>First Name</label><input type="text" id="qqFirst" placeholder="Jane"></div>
+        <div class="flow-form-group"><label>Last Name</label><input type="text" id="qqLast" placeholder="Smith"></div>
+      </div>
+      <div class="flow-form-group"><label>Email Address</label><input type="email" id="qqEmail" placeholder="jane@email.com"></div>
+      <div class="flow-form-group"><label>Phone (optional)</label><input type="tel" id="qqPhone" placeholder="(610) 555-0100"></div>
+      <div class="flow-form-group"><label>Town or municipality</label><input type="text" id="qqTown" placeholder="Malvern, PA"></div>
+      <p class="form-error" id="qqErr">Please enter your name and email so your Lead Steward can reach you.</p>
+      <button class="flow-btn" id="btn-qq-generate">Generate My Profile →</button>
+    </div>
+
+    <!-- ══ DD: Contact (expanded) ══ -->
+    <div class="flow-step" id="fs-dd-contact">
+      <div class="step-number">Step 11 of 11</div>
+      <h2>Let's build your stewardship profile</h2>
+      <div class="step-desc">Almost ready — we'll generate your full custom document.</div>
+      <div class="flow-form-row">
+        <div class="flow-form-group"><label>First Name</label><input type="text" id="ddFirst" placeholder="Jane"></div>
+        <div class="flow-form-group"><label>Last Name</label><input type="text" id="ddLast" placeholder="Smith"></div>
+      </div>
+      <div class="flow-form-group"><label>Email Address</label><input type="email" id="ddEmail" placeholder="jane@email.com"></div>
+      <div class="flow-form-group"><label>Phone (optional)</label><input type="tel" id="ddPhone" placeholder="(610) 555-0100"></div>
+      <div class="flow-form-group"><label>Property address or town</label><input type="text" id="ddAddr" placeholder="123 Farm Rd, Malvern, PA"></div>
+      <div class="flow-form-group"><label>Anything else we should know? (optional)</label><textarea id="ddNotes" rows="3" placeholder="Specific history, challenges, or context about the property..."></textarea></div>
+      <p class="form-error" id="ddErr">Please enter your name and email so your Lead Steward can reach you.</p>
+      <button class="flow-btn" id="btn-dd-generate">Generate My Profile →</button>
+    </div>
+
+    <!-- ══ SHARED: Result ══ -->
+    <div class="flow-step" id="fs-result">
+      <div class="result-card">
+        <span class="result-badge">Your Estimate</span>
+        <div class="result-price"><sup>$</sup><span id="resultWeekly">155</span><span class="unit">/week</span></div>
+        <div class="result-season">Based on a 36-week season</div>
+        <div class="result-annual" id="resultAnnual"></div>
+      </div>
+      <div style="background:rgba(184,134,11,0.08);border:1px solid rgba(184,134,11,0.25);border-radius:10px;padding:12px 16px;margin-bottom:12px;">
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.6;margin:0;"><strong style="color:#d4a017;">Your stewardship profile is ready.</strong> Side-by-side service comparison, inclusions, and your 3-year roadmap.</p>
+      </div>
+      <button class="flow-btn" id="btn-profile">Open Your Stewardship Profile →</button>
+      <p style="font-size:0.78rem;color:#5fa870;font-weight:600;text-align:center;margin:12px 0 4px;letter-spacing:0.3px;">✓ Details sent to your Lead Steward — expect a reply within 24 hours.</p>
+      <p style="font-size:0.62rem;color:rgba(255,255,255,0.2);line-height:1.5;margin-top:8px;text-align:center;">Estimate is informational only, not a binding offer. Final pricing confirmed after on-site assessment. By submitting you agree to our <a href="/privacy" style="color:rgba(255,255,255,0.3);text-decoration:underline;">Privacy Policy</a> & <a href="/terms" style="color:rgba(255,255,255,0.3);text-decoration:underline;">Terms</a>.</p>
+      <button class="flow-btn ghost" id="btn-done" style="margin-top:8px;">Done</button>
+    </div>
+
+  </div>
+
+  <div class="flow-bottombar">
+    <button class="flow-back-btn hidden" id="backBtn">← Back</button>
+    <div class="flow-step-label" id="stepLabel">Step 1</div>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  var data = {};
+  var sets = { problems: new Set(), services: new Set(), ddservices: new Set(), challenges: new Set(), goals: new Set(), savings: new Set() };
+  var navHistory = [];
+  var currentStep = null;
+  var mode = 'qq'; // 'qq' or 'dd'
+
+  var weeklyFloor = { small:95, quarter:120, half:155, acre:220, large:355 };
+  var SEASON_WEEKS = 36;
+
+  // Progress percentages per step per mode
+  var progressQQ = { 'fs-type':0,'fs-size-res':14,'fs-size-com':14,'fs-size-land':14,'fs-problems':28,'fs-qq-services':43,'fs-timeline':57,'fs-savings':71,'fs-qq-contact':85,'fs-result':100 };
+  var progressDD = { 'fs-type':0,'fs-size-res':9,'fs-size-com':9,'fs-size-land':9,'fs-landuse':18,'fs-challenges':27,'fs-dd-services':36,'fs-setup':45,'fs-spend':54,'fs-goals':63,'fs-savings':72,'fs-decision':81,'fs-dd-contact':90,'fs-result':100 };
+
+  var filterConfig = {
+    residential: {
+      probOrder: ['prob-soil','prob-water','prob-ecology'], probHideChips: ['pasture'], probHideGroups: [],
+      svcOrder: ['turf','design','habitat','farm'], svcHideChips: ['pasture','hay'], svcHideGroups: ['farm'],
+      challOrder: ['chall-soil','chall-water','chall-results','chall-land'], challHideChips: ['pasture','hay'], challHideGroups: [],
+      badge: '<span>🏠</span> Tailored for residential'
+    },
+    commercial: {
+      probOrder: ['prob-soil','prob-water','prob-ecology'], probHideChips: ['pasture'], probHideGroups: [],
+      svcOrder: ['turf','design','habitat','farm'], svcHideChips: ['pasture','hay'], svcHideGroups: ['farm'],
+      challOrder: ['chall-soil','chall-water','chall-results','chall-land'], challHideChips: ['pasture','hay'], challHideGroups: [],
+      badge: '<span>🏢</span> Tailored for commercial'
+    },
+    estate: {
+      probOrder: ['prob-water','prob-ecology','prob-soil'], probHideChips: [], probHideGroups: [],
+      svcOrder: ['design','habitat','turf','farm'], svcHideChips: [], svcHideGroups: [],
+      challOrder: ['chall-water','chall-land','chall-soil','chall-results'], challHideChips: [], challHideGroups: [],
+      badge: '<span>🌳</span> Tailored for estate'
+    },
+    farm: {
+      probOrder: ['prob-ecology','prob-soil','prob-water'], probHideChips: ['trees'], probHideGroups: [],
+      svcOrder: ['farm','habitat','turf','design'], svcHideChips: [], svcHideGroups: [],
+      challOrder: ['chall-land','chall-soil','chall-water','chall-results'], challHideChips: [], challHideGroups: [],
+      badge: '<span>🌾</span> Tailored for farm'
+    }
+  };
+
+  var landing = document.getElementById('landing');
+  var overlay = document.getElementById('flowOverlay');
+  var progressFill = document.getElementById('progressFill');
+  var stepLabel = document.getElementById('stepLabel');
+  var backBtn = document.getElementById('backBtn');
+  var flowContent = document.getElementById('flowContent');
+
+  function openOverlay() { landing.style.display = 'none'; overlay.classList.add('open'); }
+  function closeOverlay() { overlay.classList.remove('open'); landing.style.display = ''; fullReset(); }
+
+  function getProgress(id) { return (mode === 'dd' ? progressDD[id] : progressQQ[id]) || 0; }
+
+  function goTo(id) {
+    if (currentStep && currentStep !== id) navHistory.push(currentStep);
+    currentStep = id;
+    var allSteps = document.querySelectorAll('.flow-step');
+    for (var i = 0; i < allSteps.length; i++) allSteps[i].classList.remove('active');
+    var el = document.getElementById(id);
+    if (el) { void el.offsetWidth; el.classList.add('active'); }
+    progressFill.style.width = getProgress(id) + '%';
+    var numEl = el ? el.querySelector('.step-number') : null;
+    stepLabel.textContent = numEl ? numEl.textContent : (id === 'fs-result' ? 'Complete' : '');
+    backBtn.className = 'flow-back-btn' + (navHistory.length === 0 ? ' hidden' : '');
+    flowContent.scrollTop = 0;
+  }
+
+  function goBack() {
+    if (navHistory.length === 0) return;
+    var prev = navHistory.pop();
+    currentStep = prev;
+    var allSteps = document.querySelectorAll('.flow-step');
+    for (var i = 0; i < allSteps.length; i++) allSteps[i].classList.remove('active');
+    var el = document.getElementById(prev);
+    if (el) el.classList.add('active');
+    progressFill.style.width = getProgress(prev) + '%';
+    var numEl = el ? el.querySelector('.step-number') : null;
+    stepLabel.textContent = numEl ? numEl.textContent : '';
+    backBtn.className = 'flow-back-btn' + (navHistory.length === 0 ? ' hidden' : '');
+    flowContent.scrollTop = 0;
+  }
+
+  function fullReset() {
+    navHistory = []; currentStep = null; data = {}; mode = 'qq';
+    sets = { problems: new Set(), services: new Set(), ddservices: new Set(), challenges: new Set(), goals: new Set(), savings: new Set() };
+    var sel = document.querySelectorAll('.chip.selected, .flow-option.selected');
+    for (var i = 0; i < sel.length; i++) sel[i].classList.remove('selected');
+    ['probCount','qqSvcCount','ddSvcCount','challCount','goalsCount','savCount'].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = '0'; });
+    ['qqFirst','qqLast','qqEmail','qqPhone','qqTown','ddFirst','ddLast','ddEmail','ddPhone','ddAddr','ddNotes'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
+    ['qqErr','ddErr'].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.display = 'none'; });
+    var hc = document.querySelectorAll('.hidden-chip'); for (var i = 0; i < hc.length; i++) hc[i].classList.remove('hidden-chip');
+    var hg = document.querySelectorAll('.hidden-group'); for (var i = 0; i < hg.length; i++) hg[i].classList.remove('hidden-group');
+    var rh = document.querySelectorAll('.route-hidden'); for (var i = 0; i < rh.length; i++) rh[i].classList.remove('route-hidden');
+    progressFill.style.width = '0%';
+    var allSteps = document.querySelectorAll('.flow-step');
+    for (var i = 0; i < allSteps.length; i++) allSteps[i].classList.remove('active');
+    document.getElementById('fs-type').classList.add('active');
+  }
+
+  function applySmartFilter(type) {
+    var cfg = filterConfig[type];
+    if (!cfg) return;
+    // QQ problems
+    reorderGroups('prob-groups', cfg.probOrder);
+    hideChips('prob-groups', cfg.probHideChips);
+    hideGroups('prob-groups', cfg.probHideGroups);
+    document.getElementById('probBadge').innerHTML = cfg.badge;
+    // QQ services
+    reorderGroupsPrefix('qq-svc-groups', 'qqsvc-', cfg.svcOrder);
+    hideChipsIn('qq-svc-groups', cfg.svcHideChips);
+    hideGroupsPrefix('qq-svc-groups', 'qqsvc-', cfg.svcHideGroups);
+    document.getElementById('qqSvcBadge').innerHTML = cfg.badge;
+    // DD challenges
+    reorderGroups('chall-groups', cfg.challOrder);
+    hideChips('chall-groups', cfg.challHideChips);
+    hideGroups('chall-groups', cfg.challHideGroups);
+    document.getElementById('challBadge').innerHTML = cfg.badge;
+    // DD services
+    reorderGroupsPrefix('dd-svc-groups', 'ddsvc-', cfg.svcOrder);
+    hideChipsIn('dd-svc-groups', cfg.svcHideChips);
+    hideGroupsPrefix('dd-svc-groups', 'ddsvc-', cfg.svcHideGroups);
+    document.getElementById('ddSvcBadge').innerHTML = cfg.badge;
+    // Route-filter for land use + setup
+    applyRouteFilter(type);
+  }
+
+  function reorderGroups(containerId, order) {
+    var c = document.getElementById(containerId);
+    for (var i = 0; i < order.length; i++) {
+      var g = c.querySelector('[data-group="' + order[i] + '"]');
+      if (g) c.appendChild(g);
+    }
+  }
+  function reorderGroupsPrefix(containerId, prefix, order) {
+    var c = document.getElementById(containerId);
+    for (var i = 0; i < order.length; i++) {
+      var g = c.querySelector('[data-group="' + prefix + order[i] + '"]');
+      if (g) c.appendChild(g);
+    }
+  }
+  function hideChips(containerId, vals) {
+    var c = document.getElementById(containerId);
+    var all = c.querySelectorAll('.chip.hidden-chip');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('hidden-chip');
+    for (var i = 0; i < vals.length; i++) {
+      var ch = c.querySelector('.chip[data-val="' + vals[i] + '"]');
+      if (ch) { ch.classList.add('hidden-chip'); ch.classList.remove('selected'); }
+    }
+  }
+  function hideChipsIn(containerId, vals) { hideChips(containerId, vals); }
+  function hideGroups(containerId, names) {
+    var c = document.getElementById(containerId);
+    var all = c.querySelectorAll('.chip-group.hidden-group');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('hidden-group');
+    for (var i = 0; i < names.length; i++) {
+      var g = c.querySelector('[data-group="' + names[i] + '"]');
+      if (g) g.classList.add('hidden-group');
+    }
+  }
+  function hideGroupsPrefix(containerId, prefix, names) {
+    var c = document.getElementById(containerId);
+    var all = c.querySelectorAll('.chip-group.hidden-group');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('hidden-group');
+    for (var i = 0; i < names.length; i++) {
+      var g = c.querySelector('[data-group="' + prefix + names[i] + '"]');
+      if (g) g.classList.add('hidden-group');
+    }
+  }
+  function applyRouteFilter(type) {
+    var routed = document.querySelectorAll('.flow-option[data-route]');
+    for (var i = 0; i < routed.length; i++) {
+      var btn = routed[i];
+      var routes = btn.getAttribute('data-route').split(' ');
+      if (routes.indexOf(type) !== -1) btn.classList.remove('route-hidden');
+      else { btn.classList.add('route-hidden'); btn.classList.remove('selected'); }
+    }
+  }
+
+  function handleChipToggle(chip) {
+    var setName = chip.getAttribute('data-set');
+    var val = chip.getAttribute('data-val');
+    var isExclusive = chip.getAttribute('data-exclusive') === 'true';
+    var s = sets[setName];
+    if (setName === 'problems' && isExclusive && !s.has(val)) {
+      s.clear();
+      var allC = document.querySelectorAll('.chip[data-set="problems"].selected');
+      for (var i = 0; i < allC.length; i++) allC[i].classList.remove('selected');
+    } else if (setName === 'problems' && !isExclusive && s.has('nothing')) {
+      s.delete('nothing');
+      var excl = document.querySelector('.chip[data-val="nothing"]');
+      if (excl) excl.classList.remove('selected');
+    }
+    chip.classList.toggle('selected');
+    if (s.has(val)) s.delete(val); else s.add(val);
+    var counterMap = { problems:'probCount', services:'qqSvcCount', ddservices:'ddSvcCount', challenges:'challCount', goals:'goalsCount' };
+    var cid = counterMap[setName];
+    if (cid) document.getElementById(cid).textContent = s.size;
+  }
+
+  function handleToggle(btn) {
+    var setName = btn.getAttribute('data-set');
+    var val = btn.getAttribute('data-val');
+    var counterId = btn.getAttribute('data-counter');
+    var s = sets[setName];
+    btn.classList.toggle('selected');
+    if (s.has(val)) s.delete(val); else s.add(val);
+    document.getElementById(counterId).textContent = s.size;
+  }
+
+  // Label mapping for Formspree
+  var typeLabelsMailto = {residential:'Residential',farm:'Farm / Working Land',commercial:'Commercial',estate:'Estate / Large Residential'};
+  var sizeLabelMailto  = {small:'Under ¼ acre',quarter:'¼–½ acre',half:'½–1 acre',acre:'1–3 acres',large:'3–5 acres',acres5:'5–10 acres',acres10:'10–25 acres',acres25:'25–50 acres',acres50:'50–100 acres',acres100:'100+ acres'};
+  var timelineLabel    = {asap:'As soon as possible',season:'This season',next:'Next season',exploring:'Just exploring'};
+  var partnerLabel     = {trainees:'Stewards in Training',content:'Property as Content',pilot:'Pilot Program Participant',flexible:'Full Scheduling Flexibility'};
+  var svcNames = {
+    turf:'Biological lawn & turf program', native:'Native plant design & installation',
+    soil:'Soil testing & amendment program', water:'Drainage mapping & management',
+    pasture:'Pasture rotation & livestock support', hay:'Hay field soil health & yield program',
+    habitat:'Habitat corridors & wildlife planting', meadow:'Meadow & field conversion',
+    woodland:'Woodland edge restoration', seasonal:'Year-round seasonal stewardship'
+  };
+  var sizeScale = {small:0.55,quarter:0.75,half:1.0,acre:1.45,large:2.3};
+  var sizeLabel = {small:'Under ¼ acre',quarter:'¼–½ acre',half:'½–1 acre',acre:'1–3 acres',large:'3–5 acres',acres5:'5–10 acres',acres10:'10–25 acres',acres25:'25–50 acres',acres50:'50–100 acres',acres100:'100+ acres'};
+  var svcRates = {
+    turf:[1200,2400], native:[1500,3500], soil:[450,900],
+    water:[800,2000], pasture:[1400,2800], hay:[900,1800],
+    habitat:[600,1400], meadow:[1000,2200], woodland:[700,1400], seasonal:[1600,3200]
+  };
+
+  function submitToFormspree(submitMode) {
+    var isDD = submitMode === 'dd';
+    var svcs = isDD ? sets.ddservices : sets.services;
+    var savs = sets.savings;
+    var probs = isDD ? sets.challenges : sets.problems;
+    var gls = sets.goals;
+    var loc = isDD ? (data.address || 'Chester County, PA') : (data.town || 'Chester County, PA');
+
+    var payload = {
+      _subject: 'Consultation Request — ' + (typeLabelsMailto[data.type] || 'Property') + ', ' + loc,
+      mode: isDD ? 'Full Discovery' : 'Quick Quote',
+      name: ((data.firstName || '') + ' ' + (data.lastName || '')).trim(),
+      email: data.email || '',
+      phone: data.phone || 'Not provided',
+      location: loc,
+      property_type: typeLabelsMailto[data.type] || 'Not specified',
+      property_size: sizeLabelMailto[data.size] || 'Not specified',
+      estimate: data._weekly ? '$' + data._weekly + '/week · $' + (data._weekly * SEASON_WEEKS).toLocaleString() + '/season' : 'Custom quote — scoped on-site',
+      services: svcs.size ? Array.from(svcs).map(function(s){ return svcNames[s] || s; }).join(', ') : 'To be discussed on-site',
+      partnership_options: savs.size ? Array.from(savs).map(function(s){ return partnerLabel[s] || s; }).join(', ') : 'None selected',
+      challenges: probs.size ? Array.from(probs).join(', ') : 'None specified'
+    };
+    if (!isDD) payload.timeline = timelineLabel[data.timeline] || 'Not specified';
+    if (isDD) {
+      payload.land_use = data.landuse || 'Not specified';
+      payload.current_setup = data.setup || 'Not specified';
+      payload.current_spend = data.spend || 'Not specified';
+      payload.decision_maker = data.decision || 'Not specified';
+      payload.ecological_goals = gls && gls.size ? Array.from(gls).join(', ') : 'Not specified';
+      payload.notes = data.notes || '';
+    }
+    fetch('https://formspree.io/f/meelylja', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+  }
+
+  function buildEmailHTML() {
+    var isDD = mode === 'dd';
+    var services = isDD ? sets.ddservices : sets.services;
+    var savings = sets.savings;
+    var sz = data.size || 'half';
+    var scale = sizeScale[sz] || 1.0;
+    var firstName = data.firstName || 'there';
+    var location  = isDD ? (data.address || 'Chester County, PA') : (data.town || 'Chester County, PA');
+    var weekly = data._weekly || (weeklyFloor[sz] || 155);
+    var annual = weekly * SEASON_WEEKS;
+    var isCustom = (data._weekly === null);
+    var typeLabels = {residential:'Residential',farm:'Farm / Working Land',commercial:'Commercial',estate:'Estate / Large Residential'};
+    var typeLabel  = typeLabels[data.type] || 'Property';
+
+    // Base Living Grounds Program — always included, market comparison (market rate = piecemeal cost)
+    var baseWeeklyMkt = {small:100, quarter:120, half:135, acre:165, large:230};
+    var mktWeekly = baseWeeklyMkt[sz] || 135;
+    var mktAnnual = mktWeekly * SEASON_WEEKS;
+    var alwaysRows = [
+      ['Lawn mowing (weekly / bi-weekly, biological practices)', Math.round(65*SEASON_WEEKS/100)*100, Math.round(85*SEASON_WEEKS/100)*100],
+      ['Full-site organic fertilization program',                Math.round(15*SEASON_WEEKS/100)*100, Math.round(20*SEASON_WEEKS/100)*100],
+      ['Invasive species management (ongoing)',                  Math.round(10*SEASON_WEEKS/100)*100, Math.round(15*SEASON_WEEKS/100)*100],
+      ['Weed-free bed maintenance',                             Math.round(10*SEASON_WEEKS/100)*100, Math.round(15*SEASON_WEEKS/100)*100],
+      ['Dedicated Lead Steward — single point of contact',        600, 1200]
+    ];
+    var alwaysLow  = 0, alwaysHigh = 0;
+    alwaysRows.forEach(function(r){ alwaysLow += r[1]; alwaysHigh += r[2]; });
+
+    // Selected service rows
+    var svcRows = [];
+    var svcLow = 0, svcHigh = 0;
+    services.forEach(function(svc) {
+      if (!svcRates[svc]) return;
+      var lo = Math.round(svcRates[svc][0] * scale);
+      var hi = Math.round(svcRates[svc][1] * scale);
+      svcLow += lo; svcHigh += hi;
+      svcRows.push([svcNames[svc] || svc, lo, hi]);
+    });
+
+    var totalLow  = alwaysLow  + svcLow;
+    var totalHigh = alwaysHigh + svcHigh;
+
+    // 3-year trajectory
+    var dominant = Array.from(services)[0] || (isDD && (data.landuse === 'livestock' ? 'pasture' : data.landuse === 'hay' ? 'hay' : 'turf')) || 'turf';
+    var trajs = {
+      turf:    [['Year 1','Baseline soil testing and biological correction begins. Synthetic inputs stop. Earthworm and microbial activity assessment conducted.'],['Year 2','Turf density and color improve measurably. Input needs begin to decline. Annual soil report shows organic matter increase.'],['Year 3','Self-sustaining biological turf. Resilient to drought and disease. Program cost decreases as soil ecosystem matures.']],
+      soil:    [['Year 1','Deep 4-layer soil profiling reveals limiting factors. Targeted amendments applied. Microbial inoculants introduced.'],['Year 2','Soil biology rebounds. pH stabilizes. Plant performance visibly improves across all zones.'],['Year 3','Living soil profile. Measurably higher organic matter. Annual inputs reduced by 25–40%.']],
+      native:  [['Year 1','Site preparation and first native species established in priority zones. Invasive species addressed.'],['Year 2','Plants fill in and establish root systems. Pollinators begin returning. Species diversity increases.'],['Year 3','Mature native planting. Self-seeding begins in established zones. Near-zero maintenance required.']],
+      water:   [['Year 1','Drainage mapping and root cause analysis. Infrastructure improvements and rain garden installation.'],['Year 2','Plant establishment around water features. Soil absorption and infiltration improve measurably.'],['Year 3','Functioning micro-watershed on-site. Flooding events significantly reduced. Erosion controlled.']],
+      pasture: [['Year 1','Pasture soil testing and rotational grazing plan implemented. Rest periods established. Problem zones identified.'],['Year 2','Grass density and species diversity improve. Overworked zones recover. Hay quality rises alongside pasture health.'],['Year 3','Healthy, self-sustaining pasture. Livestock health indicators improve. Fertilizer input costs fall significantly.']],
+      hay:     [['Year 1','Soil amendment program to correct pH and nutrient deficiencies specific to hay production. Base seeding if needed.'],['Year 2','Hay yield and quality measurably improve. Species composition shifts toward productive perennial grasses.'],['Year 3','Consistent, high-quality hay from biologically active soil. Synthetic fertilizer dependency eliminated.']],
+      habitat: [['Year 1','Habitat corridor designed and initial native species established. First pollinator structures installed.'],['Year 2','First documented pollinators and birds in new habitat zones. Cover density increases substantially.'],['Year 3','Established, self-sustaining habitat. Native insect populations stabilizing. Property ecological identity clear.']],
+      meadow:  [['Year 1','Existing vegetation assessed. Conversion zones prepared. Pioneer native species seeded.'],['Year 2','First full growing season of meadow growth. Weed pressure managed ecologically without herbicides.'],['Year 3','Meadow maturing and self-sustaining. Annual maintenance minimal in established zones.']],
+      woodland:[['Year 1','Woodland edge assessed. Invasive removal begins. Native understory species planted.'],['Year 2','Invasive species reduce measurably. Native shrubs and groundcovers establishing throughout edge.'],['Year 3','Healthy layered woodland edge. Wildlife use visibly increased. Canopy succession underway.']],
+      seasonal:[['Year 1','Full 18-visit program calibrated to ecological cues, not calendar dates. Baseline measurements taken.'],['Year 2','Seasonal patterns become visible. Interventions become more targeted and efficient. Cost per outcome falls.'],['Year 3','Program dialed in. Property runs on biological momentum. Steward visits shift to refinement and measurement.']],
+      lowmaint:[['Year 1','Baseline assessment completed. Self-sufficient native species selected for your specific conditions. Irrigation-dependent plantings identified and transitioned.'],['Year 2','Established plantings begin to self-regulate. Intervention needs drop measurably. Mowing frequency reduced in converted zones.'],['Year 3','Mature, self-sustaining landscape. Seasonal care replaces reactive maintenance. Your property runs on ecological momentum — not constant inputs.']]
+    };
+    var roadmap = trajs[dominant] || trajs.turf;
+
+    // Color palette
+    var F = '#013220'; var G = '#B8860B'; var GL = '#d4a017'; var CR = '#FAF7F0'; var BG = '#080e08';
+
+    function sc(lo, hi) { return '$' + Math.round(lo/100)*100 + '–$' + Math.round(hi/100)*100 + '/yr'; }
+
+    var alwaysTableRows = alwaysRows.map(function(r){
+      return '<tr><td style="padding:10px 14px;border-bottom:1px solid rgba(1,50,32,0.1);color:#374337;font-size:0.84rem;line-height:1.4;">' + r[0] + '</td>' +
+             '<td style="padding:10px 14px;border-bottom:1px solid rgba(1,50,32,0.1);color:#666;font-size:0.84rem;white-space:nowrap;text-align:right;">$' + r[1].toLocaleString() + '–$' + r[2].toLocaleString() + '/yr</td>' +
+             '<td style="padding:10px 14px;border-bottom:1px solid rgba(1,50,32,0.1);text-align:center;"><span style="color:' + F + ';font-weight:700;font-size:0.85rem;">✓ Always Included</span></td></tr>';
+    }).join('');
+
+    var svcTableRows = svcRows.length ? svcRows.map(function(r){
+      return '<tr><td style="padding:10px 14px;border-bottom:1px solid rgba(1,50,32,0.08);color:#374337;font-size:0.84rem;line-height:1.4;">' + r[0] + '</td>' +
+             '<td style="padding:10px 14px;border-bottom:1px solid rgba(1,50,32,0.08);color:#666;font-size:0.84rem;white-space:nowrap;text-align:right;">$' + r[1].toLocaleString() + '–$' + r[2].toLocaleString() + '/yr</td>' +
+             '<td style="padding:10px 14px;border-bottom:1px solid rgba(1,50,32,0.08);text-align:center;"><span style="color:' + F + ';font-weight:700;font-size:0.85rem;">✓ Included</span></td></tr>';
+    }).join('') : '<tr><td colspan="3" style="padding:10px 14px;color:#888;font-size:0.82rem;font-style:italic;">Services to be scoped during on-site assessment</td></tr>';
+
+    var totalRow = '<tr style="background:rgba(1,50,32,0.06);">' +
+      '<td style="padding:12px 14px;font-weight:700;color:' + F + ';font-size:0.88rem;">Total if purchased separately</td>' +
+      '<td style="padding:12px 14px;font-weight:700;color:#cc2200;font-size:0.88rem;white-space:nowrap;text-align:right;">$' + totalLow.toLocaleString() + '–$' + totalHigh.toLocaleString() + '/yr</td>' +
+      '<td style="padding:12px 14px;"></td></tr>';
+
+    var frscRow = '<tr style="background:' + F + ';">' +
+      '<td style="padding:14px 14px;font-weight:700;color:' + CR + ';font-size:0.9rem;">Filthy Rich Soil Co. — Living Grounds Program (all-inclusive)</td>' +
+      '<td style="padding:14px 14px;text-align:right;"><span style="color:rgba(250,247,240,0.45);font-size:0.78rem;">$' + annual.toLocaleString() + '/season</span></td>' +
+      '<td style="padding:14px 14px;text-align:center;"><span style="font-family:Georgia,serif;font-weight:900;color:' + G + ';font-size:1.15rem;">$' + weekly.toLocaleString() + '/wk</span></td></tr>';
+
+    var roadmapHTML = roadmap.map(function(r, i){
+      var labels = ['Year One','Year Two','Year Three'];
+      return '<div style="display:flex;gap:18px;padding:16px 0;border-bottom:1px solid rgba(1,50,32,0.1);">' +
+        '<div style="min-width:80px;font-family:Georgia,serif;font-weight:900;font-size:0.82rem;color:' + G + ';padding-top:2px;">' + labels[i] + '</div>' +
+        '<div style="font-size:0.86rem;color:#444;line-height:1.72;">' + r[1] + '</div></div>';
+    }).join('');
+
+    var profileText = {
+      low: "We'll identify the single highest-impact intervention for your budget and build from there. Starter programs focus on soil correction in one priority zone — small footprint, meaningful results that set the foundation for expansion.",
+      mid: "Substantial enough to run a real soil health initiative alongside one or two priority service areas. Clients at this level see visible, measurable improvement by their second growing season — and costs start declining by Year 3.",
+      high: "The full stewardship model. Comprehensive soil programs, native plant design, and multiple service areas running simultaneously. These are the transformations that make neighbors ask who your steward is.",
+      premium: "Full ecological transformation. We become your land's long-term steward — designing, planting, monitoring, and evolving your property's ecosystem across every season, indefinitely. Farm programs, large-field management, and multi-zone estates."
+    };
+
+    return '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Filthy Rich Soil Co. — Your Stewardship Profile</title>' +
+    '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">' +
+    '<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:"DM Sans",Georgia,sans-serif;background:#f0ece4;color:#2a2a2a;}@media print{body{background:white;}.no-print{display:none!important;}}</style>' +
+    '</head><body>' +
+    '<div style="max-width:720px;margin:0 auto;background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.12);">' +
+
+    // Header
+    '<div style="background:' + F + ';padding:32px 48px 28px;display:flex;justify-content:space-between;align-items:center;">' +
+      '<div>' +
+        '<div style="font-family:Georgia,serif;color:' + G + ';font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px;">Filthy Rich Soil Co.</div>' +
+        '<div style="color:rgba(250,247,240,0.45);font-size:0.68rem;letter-spacing:1px;">Chester County, PA · Ecological Land Stewardship</div>' +
+      '</div>' +
+      '<div style="text-align:right;">' +
+        '<div style="font-size:0.65rem;color:rgba(250,247,240,0.4);letter-spacing:0.5px;">dan@filthyrichsoilco.com</div>' +
+        '<div style="font-size:0.65rem;color:rgba(250,247,240,0.4);margin-top:3px;">filthyrichsoilco.com</div>' +
+      '</div>' +
+    '</div>' +
+
+    // Hero
+    '<div style="background:' + BG + ';padding:44px 48px 40px;">' +
+      '<div style="display:inline-block;background:rgba(184,134,11,0.2);border:1px solid rgba(184,134,11,0.35);border-radius:100px;padding:5px 16px;font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:' + GL + ';margin-bottom:18px;">' + typeLabel + ' · ' + sizeLabel[sz] + ' · Chester County, PA</div>' +
+      '<h1 style="font-family:Georgia,serif;font-size:2.1rem;font-style:italic;font-weight:900;color:' + CR + ';line-height:1.15;margin-bottom:14px;">Hi ' + firstName + ' — here\'s<br>what we put together.</h1>' +
+      '<p style="font-size:0.94rem;color:rgba(250,247,240,0.62);line-height:1.82;max-width:560px;">' + (isCustom ? 'Farm and commercial programs require an on-site assessment before we can build a proper proposal. A Lead Steward will reach out to schedule yours — no obligation.' : 'Based on your property, here\'s what a Living Grounds Program looks like for your land — base program, comparison to piecemeal, and your 3-year ecological roadmap.') + '</p>' +
+    '</div>' +
+
+    // Estimate band
+    '<div style="background:' + F + ';padding:32px 48px;">' +
+      (isCustom ?
+        '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(250,247,240,0.45);margin-bottom:8px;">Program Investment</div>' +
+        '<div style="font-family:Georgia,serif;font-size:2rem;font-weight:900;color:' + CR + ';line-height:1.2;margin-bottom:10px;">Custom Quote — Scoped On-Site</div>' +
+        '<div style="font-size:0.84rem;color:' + GL + ';line-height:1.6;">Farm and commercial programs vary widely based on acreage, land use, and goals. Your Lead Steward will build a proposal after the free on-site assessment.</div>'
+      :
+        '<div style="display:flex;align-items:flex-end;gap:32px;flex-wrap:wrap;">' +
+          '<div>' +
+            '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(250,247,240,0.45);margin-bottom:8px;">Living Grounds Program</div>' +
+            '<div style="display:flex;align-items:baseline;gap:8px;">' +
+              '<div style="font-family:Georgia,serif;font-size:3.4rem;font-weight:900;color:' + CR + ';line-height:1;">$' + weekly.toLocaleString() + '</div>' +
+              '<div style="font-size:1rem;color:rgba(250,247,240,0.55);font-weight:300;">/week</div>' +
+            '</div>' +
+            '<div style="font-size:0.82rem;color:' + GL + ';margin-top:6px;">$' + annual.toLocaleString() + ' per season &nbsp;·&nbsp; 36 weeks</div>' +
+          '</div>' +
+          '<div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:14px 18px;">' +
+            '<div style="font-size:0.6rem;color:rgba(250,247,240,0.38);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Location</div>' +
+            '<div style="font-size:0.86rem;color:' + CR + ';font-weight:500;">' + location + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="font-size:0.78rem;color:rgba(250,247,240,0.42);margin-top:14px;line-height:1.6;">Base program. Add-on services scoped separately. As soil ecology matures, the inputs your program requires can decrease — your Steward will discuss realistic cost trajectory at the site assessment.</div>'
+      ) +
+    '</div>' +
+
+    // Comparison table (skip for custom quote)
+    (!isCustom ? (
+    '<div style="padding:44px 48px;background:#FAF7F0;">' +
+      '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(1,50,32,0.45);margin-bottom:6px;">The Real Cost Comparison</div>' +
+      '<h2 style="font-family:Georgia,serif;font-size:1.55rem;font-style:italic;font-weight:700;color:' + F + ';margin-bottom:6px;">What 4 separate vendors would cost you</h2>' +
+      '<p style="font-size:0.84rem;color:#666;line-height:1.7;margin-bottom:24px;">Most Chester County homeowners hire a mowing company, a fertilization service, a landscaper for beds, and handle weeds themselves — or pay a premium company to do all three. Here\'s what that stack actually costs compared to one weekly FRSC subscription.</p>' +
+      '<table style="width:100%;border-collapse:collapse;background:white;border-radius:10px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.06);">' +
+        '<thead><tr style="background:' + F + ';">' +
+          '<th style="padding:12px 14px;text-align:left;font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,247,240,0.6);font-weight:600;">Service</th>' +
+          '<th style="padding:12px 14px;text-align:right;font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,247,240,0.6);font-weight:600;white-space:nowrap;">Piecemeal Cost</th>' +
+          '<th style="padding:12px 14px;text-align:center;font-size:0.65rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,247,240,0.6);font-weight:600;">With FRSC</th>' +
+        '</tr></thead>' +
+        '<tbody>' + alwaysTableRows + totalRow + frscRow + '</tbody>' +
+      '</table>' +
+      '<p style="font-size:0.74rem;color:#999;margin-top:10px;line-height:1.6;">Piecemeal estimates for Chester County, PA. The FRSC Living Grounds Program replaces this entire stack — one weekly rate, one relationship, one steward who knows your land.</p>' +
+    '</div>'
+    ) : '') +
+
+    // Partnership section (only if any selected)
+    (savings.size > 0 ? (function(){
+      var partnerLabels = {
+        trainees: {label:'Stewards in Training',        desc:'Allow supervised trainees to work alongside our senior Steward on your property. You receive the same expert oversight — they gain real-world experience in a professional setting.'},
+        content:  {label:'Property as Content',         desc:'Allow us to document your property\'s transformation — video, photography, and soil data — for use in our educational content and media channels. Your identity stays private unless you choose otherwise.'},
+        pilot:    {label:'Pilot Program Participant',   desc:'Open a section of your property as a living laboratory for new biological techniques we\'re developing. You receive full scientific documentation of what was tried, what worked, and what didn\'t.'},
+        flexible: {label:'Full Scheduling Flexibility', desc:'Give us full flexibility on which weekday we visit — no day restrictions or preferred windows. This lets us build the most efficient route possible and pass the savings directly to you.'}
+      };
+      var discLevels = ['a meaningful discount','a significant discount','a substantial discount','our most significant available discount'];
+      var count = savings.size;
+      var discLabel = discLevels[Math.min(count - 1, 3)];
+      var rows = '';
+      savings.forEach(function(key){
+        var p = partnerLabels[key];
+        if (!p) return;
+        rows += '<div style="display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(250,247,240,0.1);align-items:flex-start;">' +
+          '<div style="min-width:28px;height:28px;border-radius:50%;background:' + G + ';display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:' + BG + ';font-weight:900;flex-shrink:0;margin-top:2px;">✓</div>' +
+          '<div><div style="font-weight:600;color:' + CR + ';font-size:0.88rem;margin-bottom:4px;">' + p.label + '</div>' +
+          '<div style="font-size:0.82rem;color:rgba(250,247,240,0.58);line-height:1.68;">' + p.desc + '</div></div>' +
+        '</div>';
+      });
+      return '<div style="padding:44px 48px;background:' + F + ';border-top:4px solid ' + G + ';">' +
+        '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(250,247,240,0.4);margin-bottom:6px;">Partnership Selected</div>' +
+        '<h2 style="font-family:Georgia,serif;font-size:1.55rem;font-style:italic;font-weight:700;color:' + CR + ';margin-bottom:8px;">You\'ve opened the door to ' + discLabel + '.</h2>' +
+        '<p style="font-size:0.84rem;color:rgba(250,247,240,0.58);line-height:1.7;margin-bottom:22px;">These aren\'t upsells — they\'re ways to deepen the relationship. The exact reduction on your stewardship rate will be confirmed on your consultation call.</p>' +
+        rows +
+        '<p style="font-size:0.74rem;color:rgba(250,247,240,0.3);margin-top:18px;line-height:1.6;">Partnership terms are finalized during the site assessment and formal proposal conversation.</p>' +
+      '</div>';
+    })() : '') +
+
+    // What's included
+    '<div style="padding:44px 48px;background:' + F + ';">' +
+      '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(250,247,240,0.4);margin-bottom:6px;">Living Grounds Program — Base</div>' +
+      '<h2 style="font-family:Georgia,serif;font-size:1.55rem;font-style:italic;font-weight:700;color:' + CR + ';margin-bottom:8px;">Always included, every week</h2>' +
+      '<p style="font-size:0.84rem;color:rgba(250,247,240,0.48);line-height:1.72;margin-bottom:20px;">This is the foundation of every FRSC program — not optional extras, not line-item add-ons. One rate, always covered.</p>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
+        ['Lawn mowing (biological practices)','Full-site organic fertilization','Invasive species management','Weed-free bed maintenance','Dedicated Lead Steward']
+          .map(function(pill){ return '<span style="background:rgba(250,247,240,0.1);border:1px solid rgba(250,247,240,0.2);border-radius:100px;padding:6px 16px;font-size:0.76rem;color:rgba(250,247,240,0.8);">' + pill + '</span>'; })
+          .join('') +
+      '</div>' +
+      (services.size > 0 ?
+        '<div style="margin-top:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.08);">' +
+        '<div style="font-size:0.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(250,247,240,0.35);margin-bottom:10px;">Add-on services you indicated interest in — scoped on-site</div>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
+          Array.from(services).map(function(s){ return '<span style="background:rgba(184,134,11,0.12);border:1px solid rgba(184,134,11,0.3);border-radius:100px;padding:6px 16px;font-size:0.76rem;color:' + GL + ';">' + (svcNames[s] || s) + '</span>'; }).join('') +
+        '</div></div>'
+      : '') +
+      '<p style="font-size:0.82rem;color:rgba(250,247,240,0.42);margin-top:20px;line-height:1.72;">One contract. One steward. One weekly number. No surprise invoices, no seasonal add-ons, no coordination overhead.</p>' +
+    '</div>' +
+
+    // 3-year roadmap
+    '<div style="padding:44px 48px;background:white;">' +
+      '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(1,50,32,0.45);margin-bottom:6px;">What to Expect</div>' +
+      '<h2 style="font-family:Georgia,serif;font-size:1.55rem;font-style:italic;font-weight:700;color:' + F + ';margin-bottom:4px;">Your 3-year ecological roadmap</h2>' +
+      '<p style="font-size:0.84rem;color:#666;line-height:1.7;margin-bottom:22px;">Based on your priority service focus. Your formal program roadmap will be built after the on-site soil assessment.</p>' +
+      roadmapHTML +
+    '</div>' +
+
+    // Next steps
+    '<div style="padding:44px 48px;background:#FAF7F0;">' +
+      '<div style="font-size:0.62rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(1,50,32,0.45);margin-bottom:6px;">What Happens Next</div>' +
+      '<h2 style="font-family:Georgia,serif;font-size:1.55rem;font-style:italic;font-weight:700;color:' + F + ';margin-bottom:24px;">From here to your first season</h2>' +
+      [['Your Lead Steward reaches out within 24 hours','A real phone call or email — not an automated sequence. They\'ll answer any questions about this profile and confirm your free site assessment.'],
+       ['Free on-site soil assessment','Your Lead Steward walks the property with you. They read the land in person — soil samples, drainage patterns, current plant health, and what your specific site needs.'],
+       ['Your custom stewardship proposal','After the site visit, you receive a formal program proposal: ecological goals, specific services, seasonal schedule, and your all-inclusive annual number.'],
+       ['You decide — no pressure','We only take on properties we believe we can meaningfully improve. If it\'s not the right fit on either side, we\'ll be honest about it.']]
+        .map(function(step, i){
+          return '<div style="display:flex;gap:20px;margin-bottom:22px;align-items:flex-start;">' +
+            '<div style="min-width:36px;height:36px;border-radius:50%;background:' + F + ';display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:900;color:' + G + ';font-size:0.9rem;flex-shrink:0;margin-top:2px;">' + (i+1) + '</div>' +
+            '<div><div style="font-weight:600;color:' + F + ';font-size:0.9rem;margin-bottom:4px;">' + step[0] + '</div><div style="font-size:0.82rem;color:#666;line-height:1.72;">' + step[1] + '</div></div>' +
+          '</div>';
+        }).join('') +
+    '</div>' +
+
+    // Footer
+    '<div style="background:' + F + ';padding:32px 48px;text-align:center;">' +
+      '<div style="font-family:Georgia,serif;color:' + G + ';font-size:0.75rem;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;">Filthy Rich Soil Co.</div>' +
+      '<div style="color:rgba(250,247,240,0.45);font-size:0.72rem;margin-bottom:4px;">Chester County, PA · Ecological Land Stewardship</div>' +
+      '<div style="color:rgba(250,247,240,0.4);font-size:0.72rem;">dan@filthyrichsoilco.com · filthyrichsoilco.com</div>' +
+      '<div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);font-size:0.65rem;color:rgba(255,255,255,0.25);line-height:1.7;">This stewardship profile was generated based on your consultation inputs and represents an initial program estimate. Final pricing is confirmed after the on-site soil assessment and formal proposal. All programs are all-inclusive — no add-on charges for standard services.</div>' +
+    '</div>' +
+
+    '</div></body></html>';
+  }
+
+  function openEmailPreview() {
+    var html = buildEmailHTML();
+    var blob = new Blob([html], {type:'text/html'});
+    window.open(URL.createObjectURL(blob), '_blank');
+  }
+
+  function showResult(isDD) {
+    var prefix = isDD ? 'dd' : 'qq';
+    var errEl = document.getElementById(prefix + 'Err');
+    errEl.style.display = 'none';
+    var firstName = document.getElementById(prefix + 'First').value.trim();
+    var email = document.getElementById(prefix + 'Email').value.trim();
+    if (!firstName || !email) { errEl.style.display = 'block'; return; }
+    data.firstName = firstName;
+    data.lastName = document.getElementById(prefix + 'Last').value.trim();
+    data.email = email;
+    data.phone = document.getElementById(prefix + 'Phone').value.trim();
+    if (isDD) {
+      data.address = document.getElementById('ddAddr').value.trim();
+      data.notes = document.getElementById('ddNotes').value.trim();
+    } else {
+      data.town = document.getElementById('qqTown').value.trim() || 'Chester County, PA';
+    }
+    var sz = data.size || 'half';
+    var isCustom = (data.type === 'commercial' || data.type === 'farm' || sz.indexOf('acres') === 0);
+    if (isCustom) {
+      data._weekly = null;
+      document.getElementById('resultWeekly').textContent = 'Custom';
+      document.getElementById('resultAnnual').textContent = 'Farm, estate & commercial programs are scoped on-site — your Steward will build a custom proposal.';
+    } else {
+      var weekly = weeklyFloor[sz] || (isDD ? 155 : 95);
+      var annual = weekly * SEASON_WEEKS;
+      data._weekly = weekly;
+      document.getElementById('resultWeekly').textContent = weekly.toLocaleString();
+      document.getElementById('resultAnnual').textContent = '$' + annual.toLocaleString() + ' / season · 36 weeks';
+    }
+    goTo('fs-result');
+    submitToFormspree(isDD ? 'dd' : 'qq');
+  }
+
+  // Update step numbers on shared steps that differ between QQ and DD
+  function updateSharedStepNumbers() {
+    var total = mode === 'dd' ? '11' : '7';
+    var snType = document.getElementById('sn-type');
+    var snSav  = document.getElementById('sn-savings');
+    if (snType) snType.textContent = 'Step 1 of ' + total;
+    if (snSav)  snSav.textContent  = mode === 'dd' ? 'Step 9 of 11' : 'Step 6 of 7';
+    // Update size step numbers too
+    var sizeSteps = document.querySelectorAll('#fs-size-res .step-number, #fs-size-com .step-number, #fs-size-land .step-number');
+    for (var i = 0; i < sizeSteps.length; i++) sizeSteps[i].textContent = 'Step 2 of ' + total;
+  }
+
+  // After size selection, route to the right next step based on mode
+  function afterSize(sizeVal) {
+    data.size = sizeVal;
+    if (mode === 'dd') goTo('fs-landuse');
+    else goTo('fs-problems');
+  }
+
+  document.addEventListener('click', function(e) {
+    var target = e.target.closest('[data-action], [id]');
+    if (!target) return;
+    var action = target.getAttribute('data-action');
+    var id = target.id;
+
+    if (id === 'btn-qq') { mode = 'qq'; data._mode = 'qq'; updateSharedStepNumbers(); openOverlay(); goTo('fs-type'); return; }
+    if (id === 'btn-dd') { mode = 'dd'; data._mode = 'dd'; updateSharedStepNumbers(); openOverlay(); goTo('fs-type'); return; }
+    if (id === 'btn-close' || id === 'btn-done') { closeOverlay(); return; }
+    if (id === 'backBtn') { goBack(); return; }
+    if (id === 'btn-qq-generate') { showResult(false); return; }
+    if (id === 'btn-dd-generate') { showResult(true); return; }
+    if (id === 'btn-profile') { openEmailPreview(); return; }
+    if (id === 'btn-savings-continue') {
+      if (mode === 'dd') goTo('fs-decision');
+      else goTo('fs-qq-contact');
+      return;
+    }
+
+    if (action === 'select-type') {
+      var val = target.getAttribute('data-val');
+      var next = target.getAttribute('data-next');
+      data.type = val;
+      applySmartFilter(val);
+      target.classList.add('selected');
+      setTimeout(function() { goTo(next); }, 180);
+      return;
+    }
+    if (action === 'select-size') {
+      target.classList.add('selected');
+      var val = target.getAttribute('data-val');
+      setTimeout(function() { afterSize(val); }, 180);
+      return;
+    }
+    if (action === 'select') {
+      data[target.getAttribute('data-key')] = target.getAttribute('data-val');
+      target.classList.add('selected');
+      var next = target.getAttribute('data-next');
+      setTimeout(function() { goTo(next); }, 180);
+      return;
+    }
+    if (action === 'chip-toggle') { handleChipToggle(target); return; }
+    if (action === 'toggle') { handleToggle(target); return; }
+    if (action === 'goto') { goTo(target.getAttribute('data-next')); return; }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeOverlay();
+    if (e.key === 'Backspace') {
+      var tag = document.activeElement.tagName;
+      if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') { e.preventDefault(); goBack(); }
+    }
+  });
+})();
+</script>
+
+</Base>

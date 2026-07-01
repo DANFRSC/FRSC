@@ -1,0 +1,399 @@
+---
+import Base from '../layouts/Base.astro';
+
+const roles = [
+  {
+    title: 'Field Steward',
+    type: 'Full-time · Seasonal',
+    desc: 'The core of what we do. You\'ll be on properties every day — managing ecological programs, learning to read soil health, and developing the kind of attention to land that you can\'t learn anywhere else.',
+    reqs: ['Physical outdoor work in all weather', 'Genuine interest in ecological systems', 'Valid driver\'s license', 'Prior landscaping experience a plus, not required'],
+  },
+  {
+    title: 'Lead Steward',
+    type: 'Full-time · Year-round',
+    desc: 'For experienced field people ready to lead a small crew and own the outcomes of a property portfolio. You\'ll develop field teams, manage client relationships, and help set the standard for what great looks like.',
+    reqs: ['2+ seasons of field experience (ours or comparable)', 'Demonstrated ability to develop junior team members', 'Comfort with direct client communication', 'Soil health knowledge or strong desire to build it'],
+  },
+  {
+    title: 'Ecological Technician',
+    type: 'Full-time · Year-round',
+    desc: 'A science-forward role for people who want to work with soil biology, native plant design, and ecological assessment. You\'ll develop programs, interpret soil tests, and design planting plans alongside our senior team.',
+    reqs: ['Background in ecology, environmental science, or horticulture', 'Experience with native plant ID preferred', 'Comfort with field and office work split', 'Strong analytical and communication skills'],
+  },
+  {
+    title: 'Farm & Nursery Hand',
+    type: 'Full-time · Seasonal',
+    desc: 'Primarily a farming role. You\'ll work directly with livestock, hay fields, and pasture management alongside nursery and propagation work — not a traditional landscaping position. A Steward may work alongside you, but your focus is the farm: animal care, field rotation, soil inputs, and hands-on growing. If you\'re drawn to land because you want to farm it, not just manage it, this role was written for you.',
+    reqs: ['Hands-on experience with livestock or produce/cut-flower farming strongly preferred', 'Comfort working with animals — horses, cattle, or small livestock', 'Physical outdoor work in all conditions', 'Some nursery, propagation, or growing experience a plus', 'Valid driver\'s license required'],
+  },
+];
+---
+
+<Base title="Careers" description="Join the team at Filthy Rich Soil Co. — field stewardship, ecological technician, and lead roles across Chester County, PA.">
+
+<style is:global>
+  .careers-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 5% 80px;
+    background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .careers-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(1,20,10,0.92) 0%, rgba(1,20,10,0.48) 58%, transparent 100%);
+  }
+  .careers-hero .hero-content { position: relative; z-index: 1; max-width: 600px; }
+  .careers-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 900; font-style: italic;
+    color: #FAF7F0; line-height: 1.05; margin-bottom: 20px;
+  }
+  .careers-hero p {
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(250,247,240,0.75); max-width: 480px; line-height: 1.75;
+  }
+
+  .culture-section {
+    background: #080e08;
+    padding: 90px 5%;
+  }
+  .culture-inner {
+    max-width: 860px; margin: 0 auto;
+  }
+  .culture-section p {
+    font-size: 1.05rem;
+    color: rgba(250,247,240,0.65);
+    line-height: 1.88; margin-bottom: 20px;
+  }
+  .culture-section p:last-child { margin-bottom: 0; }
+  .culture-em { color: #d4a017; font-weight: 500; }
+
+  .roles-section {
+    background: #0a140a;
+    border-top: 1px solid rgba(184,134,11,0.12);
+    padding: 80px 5% 100px;
+  }
+  .roles-inner { max-width: 860px; margin: 0 auto; }
+
+  .role-card {
+    background: rgba(1,30,16,0.55);
+    border: 1px solid rgba(184,134,11,0.15);
+    border-radius: 12px;
+    padding: 40px 40px 44px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .role-card:last-child { margin-bottom: 0; }
+  .role-card:hover {
+    border-color: rgba(184,134,11,0.35);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+  .role-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 18px;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .role-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem; color: #FAF7F0;
+  }
+  .role-type {
+    background: rgba(184,134,11,0.15);
+    color: #d4a017;
+    font-size: 0.62rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 6px 14px; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .role-desc {
+    font-size: 0.98rem;
+    color: rgba(250,247,240,0.62);
+    line-height: 1.82; margin-bottom: 24px;
+  }
+  .role-reqs { list-style: none; padding: 0; margin: 0; }
+  .role-reqs li {
+    font-size: 0.9rem;
+    color: rgba(250,247,240,0.55);
+    padding: 7px 0 7px 22px;
+    position: relative; line-height: 1.55;
+  }
+  .role-reqs li::before {
+    content: '—'; position: absolute; left: 0;
+    color: #B8860B; font-weight: 700;
+  }
+  .apply-btn {
+    display: inline-block; margin-top: 30px;
+    background: transparent;
+    border: 1.5px solid rgba(184,134,11,0.5);
+    color: #d4a017;
+    padding: 13px 30px; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .apply-btn:hover {
+    background: rgba(184,134,11,0.15);
+    border-color: #B8860B; color: #FAF7F0;
+    transform: translateY(-1px);
+  }
+
+  /* ── Application Form ─────────────────────── */
+  .apply-section {
+    background: #080e08;
+    border-top: 1px solid rgba(184,134,11,0.12);
+    padding: 80px 5% 110px;
+  }
+  .apply-inner { max-width: 680px; margin: 0 auto; }
+
+  .apply-form {
+    background: rgba(1,30,16,0.55);
+    border: 1px solid rgba(184,134,11,0.18);
+    border-radius: 14px; padding: 52px 52px 56px;
+    backdrop-filter: blur(14px);
+  }
+
+  .form-row { margin-bottom: 28px; }
+  .form-row label {
+    display: block;
+    font-size: 0.68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.8px;
+    color: rgba(250,247,240,0.5); margin-bottom: 10px;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    width: 100%; box-sizing: border-box;
+    background: rgba(1,20,10,0.6);
+    border: 1px solid rgba(184,134,11,0.22);
+    border-radius: 8px;
+    color: #FAF7F0;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    padding: 14px 18px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .form-row select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23B8860B' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    padding-right: 44px;
+    cursor: pointer;
+  }
+  .form-row textarea { resize: vertical; min-height: 120px; line-height: 1.65; }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    border-color: #B8860B;
+    background: rgba(1,30,16,0.75);
+  }
+  .form-row input::placeholder,
+  .form-row textarea::placeholder { color: rgba(250,247,240,0.28); }
+
+  .form-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .form-submit {
+    margin-top: 10px; width: 100%;
+    background: #013220; border: 1.5px solid #B8860B;
+    color: #FAF7F0; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    padding: 17px 0; cursor: pointer;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+  }
+  .form-submit:hover {
+    background: #024a30; transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.4);
+  }
+
+  .form-note {
+    text-align: center; margin-top: 20px;
+    font-size: 0.78rem; color: rgba(250,247,240,0.3); line-height: 1.6;
+  }
+
+  .form-success {
+    display: none; text-align: center; padding: 48px 0;
+  }
+  .form-success .check {
+    font-size: 2.5rem; margin-bottom: 16px; display: block;
+  }
+  .form-success h3 {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 1.6rem; color: #FAF7F0; margin-bottom: 12px;
+  }
+  .form-success p { font-size: 0.95rem; color: rgba(250,247,240,0.55); line-height: 1.75; }
+
+  @media (max-width: 700px) {
+    .apply-form { padding: 36px 28px 40px; }
+    .form-cols { grid-template-columns: 1fr; gap: 0; }
+  }
+  @media (max-width: 600px) {
+    .careers-hero { background-attachment: scroll; }
+    .role-card { padding: 28px 24px 32px; }
+  }
+</style>
+
+<section class="careers-hero">
+  <div class="hero-content">
+    <h1>Grow Something<br>That Matters</h1>
+    <p>We're building a team of people who take land seriously. If that's you, we want to hear from you.</p>
+  </div>
+</section>
+
+<section class="culture-section">
+  <div class="culture-inner">
+    <span class="section-eyebrow reveal">Who We Are</span>
+    <h2 class="section-title reveal" style="margin-bottom:36px">Filthy Rich Soil Co. is different</h2>
+    <p class="reveal">We're not a lawn service company that decided to call itself ecological. <span class="culture-em">We actually believe what we say about soil.</span> Every person on our team is expected to understand why we do what we do — not just how.</p>
+    <p class="reveal">That means we train differently. We invest in people's understanding of ecological systems. We develop field teams who can read a property, not just maintain it. If you want a job where you show up, mow, and leave — that's not us.</p>
+    <p class="reveal">Great field work is skilled work. We compensate it that way.</p>
+    <p class="reveal">If you want to learn how land works and spend your days making it better, <span class="culture-em">we might be exactly the right fit.</span></p>
+  </div>
+</section>
+
+<section class="roles-section">
+  <div class="roles-inner">
+    <span class="section-eyebrow reveal">Open Roles</span>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Current Openings</h2>
+
+    {roles.map((role, i) => (
+      <div class={`role-card reveal`} style={`transition-delay:${i * 0.1}s`}>
+        <div class="role-header">
+          <h3>{role.title}</h3>
+          <span class="role-type">{role.type}</span>
+        </div>
+        <p class="role-desc">{role.desc}</p>
+        <ul class="role-reqs">
+          {role.reqs.map(r => <li>{r}</li>)}
+        </ul>
+        <button class="apply-btn" data-role={role.title}>Apply for This Role</button>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ── Application Form ──────────────────────────────── -->
+<section class="apply-section" id="apply">
+  <div class="apply-inner">
+    <span class="section-eyebrow reveal">Apply</span>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Tell us about yourself</h2>
+
+    <div class="apply-form reveal">
+
+      <!-- Success state -->
+      <div class="form-success" id="form-success">
+        <span class="check">✦</span>
+        <h3>We got it.</h3>
+        <p>Thanks for reaching out. We read every application personally and we'll be in touch if it's a fit.</p>
+      </div>
+
+      <!-- Form -->
+      <form id="apply-form" action="https://formspree.io/f/xaqdrpnl" method="POST">
+
+        <div class="form-row">
+          <label for="role">Role you're applying for</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Select a role</option>
+            <option value="Field Steward">Field Steward</option>
+            <option value="Lead Steward">Lead Steward</option>
+            <option value="Ecological Technician">Ecological Technician</option>
+            <option value="Farm & Nursery Hand">Farm &amp; Nursery Hand</option>
+            <option value="General Interest">General Interest — Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-cols">
+          <div class="form-row">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-row">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(610) 555-0100" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+        </div>
+
+        <div class="form-row">
+          <label for="why">Why ecological land care — specifically?</label>
+          <textarea id="why" name="why_ecological" placeholder="E.g. I want a physically active job in a healthy environment where I'm actually well treated. Or: I've always been drawn to soil science and plants and want to build real knowledge in the field. Or: I'm looking for a team with genuine values alignment — profit sharing, long-term thinking, work that means something." required></textarea>
+        </div>
+
+        <div class="form-row">
+          <label for="experience">Relevant experience</label>
+          <textarea id="experience" name="experience" placeholder="Land, plants, soil, animals, farming, ecology — anything that's shaped how you think about working outside. Prior landscaping experience isn't required." required></textarea>
+        </div>
+
+        <!-- Honeypot spam trap — hidden from real users -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_subject" value="New Application — Filthy Rich Soil Co." />
+
+        <button type="submit" class="form-submit">Submit Application</button>
+        <p class="form-note">We read every application personally. No automated filters, no black hole.</p>
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.22);line-height:1.65;margin-top:16px;">By submitting this application, you agree to our <a href="/privacy" style="color:rgba(255,255,255,0.35);text-decoration:underline;">Privacy Policy</a> and <a href="/terms" style="color:rgba(255,255,255,0.35);text-decoration:underline;">Terms of Use</a>.</p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Apply buttons — pre-select role and scroll to form
+  document.querySelectorAll('.apply-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const role = (btn as HTMLElement).dataset.role ?? '';
+      const select = document.getElementById('role') as HTMLSelectElement;
+      if (select) select.value = role;
+      const section = document.getElementById('apply');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+          (document.getElementById('name') as HTMLInputElement)?.focus();
+        }, 600);
+      }
+    });
+  });
+
+  // Formspree AJAX submit — keeps user on the page
+  const form = document.getElementById('apply-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.form-submit') as HTMLButtonElement;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        const success = document.getElementById('form-success') as HTMLElement;
+        success.style.display = 'block';
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    } catch (_e) {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</Base>

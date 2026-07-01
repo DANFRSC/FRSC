@@ -1,0 +1,414 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="The Difference Starts Underground"
+  description="Filthy Rich Soil Co. provides ecological stewardship for residential and commercial properties across Chester County, PA. Soil health, native planting, and biodiversity programs."
+  transparentNav={true}
+>
+
+<style is:global>
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 100vh; min-height: 600px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat;
+    background-attachment: fixed;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(1,50,32,0.6) 60%, rgba(0,0,0,0.8) 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; padding: 0 5%; max-width: 900px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900; font-style: italic; line-height: 1.05;
+    color: var(--white); margin-bottom: 24px;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+  }
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; line-height: 1.75;
+    color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 40px;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.5;
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+  .scroll-hint span { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: white; }
+  .scroll-hint svg { width: 20px; height: 20px; color: white; }
+  @keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+  /* ── QUOTE STRIP ── */
+  .quote-strip {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80') center 30% / cover no-repeat;
+    background-attachment: fixed;
+    padding: 120px 5%; text-align: center;
+  }
+  .quote-strip::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--overlay-forest);
+  }
+  .quote-strip-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+  .quote-strip blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    font-style: italic; font-weight: 700; line-height: 1.3;
+    color: var(--white); margin-bottom: 20px;
+  }
+  .quote-strip cite {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold-lite); font-style: normal;
+  }
+
+  /* ── SERVICES ── */
+  .services-section {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center 60% / cover no-repeat;
+    background-attachment: fixed;
+    padding: 120px 5%;
+  }
+  .services-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,8,3,0.82) 0%, rgba(1,50,32,0.75) 100%);
+  }
+  .services-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .service-card {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius); padding: 36px 32px;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .service-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic;
+    color: var(--white); margin-bottom: 12px;
+  }
+  .service-card p { font-size: 0.9rem; color: rgba(255,255,255,0.68); line-height: 1.75; }
+
+  /* ── SPLIT SECTION ── */
+  .split-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; }
+  .split-img {
+    background: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=900&q=80') center center / cover no-repeat;
+    min-height: 400px;
+  }
+  .split-content {
+    background: var(--forest); padding: 100px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .split-content .section-eyebrow { color: var(--gold-lite); }
+  .split-content .section-title { margin-bottom: 24px; }
+  .split-content p { font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.85; margin-bottom: 16px; }
+  .diff-list { list-style: none; margin-bottom: 40px; }
+  .diff-list li {
+    font-size: 0.9rem; color: rgba(255,255,255,0.8); padding: 8px 0;
+    padding-left: 22px; position: relative; line-height: 1.5; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .diff-list li:last-child { border-bottom: none; }
+  .diff-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+  /* ── SOIL SCIENCE STRIP ── */
+  .science-strip {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat;
+    background-attachment: fixed;
+    padding: 140px 5%;
+  }
+  .science-strip::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+  }
+  .science-inner { position: relative; z-index: 2; max-width: 580px; }
+  .science-inner .section-eyebrow { color: var(--gold-lite); }
+  .science-inner .section-title { margin-bottom: 24px; }
+  .science-inner p { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.85; margin-bottom: 32px; }
+  .stats-row { display: flex; gap: 48px; margin-top: 48px; flex-wrap: wrap; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+    color: var(--gold-lite); line-height: 1; display: block;
+  }
+  .stat-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 6px; display: block;
+  }
+
+  /* ── CREATIONS MOSAIC ── */
+  .creations-section { background: #050a05; padding: 100px 5%; }
+  .creations-header { max-width: 1200px; margin: 0 auto 60px;
+    display: flex; align-items: flex-end; justify-content: space-between; }
+  .creations-header-text { flex: 1; }
+  .view-all-link {
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--gold-lite); text-decoration: none;
+    transition: color 0.2s; white-space: nowrap; margin-bottom: 8px;
+  }
+  .view-all-link:hover { color: var(--gold); }
+  .mosaic {
+    display: grid; grid-template-columns: repeat(12, 1fr);
+    gap: 12px; max-width: 1200px; margin: 0 auto;
+  }
+  .mosaic-item { border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; }
+  .mosaic-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+  .mosaic-item:hover img { transform: scale(1.05); }
+  .mosaic-item-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 20px;
+  }
+  .mosaic-item:hover .mosaic-item-overlay { opacity: 1; }
+  .mosaic-item-overlay span {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.85);
+  }
+  .mosaic-item:nth-child(1) { grid-column: span 5; grid-row: span 2; height: 460px; }
+  .mosaic-item:nth-child(2) { grid-column: span 4; height: 220px; }
+  .mosaic-item:nth-child(3) { grid-column: span 3; height: 220px; }
+  .mosaic-item:nth-child(4) { grid-column: span 4; height: 228px; }
+  .mosaic-item:nth-child(5) { grid-column: span 3; height: 228px; }
+  .mosaic-item:nth-child(6) { grid-column: span 4; height: 260px; }
+  .mosaic-item:nth-child(7) { grid-column: span 8; height: 260px; }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial-strip {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=1600&q=80') center 40% / cover no-repeat;
+    background-attachment: fixed;
+    padding: 140px 5%; text-align: center;
+  }
+  .testimonial-strip::before { content: ''; position: absolute; inset: 0; background: rgba(0,5,2,0.75); }
+  .testimonial-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+  .stars { color: var(--gold-lite); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 28px; }
+  .testimonial-inner blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-style: italic; font-weight: 700; line-height: 1.4;
+    color: var(--white); margin-bottom: 28px;
+  }
+  .testimonial-inner cite {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(255,255,255,0.5); font-style: normal;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center 70% / cover no-repeat;
+    background-attachment: fixed;
+    padding: 160px 5%; text-align: center;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(1,50,32,0.85) 100%);
+  }
+  .cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+  .cta-inner .section-eyebrow { color: var(--gold-lite); }
+  .cta-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 900; font-style: italic;
+    color: var(--white); line-height: 1.1; margin-bottom: 20px;
+  }
+  .cta-inner p { font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.75; margin-bottom: 40px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .split-section { grid-template-columns: 1fr; }
+    .split-img { height: 320px; }
+    .split-content { padding: 60px 30px; }
+    .mosaic { grid-template-columns: 1fr 1fr; }
+    .mosaic-item:nth-child(1) { grid-column: span 2; height: 280px; }
+    .mosaic-item:nth-child(2),
+    .mosaic-item:nth-child(3),
+    .mosaic-item:nth-child(4),
+    .mosaic-item:nth-child(5) { grid-column: span 1; height: 180px; }
+    .mosaic-item:nth-child(6) { grid-column: span 2; height: 200px; }
+    .mosaic-item:nth-child(7) { grid-column: span 2; height: 200px; }
+    .creations-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+  @media (max-width: 768px) {
+    .hero { background-attachment: scroll; }
+    .quote-strip { background-attachment: scroll; }
+    .services-section { background-attachment: scroll; }
+    .science-strip { background-attachment: scroll; }
+    .testimonial-strip { background-attachment: scroll; }
+    .cta-section { background-attachment: scroll; }
+    .stats-row { gap: 28px; }
+  }
+  @media (max-width: 480px) {
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-btns .btn-primary, .hero-btns .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+  }
+</style>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Ecological Stewardship · Chester County, PA</span>
+    <h1>Your Land.<br>Truly Alive.</h1>
+    <p>Land that takes care of itself — climate-adapted, low-maintenance, and built to last. Real ecological stewardship for Chester County properties.</p>
+    <div class="hero-btns">
+      <a href="/consult" class="btn-primary">Begin Consultation</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- PARALLAX QUOTE -->
+<div class="quote-strip reveal">
+  <div class="quote-strip-inner">
+    <blockquote>"The most expensive landscape is one that's fighting nature. The cheapest one works with it."</blockquote>
+    <cite>— Filthy Rich Soil Co.</cite>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <span class="section-eyebrow reveal">What We Do</span>
+    <h2 class="section-title reveal reveal-d1">Stewardship, Not Maintenance</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🌱</span>
+        <h3>Ecological Foundation</h3>
+        <p>We build systems beneath the surface so your property becomes more drought-tolerant, more self-sustaining, and less dependent on intervention every year.</p>
+      </div>
+      <div class="service-card reveal reveal-d1">
+        <span class="service-icon">🌿</span>
+        <h3>Native Plant Design</h3>
+        <p>Species selection rooted in regional ecology. Plants that belong here — and attract the insects and birds that belong here too.</p>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <span class="service-icon">💧</span>
+        <h3>Water Management</h3>
+        <p>Rain gardens, grading analysis, and drainage solutions that work with your watershed instead of fighting it.</p>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <span class="service-icon">🍂</span>
+        <h3>Seasonal Programs</h3>
+        <p>Year-round care calibrated to ecological timing — not a calendar. We know when your land needs attention and when it needs to rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT: THE DIFFERENCE -->
+<section class="split-section">
+  <div class="split-img"></div>
+  <div class="split-content">
+    <span class="section-eyebrow reveal">Our Difference</span>
+    <h2 class="section-title reveal reveal-d1">Land that works harder so you don't have to</h2>
+    <p class="reveal">We're not a lawn service that added "ecological" to the name. Our programs are built to need less from us each year — not more.</p>
+    <ul class="diff-list reveal reveal-d1">
+      <li>Organic inputs only — no synthetic programs, ever</li>
+      <li>Native species selected to thrive here without intervention</li>
+      <li>Programs designed to need less from us each year</li>
+      <li>Outcomes tracked — not just tasks completed</li>
+      <li>Direct relationship with your Lead Steward</li>
+    </ul>
+    <a href="/consult" class="btn-primary">Start Your Consultation</a>
+  </div>
+</section>
+
+<!-- BEAUTY STRIP -->
+<section class="science-strip">
+  <div class="science-inner">
+    <span class="section-eyebrow reveal">Designed to Thrive. Built to Impress.</span>
+    <h2 class="section-title reveal reveal-d1">We know how to make ecological beautiful — because we've spent years doing it.</h2>
+    <p class="reveal reveal-d2">Selecting the right plants for your soil, light, and season. Placing them so they support each other and reward you with color, texture, and fragrance across every month of the year. That's the work. The result just looks effortless.</p>
+    <div class="stats-row reveal reveal-d2">
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Seasons of designed color</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Bio-based inputs</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3yr</span>
+        <span class="stat-label">Avg. to full expression</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATIONS MOSAIC -->
+<section class="creations-section">
+  <div class="creations-header">
+    <div class="creations-header-text">
+      <span class="section-eyebrow reveal">Our Work</span>
+      <h2 class="section-title reveal reveal-d1" style="margin-bottom:0">Properties We've Transformed</h2>
+    </div>
+    <a href="/creations" class="view-all-link">View All Creations →</a>
+  </div>
+  <div class="mosaic">
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Garden landscape">
+      <div class="mosaic-item-overlay"><span>Chester County Estate</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=600&q=80" alt="Wildflower meadow">
+      <div class="mosaic-item-overlay"><span>Native Meadow</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80" alt="Farmland">
+      <div class="mosaic-item-overlay"><span>Residential Farm</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80" alt="Soil health">
+      <div class="mosaic-item-overlay"><span>Soil Restoration</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=600&q=80" alt="Creek restoration">
+      <div class="mosaic-item-overlay"><span>Riparian Buffer</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" alt="Planting">
+      <div class="mosaic-item-overlay"><span>Native Planting</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1000&q=80" alt="Estate grounds">
+      <div class="mosaic-item-overlay"><span>Estate Grounds</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-strip">
+  <div class="testimonial-inner">
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <blockquote>"We've had other services for years. Filthy Rich Soil is the first one that actually explained what was wrong with our lawn — and then fixed it."</blockquote>
+    <cite>— Homeowner, Malvern PA</cite>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <span class="section-eyebrow reveal">Get Started</span>
+    <h2 class="reveal reveal-d1">Ready to see what your land can become?</h2>
+    <p class="reveal reveal-d2">Tell us about your land. We'll tell you what it needs — and what it'll take to get there.</p>
+    <a href="/consult" class="btn-primary reveal reveal-d2">Begin Your Consultation →</a>
+  </div>
+</section>
+
+</Base>

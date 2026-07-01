@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creations | Filthy Rich Soil Co</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #013220;
+            --forest-mid: #024a30;
+            --gold: #B8860B;
+            --gold-light: #d4a017;
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --light: #f7f6f3;
+            --stone: #888;
+            --border: rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+        /* ── NAVIGATION (matches index.html exactly) ── */
+        .navbar {
+            background: var(--white);
+            height: 88px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 500;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--forest);
+            line-height: 1.2;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo .soil { color: var(--gold); }
+        .nav-links { display: flex; list-style: none; gap: 0; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--forest);
+            font-weight: 500;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0 18px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a.active { color: var(--gold); }
+        .portal-btn {
+            background: var(--gold);
+            color: white;
+            padding: 13px 28px;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-left: 10px;
+        }
+        .portal-btn:hover { background: var(--gold-light); }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            padding: 100px 5% 70px;
+            text-align: center;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+        .page-hero .eyebrow {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 20px;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 900;
+            color: var(--forest);
+            line-height: 1.08;
+            margin-bottom: 22px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page-hero p {
+            font-size: 1.05rem;
+            color: var(--stone);
+            font-weight: 300;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ── FILTER TABS ── */
+        .filter-bar {
+            padding: 40px 5% 0;
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+        .filter-tab {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 14px 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--stone);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .filter-tab:hover { color: var(--forest); }
+        .filter-tab.active { color: var(--forest); border-bottom-color: var(--gold); }
+
+        /* ── FEATURED PROJECT (full-width) ── */
+        .featured-project {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 580px;
+            margin-top: 0;
+        }
+        .featured-img {
+            position: relative;
+            overflow: hidden;
+            background: #c8d5c0;
+        }
+        .featured-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+        .featured-project:hover .featured-img img { transform: scale(1.04); }
+        .featured-badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: var(--gold);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+        }
+        .featured-info {
+            background: var(--light);
+            padding: 70px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .featured-info .tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 18px;
+        }
+        .featured-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .featured-info p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.75;
+            margin-bottom: 32px;
+        }
+        .featured-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            margin-bottom: 36px;
+        }
+        .stat-item .stat-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--stone);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .stat-item .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+        .btn-outline {
+            display: inline-block;
+            border: 2px solid var(--forest);
+            color: var(--forest);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 14px 32px;
+            text-decoration: none;
+            transition: all 0.25s;
+            align-self: flex-start;
+            cursor: pointer;
+            background: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .btn-outline:hover { background: var(--forest); color: white; }
+
+        /* ── GALLERY GRID ── */
+        .gallery-section {
+            padding: 80px 5%;
+        }
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--stone);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        /* Cards */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: #d0dac8;
+        }
+        .project-card.tall { grid-row: span 2; }
+        .project-card.wide { grid-column: span 2; }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 280px;
+            transition: transform 0.6s ease;
+        }
+        .project-card.tall img { min-height: 580px; }
+        .project-card.wide img { min-height: 300px; }
+
+        .project-card:hover img { transform: scale(1.05); }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(1,50,32,0.88) 0%, rgba(1,50,32,0.1) 55%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px;
+        }
+        .project-card:hover .card-overlay { opacity: 1; }
+
+        .card-overlay .card-tag {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .card-overlay h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        .card-overlay .card-sub {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.65);
+            font-weight: 300;
+        }
+
+        /* Placeholder color blocks */
+        .placeholder-1 { background: linear-gradient(135deg, #2d5a3d 0%, #4a7c5e 100%); }
+        .placeholder-2 { background: linear-gradient(135deg, #3b5e2a 0%, #6b8f4a 100%); }
+        .placeholder-3 { background: linear-gradient(135deg, #1a3d2b 0%, #3a6445 100%); }
+        .placeholder-4 { background: linear-gradient(135deg, #4a6b35 0%, #7a9a55 100%); }
+        .placeholder-5 { background: linear-gradient(135deg, #2a4820 0%, #507040 100%); }
+        .placeholder-6 { background: linear-gradient(135deg, #355530 0%, #608050 100%); }
+        .placeholder-featured { background: linear-gradient(135deg, #1e4030 0%, #3d6b4a 60%, #5a8a60 100%); }
+
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .img-placeholder .ph-icon {
+            width: 48px;
+            height: 48px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-placeholder .ph-icon svg { opacity: 0.4; }
+        .img-placeholder .ph-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ── PULL QUOTE ── */
+        .pull-quote-section {
+            background: var(--forest);
+            padding: 100px 5%;
+            text-align: center;
+        }
+        .pull-quote-section blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3vw, 2.6rem);
+            font-style: italic;
+            color: white;
+            max-width: 800px;
+            margin: 0 auto 28px;
+            line-height: 1.4;
+        }
+        .pull-quote-section cite {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        /* ── PROCESS STRIP ── */
+        .process-strip {
+            padding: 80px 5%;
+            background: var(--light);
+            border-top: 1px solid var(--border);
+        }
+        .process-strip h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--forest);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+        .process-step { text-align: center; }
+        .step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(184,134,11,0.18);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        .process-step h4 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--forest);
+            margin-bottom: 12px;
+        }
+        .process-step p {
+            font-size: 0.85rem;
+            color: var(--stone);
+            line-height: 1.6;
+        }
+
+        /* ── CTA BANNER ── */
+        .cta-banner {
+            background: var(--forest);
+            padding: 80px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        .cta-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: white;
+            font-style: italic;
+            max-width: 500px;
+            line-height: 1.2;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+            padding: 18px 44px;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--text);
+            color: rgba(255,255,255,0.4);
+            padding: 40px 5%;
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+        .footer a:hover { color: var(--gold); }
+
+        /* ── PORTAL OVERLAY (matches index.html exactly) ── */
+        #portal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        #portal-overlay.open { display: flex; opacity: 1; }
+
+        .portal-brand {
+            width: 38%;
+            background: var(--forest);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 50px 50px 60px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .portal-brand::before {
+            content: '';
+            position: absolute;
+            bottom: -120px; right: -120px;
+            width: 420px; height: 420px;
+            border-radius: 50%;
+            background: rgba(184,134,11,0.08);
+        }
+        .portal-brand-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem; font-weight: 900;
+            color: white; text-decoration: none; letter-spacing: 1px;
+        }
+        .portal-brand-logo span { color: var(--gold); }
+        .portal-brand-mid { position: relative; z-index: 1; }
+        .portal-brand-mid h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem; font-weight: 700; font-style: italic;
+            color: white; line-height: 1.2; margin-bottom: 20px;
+        }
+        .portal-brand-mid p { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.8; font-weight: 300; }
+        .portal-brand-footer { font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase; }
+
+        .portal-progress-track { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+        .progress-node { display: flex; align-items: flex-start; gap: 16px; position: relative; }
+        .progress-node:not(:last-child)::after {
+            content: ''; position: absolute; left: 9px; top: 22px;
+            width: 1px; height: calc(100% + 4px); background: rgba(255,255,255,0.12);
+        }
+        .progress-node.done::after { background: rgba(184,134,11,0.5); }
+        .progress-dot {
+            width: 19px; height: 19px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2); background: transparent;
+            flex-shrink: 0; margin-top: 2px; transition: all 0.3s;
+        }
+        .progress-node.done .progress-dot { background: var(--gold); border-color: var(--gold); }
+        .progress-node.active .progress-dot { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(184,134,11,0.2); }
+        .progress-label {
+            font-size: 0.72rem; font-weight: 500;
+            color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1.5px;
+            padding-bottom: 20px; transition: color 0.3s;
+        }
+        .progress-node.active .progress-label { color: rgba(255,255,255,0.85); }
+        .progress-node.done .progress-label { color: rgba(255,255,255,0.5); }
+
+        .portal-content { flex: 1; background: var(--white); display: flex; flex-direction: column; overflow: hidden; }
+        .portal-topbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 28px 56px; border-bottom: 1px solid #eee; flex-shrink: 0;
+        }
+        .portal-path-badge {
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--gold);
+            background: rgba(184,134,11,0.08); padding: 6px 14px; display: none;
+        }
+        .portal-path-badge.visible { display: block; }
+        .portal-nav-tools { display: flex; gap: 24px; align-items: center; }
+        .portal-nav-tools button {
+            background: none; border: none; font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; cursor: pointer; color: var(--stone); transition: color 0.2s;
+        }
+        .portal-nav-tools button:hover { color: var(--gold); }
+        .close-btn {
+            background: none !important; border: none;
+            font-size: 1.4rem; cursor: pointer; color: #999 !important;
+            font-weight: 300 !important; line-height: 1; padding: 4px !important;
+        }
+        .close-btn:hover { color: var(--text) !important; }
+        .portal-steps-wrap { flex: 1; overflow-y: auto; padding: 60px 56px; }
+
+        .step { display: none; }
+        .step.active { display: block; animation: stepIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes stepIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+        .step-eyebrow { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 14px; display: block; }
+        .step h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--forest); margin-bottom: 10px; line-height: 1.15; }
+        .step-desc { font-size: 0.95rem; color: var(--stone); margin-bottom: 38px; line-height: 1.7; max-width: 480px; }
+
+        .path-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .path-card { border: 2px solid #e8e8e4; padding: 36px 30px; cursor: pointer; transition: all 0.25s; position: relative; background: var(--white); }
+        .path-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+        .path-card-badge { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 14px; display: block; }
+        .path-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--forest); margin-bottom: 12px; }
+        .path-card p { font-size: 0.85rem; color: var(--stone); line-height: 1.6; }
+        .path-card-time { margin-top: 20px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #ccc; }
+        .path-card.featured { border-color: var(--forest); }
+        .path-card.featured:hover { border-color: var(--gold); }
+
+        .option-list { display: flex; flex-direction: column; gap: 10px; }
+        .opt { border: 1px solid #e5e5e0; padding: 20px 24px; cursor: pointer; transition: all 0.2s; display: flex; align-items: flex-start; gap: 18px; background: var(--white); }
+        .opt:hover { border-color: var(--gold); background: #fffdf5; }
+        .opt-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ddd; flex-shrink: 0; margin-top: 2px; transition: all 0.2s; }
+        .opt:hover .opt-indicator { border-color: var(--gold); }
+        .opt-text strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .opt-text span { font-size: 0.83rem; color: var(--stone); font-weight: 300; line-height: 1.5; }
+
+        .size-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .size-opt { border: 1px solid #e5e5e0; padding: 22px 20px; cursor: pointer; text-align: center; transition: all 0.2s; background: var(--white); }
+        .size-opt:hover { border-color: var(--gold); background: #fffdf5; }
+        .size-opt strong { display: block; font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
+        .size-opt span { font-size: 0.75rem; color: var(--stone); }
+
+        .multi-opt { user-select: none; }
+        .multi-opt.selected { border-color: var(--forest); background: #f2f7f4; }
+        .multi-opt.selected .opt-indicator { background: var(--forest); border-color: var(--forest); }
+        .multi-opt.selected .opt-indicator::after { content: '✓'; color: white; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; justify-content: center; height: 100%; }
+
+        .sched-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+        .sched-day { border: 2px solid #e8e8e4; padding: 14px 10px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 10px; background: var(--white); user-select: none; }
+        .sched-day:hover { border-color: var(--gold); background: #fffdf5; }
+        .sched-day.blocked { border-color: #c0392b; background: #fff5f5; }
+        .sched-day.blocked .sched-check { background: #c0392b; border-color: #c0392b; color: white; }
+        .sched-day.preferred-active { border-color: var(--forest); background: #f2f7f4; }
+        .sched-day.preferred-active .sched-check { background: var(--forest); border-color: var(--forest); color: white; }
+        .sched-check { width: 16px; height: 16px; border: 2px solid #ccc; background: white; font-size: 0.55rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+        .sched-day span { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+        .sched-note { font-size: 0.78rem; color: var(--stone); line-height: 1.6; padding: 14px 16px; background: var(--light); border-left: 3px solid var(--gold); margin: 16px 0 20px; }
+
+        .farm-section-divider { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--stone); padding: 18px 0 10px; border-top: 1px solid #eee; margin-top: 8px; display: block; }
+        .farm-section-divider:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+        .farm-working-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+        .farm-card { border: 2px solid #e8e8e4; padding: 20px 14px; cursor: pointer; transition: all 0.22s; background: var(--white); user-select: none; text-align: center; }
+        .farm-card:hover { border-color: var(--gold); background: #fffdf5; }
+        .farm-card.selected { border-color: var(--forest); background: #f2f7f4; }
+        .farm-card.selected .farm-check { background: var(--forest); border-color: var(--forest); color: white; }
+        .farm-card-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+        .farm-card strong { display: block; font-size: 0.78rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .farm-card p { font-size: 0.75rem; color: var(--stone); line-height: 1.45; }
+        .farm-check { width: 18px; height: 18px; border: 2px solid #ccc; background: white; font-size: 0.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin: 10px auto 0; }
+        .farm-house-question { border: 1px solid #e8e8e4; padding: 20px 22px; margin: 8px 0 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 16px; background: var(--white); }
+        .farm-house-question:hover { border-color: var(--gold); background: #fffdf5; }
+        .farm-house-toggle { width: 44px; height: 24px; background: #ddd; border-radius: 12px; position: relative; transition: background 0.2s; flex-shrink: 0; }
+        .farm-house-toggle::after { content: ''; position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: white; transition: transform 0.2s; }
+        .farm-house-question.active .farm-house-toggle { background: var(--forest); }
+        .farm-house-question.active .farm-house-toggle::after { transform: translateX(20px); }
+        .farm-house-label strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+        .farm-house-label p { font-size: 0.78rem; color: var(--stone); line-height: 1.5; }
+        .farm-consult-note { background: var(--forest); color: white; padding: 18px 22px; margin-bottom: 20px; font-size: 0.83rem; line-height: 1.65; }
+        .farm-consult-note strong { color: var(--gold); }
+        .farm-result-header { background: var(--forest); color: white; padding: 40px 44px; margin: -60px -56px 36px; }
+        .farm-scope-box { border: 1px solid #e8e8e4; margin-bottom: 20px; overflow: hidden; }
+        .farm-scope-header { background: var(--light); padding: 14px 22px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--stone); border-bottom: 1px solid #e8e8e4; }
+        .farm-scope-items { padding: 16px 22px; display: flex; flex-direction: column; gap: 10px; }
+        .farm-scope-item { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: #444; }
+        .farm-scope-item .fsi-icon { font-size: 1.1rem; flex-shrink: 0; }
+        .farm-consult-required { background: #fff9e6; border-left: 4px solid var(--gold); padding: 22px 26px; margin-bottom: 20px; }
+        .farm-consult-required h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--forest); margin-bottom: 10px; }
+        .farm-consult-required p { font-size: 0.88rem; color: #555; line-height: 1.7; }
+
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+        .feat-card { border: 2px solid #e8e8e4; padding: 20px 18px; cursor: pointer; transition: all 0.22s; background: var(--white); user-select: none; }
+        .feat-card:hover { border-color: var(--gold); background: #fffdf5; }
+        .feat-card.selected { border-color: var(--forest); background: #f2f7f4; }
+        .feat-card.selected .feat-check { background: var(--forest); border-color: var(--forest); color: white; }
+        .feat-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+        .feat-icon { font-size: 1.4rem; line-height: 1; }
+        .feat-check { width: 18px; height: 18px; border: 2px solid #ccc; background: white; font-size: 0.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+        .feat-card strong { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .feat-card p { font-size: 0.78rem; color: var(--stone); line-height: 1.5; }
+        .features-note { background: var(--light); border-left: 3px solid var(--gold); padding: 16px 20px; font-size: 0.82rem; color: var(--stone); line-height: 1.6; margin-bottom: 20px; }
+        .btn-features-next { background: var(--gold); color: white; border: none; padding: 18px; width: 100%; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s; }
+        .btn-features-next:hover { background: var(--gold-light); }
+
+        .save-image-wrap { width: calc(100% + 112px); margin: -60px -56px 0; height: 240px; background: linear-gradient(to bottom, rgba(1,50,32,0.25) 0%, rgba(1,50,32,0.8) 100%), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat; display: flex; flex-direction: column; justify-content: flex-end; padding: 28px 56px; margin-bottom: 36px; }
+        .save-quote-mark { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); line-height: 0.5; margin-bottom: 10px; display: block; }
+        .save-quote-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic; color: white; line-height: 1.45; max-width: 460px; }
+        .save-quote-attr { font-size: 0.62rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; display: block; }
+        .save-form-area h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--forest); margin-bottom: 8px; }
+        .save-form-area p { font-size: 0.88rem; color: var(--stone); margin-bottom: 20px; line-height: 1.6; }
+
+        .package-box { border: 2px solid var(--forest); margin-bottom: 20px; overflow: hidden; }
+        .package-box-header { background: var(--forest); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+        .pkg-header-left .pkg-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--gold); display: block; margin-bottom: 4px; }
+        .pkg-header-left .pkg-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; }
+        .pkg-badge { background: var(--gold); color: white; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; white-space: nowrap; flex-shrink: 0; }
+        .package-items { padding: 18px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+        .pkg-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0f0ec; }
+        .pkg-item:nth-last-child(-n+2) { border-bottom: none; }
+        .pkg-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+        .pkg-item span { font-size: 0.82rem; color: #444; line-height: 1.4; }
+        .pkg-item span strong { color: var(--text); font-weight: 700; display: block; font-size: 0.82rem; }
+        .package-price-row { display: flex; align-items: baseline; gap: 12px; padding: 16px 24px; background: var(--forest); flex-wrap: wrap; }
+        .pkg-price-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.55); }
+        .pkg-price-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--gold); line-height: 1; }
+        .pkg-price-note { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-left: auto; align-self: center; }
+        .estimate-disclaimer { margin-top: 24px; padding: 14px 18px; border-top: 1px solid #e8e8e4; font-size: 0.75rem; color: var(--stone); line-height: 1.6; font-style: italic; }
+        /* ── SERVICE TILES ── */
+        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+        .service-tile { padding: 14px 12px; border: 2px solid #e8e8e4; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; text-align: center; transition: all 0.2s; color: var(--stone); background: var(--white); }
+        .service-tile:hover { border-color: var(--gold); color: var(--forest); }
+        .service-tile.selected { border-color: var(--forest); background: var(--forest); color: var(--white); }
+        .services-include-note { font-size: 0.85rem; color: var(--stone); line-height: 1.6; padding: 16px 20px; background: #f0f6f2; border-left: 3px solid var(--forest); margin-bottom: 24px; }
+        .service-continue-btn { background: var(--gold); color: white; border: none; padding: 16px 32px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: background 0.2s; width: 100%; }
+        .service-continue-btn:hover { background: var(--gold-light); }
+        .profile-badge { display: inline-block; padding: 8px 18px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .profile-badge.ideal { background: var(--forest); color: white; }
+        .profile-badge.upgrade { background: #2c5f2e; color: white; }
+        .profile-badge.investor { background: var(--gold); color: white; }
+        .profile-badge.assessment { background: #888; color: white; }
+        .profile-badge.commercial { background: #1a1a1a; color: white; }
+        .profile-badge.partner { background: var(--forest-mid); color: white; }
+        .annual-estimate-box { border: 2px solid var(--forest); padding: 32px; margin: 24px 0; }
+        .ae-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .ae-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); display: block; margin-bottom: 6px; }
+        .ae-price { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--forest); line-height: 1; }
+        .ae-period { font-size: 0.75rem; color: var(--stone); margin-top: 4px; }
+        .ae-visit-note { font-size: 0.78rem; color: var(--stone); padding-top: 16px; border-top: 1px solid #e8e8e4; }
+        .spend-compare { background: var(--light); padding: 24px; margin: 16px 0; }
+        .spend-compare-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--stone); display: block; margin-bottom: 12px; }
+        .spend-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e0e0da; font-size: 0.88rem; }
+        .spend-row:last-child { border-bottom: none; font-weight: 700; color: var(--forest); }
+        .spend-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; background: #d4edda; color: #155724; }
+        .trajectory-box { margin: 16px 0; }
+        .trajectory-box-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); display: block; margin-bottom: 12px; }
+        .traj-row { display: flex; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid #e8e8e4; }
+        .traj-row:last-child { border-bottom: none; }
+        .traj-year { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--stone); width: 56px; flex-shrink: 0; }
+        .traj-bar { flex: 1; height: 6px; background: #e8e8e4; position: relative; }
+        .traj-fill { height: 100%; background: var(--forest); }
+        .traj-note { font-size: 0.82rem; color: var(--text); }
+        .site-assessment-btn { display: block; width: 100%; padding: 20px; background: var(--forest); color: white; text-align: center; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; margin: 24px 0 12px; cursor: pointer; border: none; transition: background 0.2s; }
+        .site-assessment-btn:hover { background: var(--forest-mid); }
+        .qq-range-box { border: 2px solid var(--gold); padding: 32px; margin-bottom: 24px; text-align: center; }
+        .qq-range-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); display: block; margin-bottom: 12px; }
+        .qq-range-price { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; color: var(--forest); }
+        .qq-range-period { font-size: 0.85rem; color: var(--stone); margin-top: 8px; }
+        .qq-included { background: var(--light); padding: 20px 24px; margin-bottom: 24px; }
+        .qq-included-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--forest); display: block; margin-bottom: 10px; }
+        .qq-included ul { list-style: none; padding: 0; }
+        .qq-included ul li { font-size: 0.85rem; color: var(--text); padding: 4px 0; }
+        .qq-included ul li::before { content: '✓  '; color: var(--forest); font-weight: 800; }
+        .qq-nudge { font-size: 0.88rem; color: var(--stone); line-height: 1.6; margin-bottom: 20px; padding: 16px; border-left: 3px solid var(--gold); background: white; }
+        .package-complexity-note { padding: 12px 24px; background: #fffdf5; border-top: 1px solid #e8e8e4; font-size: 0.8rem; color: var(--stone); line-height: 1.5; }
+        .package-complexity-note strong { color: var(--forest); }
+        .ala-carte-note { background: var(--light); border-left: 3px solid #ccc; padding: 16px 20px; font-size: 0.82rem; color: var(--stone); line-height: 1.6; margin-bottom: 20px; }
+        .ala-carte-note strong { color: var(--text); }
+
+        .email-capture-box { background: var(--light); border-left: 3px solid var(--gold); padding: 28px 32px; margin-bottom: 32px; }
+        .email-capture-box p { font-size: 0.85rem; color: var(--stone); margin-bottom: 16px; line-height: 1.6; }
+        .email-row { display: flex; gap: 10px; }
+        .email-row input { flex: 1; padding: 14px 18px; border: 1px solid #ddd; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+        .email-row input:focus { border-color: var(--gold); }
+        .btn-save { background: var(--forest); color: white; border: none; padding: 14px 22px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+        .btn-save:hover { background: var(--forest-mid); }
+        .skip-link { font-size: 0.72rem; color: #bbb; text-decoration: underline; cursor: pointer; margin-top: 10px; display: inline-block; }
+
+        .contact-form { display: flex; flex-direction: column; gap: 12px; }
+        .contact-form input { padding: 16px 20px; border: 1px solid #ddd; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+        .contact-form input:focus { border-color: var(--gold); }
+        .btn-submit { background: var(--gold); color: white; border: none; padding: 18px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; margin-top: 6px; transition: all 0.2s; }
+        .btn-submit:hover { background: var(--gold-light); }
+
+        .result-header { background: var(--forest); color: white; padding: 40px 44px; margin: -60px -56px 40px; }
+        .result-header .eyebrow { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 12px; display: block; }
+        .result-header h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+        .result-header p { font-size: 0.9rem; color: rgba(255,255,255,0.65); }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .result-card { border: 1px solid #e8e8e4; padding: 24px; }
+        .result-card .label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--stone); margin-bottom: 8px; display: block; }
+        .result-card .value { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); font-weight: 700; }
+        .result-card .value-note { font-size: 0.78rem; color: var(--stone); margin-top: 4px; }
+        .result-narrative { background: #fffdf5; border-left: 3px solid var(--gold); padding: 24px 28px; margin-bottom: 24px; font-size: 0.92rem; color: #444; line-height: 1.75; }
+        .result-next-steps { margin-bottom: 32px; }
+        .result-next-steps h4 { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--stone); margin-bottom: 14px; }
+        .next-step-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid #f0f0ec; }
+        .next-step-num { width: 26px; height: 26px; background: var(--forest); color: white; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .next-step-item p { font-size: 0.88rem; color: #555; line-height: 1.6; padding-top: 2px; }
+        .values-mismatch { background: #fff9e6; border-left: 4px solid var(--gold); padding: 28px 32px; margin-bottom: 24px; }
+        .values-mismatch h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--forest); margin-bottom: 12px; }
+        .values-mismatch p { font-size: 0.9rem; color: #555; line-height: 1.7; margin-bottom: 10px; }
+
+        .partnership-intro { background: var(--forest); color: white; padding: 28px 32px; margin-bottom: 28px; position: relative; overflow: hidden; }
+        .partnership-intro::after { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(184,134,11,0.1); }
+        .partnership-intro .pi-eyebrow { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 10px; display: block; }
+        .partnership-intro h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; position: relative; z-index: 1; }
+        .partnership-intro p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.7; position: relative; z-index: 1; }
+        .partner-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+        .partner-card { border: 2px solid #e8e8e4; padding: 22px 24px; cursor: pointer; transition: all 0.22s; display: flex; align-items: flex-start; gap: 18px; background: var(--white); position: relative; user-select: none; }
+        .partner-card:hover { border-color: var(--gold); background: #fffdf5; }
+        .partner-card.selected { border-color: var(--forest); background: #f2f7f4; }
+        .partner-card.selected .pc-check { background: var(--forest); border-color: var(--forest); }
+        .partner-card.selected .pc-check::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem; font-weight: 700; }
+        .pc-check { width: 22px; height: 22px; border: 2px solid #ccc; background: white; flex-shrink: 0; margin-top: 2px; transition: all 0.2s; position: relative; }
+        .pc-body { flex: 1; }
+        .pc-body strong { display: block; font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .pc-body p { font-size: 0.83rem; color: var(--stone); line-height: 1.55; }
+        .pc-discount { flex-shrink: 0; text-align: right; }
+        .pc-discount .disc-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--stone); display: block; margin-bottom: 3px; }
+        .pc-discount .disc-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold); font-weight: 700; white-space: nowrap; }
+        .partner-card.selected .pc-discount .disc-value { color: var(--forest); }
+        .partnership-tally { border: 1px solid #e8e8e4; padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; background: var(--light); transition: all 0.3s; }
+        .partnership-tally.has-selections { border-color: var(--gold); background: #fffdf5; }
+        .tally-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--stone); }
+        .tally-value { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #ccc; font-weight: 700; transition: color 0.3s; }
+        .tally-value.active { color: var(--gold); }
+        .tally-note { font-size: 0.75rem; color: var(--stone); max-width: 280px; line-height: 1.5; }
+        .btn-continue-partner { background: var(--gold); color: white; border: none; padding: 18px; width: 100%; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s; }
+        .btn-continue-partner:hover { background: var(--gold-light); }
+        .partner-result-box { background: var(--forest); color: white; padding: 24px 28px; margin-bottom: 20px; }
+        .partner-result-box .prb-eyebrow { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 10px; display: block; }
+        .partner-result-box h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 14px; }
+        .partner-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .partner-tag { background: rgba(255,255,255,0.1); border: 1px solid rgba(184,134,11,0.4); color: rgba(255,255,255,0.85); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 7px 14px; }
+        .partner-discount-summary { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .partner-discount-summary strong { color: var(--gold); }
+        .btn-reset { background: var(--light); color: var(--forest); border: 1px solid #ddd; padding: 14px 28px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: all 0.2s; }
+        .btn-reset:hover { border-color: var(--gold); background: #fffdf5; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .featured-project { grid-template-columns: 1fr; }
+            .featured-img { min-height: 400px; }
+            .featured-info { padding: 50px 40px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-card.tall { grid-row: span 1; }
+            .project-card.wide { grid-column: span 2; }
+            .process-steps { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        }
+        @media (max-width: 900px) {
+            .portal-brand { display: none; }
+            .portal-topbar { padding: 22px 28px; }
+            .portal-steps-wrap { padding: 36px 28px; }
+            .path-cards { grid-template-columns: 1fr; }
+            .size-grid { grid-template-columns: 1fr 1fr; }
+            .result-grid { grid-template-columns: 1fr; }
+            .result-header { margin: -36px -28px 32px; padding: 32px 28px; }
+        }
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .project-card.wide { grid-column: span 1; }
+            .cta-banner { flex-direction: column; text-align: center; }
+            .filter-bar { padding: 30px 5% 0; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 600px) {
+            .portal-steps-wrap { padding: 28px 20px; }
+            .email-row { flex-direction: column; }
+        }
+        @media (max-width: 480px) {
+            .process-steps { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <span>FILTHY RICH</span>
+        <span><span class="soil">SOIL</span> CO.</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="creations.html" class="active">Creations</a></li>
+        <li><a href="values.html">Values</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><button class="portal-btn" onclick="openPortal()">Begin Consultation</button></li>
+    </ul>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+    <span class="eyebrow">Portfolio</span>
+    <h1>Our Creations</h1>
+    <p>Selected estates, soil transformations, and living landscapes built to grow richer with time.</p>
+</section>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-bar">
+    <button class="filter-tab active">All Work</button>
+    <button class="filter-tab">Full Stewardship</button>
+    <button class="filter-tab">Soil Transformation</button>
+    <button class="filter-tab">Native Planting</button>
+    <button class="filter-tab">Estate Grounds</button>
+    <button class="filter-tab">Lawn Renovation</button>
+</div>
+
+<!-- ── FEATURED PROJECT ── -->
+<div class="featured-project">
+    <div class="featured-img placeholder-featured">
+        <div class="img-placeholder" style="min-height: 580px;">
+            <div class="ph-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <span class="ph-label">Featured Photo</span>
+        </div>
+        <div class="featured-badge">Featured</div>
+    </div>
+    <div class="featured-info">
+        <span class="tag">Full Stewardship · Chester County, PA</span>
+        <h2>Chestnut Hill Estate</h2>
+        <p>A three-year transformation of 4.2 acres from compacted, chemically-dependent turf to a thriving, self-sustaining biological system. Soil organic matter rose from 1.2% to 4.8% — a benchmark that typically takes a decade.</p>
+        <div class="featured-stats">
+            <div class="stat-item">
+                <span class="stat-label">Property Size</span>
+                <span class="stat-value">4.2 Acres</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Program Length</span>
+                <span class="stat-value">3 Years</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Soil OM Gain</span>
+                <span class="stat-value">+3.6%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Service Type</span>
+                <span class="stat-value">Full Program</span>
+            </div>
+        </div>
+        <button class="btn-outline">View Case Study</button>
+    </div>
+</div>
+
+<!-- ── GALLERY GRID ── -->
+<section class="gallery-section">
+    <div class="section-label">Recent Work</div>
+
+    <div class="gallery-grid">
+
+        <!-- Tall card left -->
+        <div class="project-card tall placeholder-2" style="cursor:pointer;">
+            <div class="img-placeholder" style="min-height: 580px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Soil Transformation</span>
+                <h3>The Pollinator Path</h3>
+                <span class="card-sub">Malvern · 1.8 acres</span>
+            </div>
+        </div>
+
+        <!-- Top right -->
+        <div class="project-card placeholder-3">
+            <div class="img-placeholder" style="min-height: 280px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Native Planting</span>
+                <h3>Resilient Meadows</h3>
+                <span class="card-sub">Devon · 0.9 acres</span>
+            </div>
+        </div>
+
+        <!-- Bottom right -->
+        <div class="project-card placeholder-4">
+            <div class="img-placeholder" style="min-height: 280px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Estate Grounds</span>
+                <h3>The Carriage House</h3>
+                <span class="card-sub">Wayne · 2.1 acres</span>
+            </div>
+        </div>
+
+        <!-- Wide card spanning 2 cols -->
+        <div class="project-card wide placeholder-5">
+            <div class="img-placeholder" style="min-height: 300px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Lawn Renovation</span>
+                <h3>Thornbury Farmstead</h3>
+                <span class="card-sub">West Chester · 3.4 acres · Full renovation from bare soil to established turf in 14 months</span>
+            </div>
+        </div>
+
+        <!-- Single card -->
+        <div class="project-card placeholder-1">
+            <div class="img-placeholder" style="min-height: 280px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Full Stewardship</span>
+                <h3>Edgemoor Reserve</h3>
+                <span class="card-sub">Newtown Square · 5.6 acres</span>
+            </div>
+        </div>
+
+        <!-- Single card -->
+        <div class="project-card placeholder-6">
+            <div class="img-placeholder" style="min-height: 280px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Native Planting</span>
+                <h3>The Oak Corridor</h3>
+                <span class="card-sub">Berwyn · 1.2 acres</span>
+            </div>
+        </div>
+
+        <!-- Single card -->
+        <div class="project-card placeholder-3">
+            <div class="img-placeholder" style="min-height: 280px;">
+                <div class="ph-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <span class="ph-label">Photo</span>
+            </div>
+            <div class="card-overlay">
+                <span class="card-tag">Soil Transformation</span>
+                <h3>Willowmere Gardens</h3>
+                <span class="card-sub">Paoli · 2.7 acres</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── PULL QUOTE ── -->
+<section class="pull-quote-section">
+    <blockquote>"We don't build landscapes. We build living systems that work harder every single year."</blockquote>
+    <cite>Filthy Rich Soil Co.</cite>
+</section>
+
+<!-- ── PROCESS STRIP ── -->
+<section class="process-strip">
+    <h2>How Every Creation Begins</h2>
+    <div class="process-steps">
+        <div class="process-step">
+            <div class="step-num">01</div>
+            <h4>On-Site Assessment</h4>
+            <p>We walk your full property. No assumptions. Every condition evaluated in person before a single recommendation is made.</p>
+        </div>
+        <div class="process-step">
+            <div class="step-num">02</div>
+            <h4>Soil Analysis</h4>
+            <p>Lab testing reveals the biological baseline. Your stewardship plan is built from data, not guesswork.</p>
+        </div>
+        <div class="process-step">
+            <div class="step-num">03</div>
+            <h4>Custom Program</h4>
+            <p>A scope built specifically for your land, your goals, and your timeline. Nothing generic, ever.</p>
+        </div>
+        <div class="process-step">
+            <div class="step-num">04</div>
+            <h4>Annual Evolution</h4>
+            <p>Your program evolves every year as the land improves. What we do in year three looks nothing like year one.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-banner">
+    <h2>Ready to build something that lasts?</h2>
+    <button class="btn-gold" onclick="openPortal()">Start Your Estimate</button>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+    <span>© 2026 Filthy Rich Soil Co.</span>
+    <div style="display:flex; gap: 28px;">
+        <a href="values.html">Values</a>
+        <a href="media.html">Media</a>
+        <a href="careers.html">Careers</a>
+    </div>
+</footer>
+
+<!-- ── FULL PORTAL OVERLAY (identical to index.html) ── -->
+<div id="portal-overlay">
+    <div class="portal-brand">
+        <a href="index.html" class="portal-brand-logo">FILTHY<span>RICH</span></a>
+        <div class="portal-brand-mid">
+            <h2>"The land<br>knows what<br>it needs."</h2>
+            <p>Help us understand your property so we can tell you exactly what your soil is asking for.</p>
+            <div class="portal-progress-track" id="progress-track">
+                <div class="progress-node" data-node="path"><div class="progress-dot"></div><div class="progress-label">Your Path</div></div>
+                <div class="progress-node" data-node="property"><div class="progress-dot"></div><div class="progress-label">Property Type</div></div>
+                <div class="progress-node" data-node="beds"><div class="progress-dot"></div><div class="progress-label">What's On It</div></div>
+                <div class="progress-node" data-node="aesthetic"><div class="progress-dot"></div><div class="progress-label">Aesthetic Goal</div></div>
+                <div class="progress-node" data-node="email"><div class="progress-dot"></div><div class="progress-label">Save Progress</div></div>
+                <div class="progress-node" data-node="size"><div class="progress-dot"></div><div class="progress-label">Property Size</div></div>
+                <div class="progress-node" data-node="contact"><div class="progress-dot"></div><div class="progress-label">Your Profile</div></div>
+                <div class="progress-node" data-node="partnership"><div class="progress-dot"></div><div class="progress-label">Partnership Options</div></div>
+                <div class="progress-node" data-node="result"><div class="progress-dot"></div><div class="progress-label">Your Summary</div></div>
+            </div>
+        </div>
+        <div class="portal-brand-footer">© 2026 Filthy Rich Soil Co.</div>
+    </div>
+
+    <div class="portal-content">
+        <div class="portal-topbar">
+            <span class="portal-path-badge" id="path-badge"></span>
+            <div class="portal-nav-tools">
+                <button id="btn-back" onclick="back()" style="display:none">← Back</button>
+                <button id="btn-reset" onclick="resetPortal()" style="display:none">Reset</button>
+                <button class="close-btn" onclick="closePortal()">✕</button>
+            </div>
+        </div>
+
+        <div class="portal-steps-wrap">
+
+            <!-- STEP 0: Choose path -->
+            <div id="step-path" class="step active">
+                <span class="step-eyebrow">Welcome</span>
+                <h2>How would you like to begin?</h2>
+                <p class="step-desc">Choose the experience that fits your time and curiosity. Both paths end with a personalized property summary.</p>
+                <div class="path-cards">
+                    <div class="path-card" onclick="setPath('short')">
+                        <span class="path-card-badge">Quick</span>
+                        <h3>Quick Quote</h3>
+                        <p>Four questions, a fast estimate, and a summary of what we'd focus on first.</p>
+                        <div class="path-card-time">~ 2 minutes</div>
+                    </div>
+                    <div class="path-card featured" onclick="setPath('long')">
+                        <span class="path-card-badge">Recommended</span>
+                        <h3>Deep Discovery</h3>
+                        <p>A full soil and site evaluation that gives you a genuine multi-year roadmap — not just a price.</p>
+                        <div class="path-card-time">~ 5 minutes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 1: Property type -->
+            <div id="step-property" class="step">
+                <span class="step-eyebrow">Step 1 of 4</span>
+                <h2>What are we working with?</h2>
+                <p class="step-desc">The type of land shapes everything — from the biology in the soil to the management approach we recommend.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setProperty('residential')"><div class="opt-indicator"></div><div class="opt-text"><strong>Residential Estate</strong><span>Private home, lawn, gardens, and surrounding grounds.</span></div></div>
+                    <div class="opt" onclick="setProperty('farm')"><div class="opt-indicator"></div><div class="opt-text"><strong>Farm & Pasture</strong><span>Agricultural land, hay fields, livestock areas, or working pasture.</span></div></div>
+                    <div class="opt" onclick="setProperty('commercial')"><div class="opt-indicator"></div><div class="opt-text"><strong>Commercial Property</strong><span>Business grounds, HOA common areas, or institutional land.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Beds -->
+            <div id="step-beds" class="step">
+                <span class="step-eyebrow">About Your Property</span>
+                <h2>How would you describe your beds?</h2>
+                <p class="step-desc">Beds are the biggest variable in scope — more than lawn size. This shapes your estimate significantly.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setBeds('minimal')"><div class="opt-indicator"></div><div class="opt-text"><strong>Minimal — Simple Borders</strong><span>A few foundation plantings or narrow borders. Low bed maintenance needed.</span></div></div>
+                    <div class="opt" onclick="setBeds('moderate')"><div class="opt-indicator"></div><div class="opt-text"><strong>Moderate — Established Plantings</strong><span>Several beds with shrubs, perennials, and seasonal plants. Well-established, good plant coverage.</span></div></div>
+                    <div class="opt" onclick="setBeds('extensive')"><div class="opt-indicator"></div><div class="opt-text"><strong>Extensive — Beds Throughout</strong><span>Large or numerous beds — a significant portion of the property. Dense planting, high detail work.</span></div></div>
+                    <div class="opt" onclick="setBeds('bare')"><div class="opt-indicator"></div><div class="opt-text"><strong>Mostly Bare or Mulched</strong><span>Beds with little plant coverage — lots of exposed mulch or soil. Weed pressure will be constant without intervention.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Mulch -->
+            <div id="step-mulch" class="step">
+                <span class="step-eyebrow">About Your Property</span>
+                <h2>What are you currently using for mulch?</h2>
+                <p class="step-desc">This matters more than most people expect — and it's an area where our approach is different.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setMulch('colored')"><div class="opt-indicator"></div><div class="opt-text"><strong>Dyed or Colored Bark Mulch</strong><span>Red, black, or brown dyed product. The standard offering from most suppliers.</span></div></div>
+                    <div class="opt" onclick="setMulch('natural')"><div class="opt-indicator"></div><div class="opt-text"><strong>Natural Wood Chip or Shredded Bark</strong><span>Undyed, natural material. Better for soil biology — already on the right track.</span></div></div>
+                    <div class="opt" onclick="setMulch('stone')"><div class="opt-indicator"></div><div class="opt-text"><strong>Stone or Rock</strong><span>River rock, gravel, or similar. Permanent, but not a biological asset.</span></div></div>
+                    <div class="opt" onclick="setMulch('none')"><div class="opt-indicator"></div><div class="opt-text"><strong>Nothing Currently / Not Sure</strong><span>Bare soil, or haven't thought much about it yet.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Pruning -->
+            <div id="step-pruning" class="step">
+                <span class="step-eyebrow">About Your Property</span>
+                <h2>Any interest in tree or shrub pruning?</h2>
+                <p class="step-desc">We handle everything from ornamental shaping to large specimen trees. Select what resonates — or none if it's not a priority right now.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setPruning('none')"><div class="opt-indicator"></div><div class="opt-text"><strong>Not a Priority Right Now</strong><span>Trees and shrubs are fine as-is. Not looking for pruning services.</span></div></div>
+                    <div class="opt" onclick="setPruning('maintenance')"><div class="opt-indicator"></div><div class="opt-text"><strong>Routine Maintenance Pruning</strong><span>Seasonal shaping of shrubs and ornamentals. Deadwood removal. Keeping things tidy and healthy.</span></div></div>
+                    <div class="opt" onclick="setPruning('elevated')"><div class="opt-indicator"></div><div class="opt-text"><strong>Elevated Aesthetic — Shaped & Sculpted</strong><span>Intentional form. Specimen shrubs shaped seasonally. A higher level of horticultural detail.</span></div></div>
+                    <div class="opt" onclick="setPruning('large')"><div class="opt-indicator"></div><div class="opt-text"><strong>Large Tree Work or Removal</strong><span>Significant canopy management, hazard limb removal, or full tree removal. Requires site assessment.</span></div></div>
+                    <div class="opt" onclick="setPruning('all')"><div class="opt-indicator"></div><div class="opt-text"><strong>All of the Above — Full Program</strong><span>Maintenance, aesthetics, and large tree work. Comprehensive woody plant stewardship.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Canopy -->
+            <div id="step-canopy" class="step">
+                <span class="step-eyebrow" id="canopy-eyebrow">About Your Property</span>
+                <h2>What's the tree situation?</h2>
+                <p class="step-desc">Canopy affects lawn health, leaf management workload, and how we approach soil biology in shaded areas.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setCanopy('none')"><div class="opt-indicator"></div><div class="opt-text"><strong>Open — Few or No Trees</strong><span>Mostly sunny. Lawn has full light. Minimal leaf cleanup.</span></div></div>
+                    <div class="opt" onclick="setCanopy('moderate')"><div class="opt-indicator"></div><div class="opt-text"><strong>Moderate — Some Mature Trees</strong><span>A mix of sun and shade. Some seasonal leaf management. Root zones to work around.</span></div></div>
+                    <div class="opt" onclick="setCanopy('heavy')"><div class="opt-indicator"></div><div class="opt-text"><strong>Heavy — Significant Canopy</strong><span>Heavily wooded or large specimen trees dominating. Shade-tolerant species strategy needed. Leaf volume is real.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: History (Deep Discovery) -->
+            <div id="step-history" class="step">
+                <span class="step-eyebrow" id="history-eyebrow">About Your Property</span>
+                <h2>When did this land last get serious attention?</h2>
+                <p class="step-desc">The starting point matters as much as the destination.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setHistory('active')"><div class="opt-indicator"></div><div class="opt-text"><strong>It's Been Actively Maintained</strong><span>Regular lawn service, beds kept up. Looking to upgrade the approach, not start from scratch.</span></div></div>
+                    <div class="opt" onclick="setHistory('neglected')"><div class="opt-indicator"></div><div class="opt-text"><strong>Neglected — A Year or More</strong><span>Things have gotten away from us. Overgrowth, weeds, maybe some invasive pressure. Needs real attention.</span></div></div>
+                    <div class="opt" onclick="setHistory('new')"><div class="opt-indicator"></div><div class="opt-text"><strong>New Construction or New to Us</strong><span>Just moved in, or newly built. Starting fresh — no history, unknown soil condition.</span></div></div>
+                    <div class="opt" onclick="setHistory('never')"><div class="opt-indicator"></div><div class="opt-text"><strong>Never Really Been Addressed</strong><span>The property has always just existed. No systematic care — ever.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Prior service -->
+            <div id="step-prior" class="step">
+                <span class="step-eyebrow" id="prior-eyebrow">About Your Experience</span>
+                <h2>Have you worked with a landscape company before?</h2>
+                <p class="step-desc">No judgment either way — this helps us understand where you're coming from.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setPrior('no')"><div class="opt-indicator"></div><div class="opt-text"><strong>No — First Time</strong><span>Haven't hired professional help before. Starting fresh.</span></div></div>
+                    <div class="opt" onclick="setPrior('yes-good')"><div class="opt-indicator"></div><div class="opt-text"><strong>Yes — It Was Fine</strong><span>Had service, it worked okay. Looking for something more intentional now.</span></div></div>
+                    <div class="opt" onclick="setPrior('yes-bad')"><div class="opt-indicator"></div><div class="opt-text"><strong>Yes — It Didn't Work Out</strong><span>Had service that disappointed — poor quality, unreliable, or just didn't care about the land.</span></div></div>
+                    <div class="opt" onclick="setPrior('diy')"><div class="opt-indicator"></div><div class="opt-text"><strong>We've Done It Ourselves</strong><span>DIY until now. Ready to hand it off — or supplement what we do.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Involvement -->
+            <div id="step-involvement" class="step">
+                <span class="step-eyebrow" id="involvement-eyebrow">About Your Preference</span>
+                <h2>How involved do you want to be?</h2>
+                <p class="step-desc">Some clients want full handoff. Others want to learn alongside us. There's no wrong answer.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setInvolvement('handoff')"><div class="opt-indicator"></div><div class="opt-text"><strong>Full Handoff — Just Handle It</strong><span>I trust the professionals. Keep me updated, but I don't need to be involved in decisions.</span></div></div>
+                    <div class="opt" onclick="setInvolvement('informed')"><div class="opt-indicator"></div><div class="opt-text"><strong>Keep Me Informed</strong><span>I want to understand what's happening and why — but I'm not looking to get my hands dirty.</span></div></div>
+                    <div class="opt" onclick="setInvolvement('collaborative')"><div class="opt-indicator"></div><div class="opt-text"><strong>Collaborative — I Want to Learn</strong><span>Interested in the biology, the process, the reasoning. I might get involved in some of the work.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Timeline -->
+            <div id="step-timeline" class="step">
+                <span class="step-eyebrow" id="timeline-eyebrow">One More Thing</span>
+                <h2>What's your timeline?</h2>
+                <p class="step-desc">Knowing your urgency helps us prioritize — and be honest about what's realistic in your window.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setTimeline('now')"><div class="opt-indicator"></div><div class="opt-text"><strong>Ready to Start Now</strong><span>I want this moving as soon as possible. Season is here or I have something driving it.</span></div></div>
+                    <div class="opt" onclick="setTimeline('season')"><div class="opt-indicator"></div><div class="opt-text"><strong>Planning for This Season</strong><span>Not urgent this week, but want something in place before the season is over.</span></div></div>
+                    <div class="opt" onclick="setTimeline('next')"><div class="opt-indicator"></div><div class="opt-text"><strong>Planning Ahead — Next Season</strong><span>Long-game thinking. Want to plan now so we're set up right when the season comes.</span></div></div>
+                    <div class="opt" onclick="setTimeline('exploring')"><div class="opt-indicator"></div><div class="opt-text"><strong>Just Exploring for Now</strong><span>Getting a sense of what's out there. No commitment imminent.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Scheduling -->
+            <div id="step-scheduling" class="step">
+                <span class="step-eyebrow">Logistics</span>
+                <h2>Are any days off-limits for work?</h2>
+                <p class="step-desc">Select any days that don't work — religious observance, remote work, family schedules.</p>
+                <div class="sched-grid" id="sched-days">
+                    <div class="sched-day" onclick="toggleDay('mon', this)"><div class="sched-check"></div><span>Monday</span></div>
+                    <div class="sched-day" onclick="toggleDay('tue', this)"><div class="sched-check"></div><span>Tuesday</span></div>
+                    <div class="sched-day" onclick="toggleDay('wed', this)"><div class="sched-check"></div><span>Wednesday</span></div>
+                    <div class="sched-day" onclick="toggleDay('thu', this)"><div class="sched-check"></div><span>Thursday</span></div>
+                    <div class="sched-day" onclick="toggleDay('fri', this)"><div class="sched-check"></div><span>Friday</span></div>
+                    <div class="sched-day" onclick="toggleDay('sat', this)"><div class="sched-check"></div><span>Saturday</span></div>
+                </div>
+                <div style="margin: 20px 0 8px;">
+                    <p style="font-size:0.8rem; color:var(--stone); margin-bottom:10px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Any preferred days? (optional)</p>
+                    <div class="sched-grid" id="sched-preferred">
+                        <div class="sched-day preferred" onclick="togglePreferred('mon', this)"><div class="sched-check"></div><span>Monday</span></div>
+                        <div class="sched-day preferred" onclick="togglePreferred('tue', this)"><div class="sched-check"></div><span>Tuesday</span></div>
+                        <div class="sched-day preferred" onclick="togglePreferred('wed', this)"><div class="sched-check"></div><span>Wednesday</span></div>
+                        <div class="sched-day preferred" onclick="togglePreferred('thu', this)"><div class="sched-check"></div><span>Thursday</span></div>
+                        <div class="sched-day preferred" onclick="togglePreferred('fri', this)"><div class="sched-check"></div><span>Friday</span></div>
+                        <div class="sched-day preferred" onclick="togglePreferred('sat', this)"><div class="sched-check"></div><span>Saturday</span></div>
+                    </div>
+                </div>
+                <div class="sched-note">We work Monday–Saturday. Scheduling is subject to route availability — your preferences go directly to our planning process.</div>
+                <button class="btn-features-next" onclick="commitScheduling()">Continue →</button>
+            </div>
+
+            <!-- STEP: Aesthetic -->
+            <div id="step-aesthetic" class="step">
+                <span class="step-eyebrow">Your Vision</span>
+                <h2>What does success look like to you?</h2>
+                <p class="step-desc">Think about the whole property — lawn, beds, trees, edges. There's no wrong answer here, only honest ones.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setAesthetic('pristine')"><div class="opt-indicator"></div><div class="opt-text"><strong>Immaculate — Everything Perfect</strong><span>Weed-free turf, manicured beds, shaped shrubs, clean edges everywhere. The highest standard.</span></div></div>
+                    <div class="opt" onclick="setAesthetic('mostly')"><div class="opt-indicator"></div><div class="opt-text"><strong>Lush & Healthy — Diversity Welcome</strong><span>Dense, resilient turf that holds up to weather and use. Beds full and managed. A property that looks alive because it is.</span></div></div>
+                    <div class="opt" onclick="setAesthetic('green')"><div class="opt-indicator"></div><div class="opt-text"><strong>Clean & Well-Kept</strong><span>Mowed, edged, beds maintained, nothing out of control. Looks sharp and cared for without chasing perfection.</span></div></div>
+                    <div class="opt" onclick="setAesthetic('naturalized')"><div class="opt-indicator"></div><div class="opt-text"><strong>Naturalized — Ecology First</strong><span>Managed wildness. Native plantings, pollinator habitat, meadow areas, less lawn. Still intentional — just not conventional.</span></div></div>
+                    <div class="opt" onclick="setAesthetic('township')"><div class="opt-indicator"></div><div class="opt-text"><strong>Township Compliant</strong><span>Safe, legal, maintained. Focus on compliance and basic upkeep over aesthetics.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Soil (Deep Discovery) -->
+            <div id="step-soil" class="step">
+                <span class="step-eyebrow">Deep Discovery — Soil</span>
+                <h2>What's the pulse of your soil?</h2>
+                <p class="step-desc">Try the screwdriver test: push a screwdriver into your lawn. How far does it go before resistance?</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setSoil('compacted')"><div class="opt-indicator"></div><div class="opt-text"><strong>Hard & Compacted</strong><span>Screwdriver barely enters. Water pools. Bare patches common.</span></div></div>
+                    <div class="opt" onclick="setSoil('dusty')"><div class="opt-indicator"></div><div class="opt-text"><strong>Standard & Dusty</strong><span>Goes in 2–3 inches. Functional but nothing remarkable.</span></div></div>
+                    <div class="opt" onclick="setSoil('developing')"><div class="opt-indicator"></div><div class="opt-text"><strong>Developing Health</strong><span>Goes in 4–5 inches. Earthworms present. Decent structure building.</span></div></div>
+                    <div class="opt" onclick="setSoil('thriving')"><div class="opt-indicator"></div><div class="opt-text"><strong>Thriving Ecosystem</strong><span>Slides in easily. Earthy smell. Rich, dark color. Living biology visible.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Goals (Deep Discovery) -->
+            <div id="step-goal" class="step">
+                <span class="step-eyebrow">Deep Discovery — Goals</span>
+                <h2>What are you trying to accomplish?</h2>
+                <p class="step-desc">Select everything that applies — most people have more than one.</p>
+                <div class="option-list" id="goal-options">
+                    <div class="opt multi-opt" id="goal-cost" onclick="toggleGoal('cost', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Lower Long-Term Costs</strong><span>Build soil that needs fewer inputs every year. Invest now, reduce forever.</span></div></div>
+                    <div class="opt multi-opt" id="goal-value" onclick="toggleGoal('value', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Protect & Grow Property Value</strong><span>Healthy land holds and appreciates. Protect the estate you've built.</span></div></div>
+                    <div class="opt multi-opt" id="goal-oversight" onclick="toggleGoal('oversight', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Expert Ongoing Oversight</strong><span>A Land Steward who knows your property as well as you do.</span></div></div>
+                    <div class="opt multi-opt" id="goal-ecology" onclick="toggleGoal('ecology', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Environmental Stewardship</strong><span>Reduce runoff, build habitat, eliminate chemicals, support pollinators.</span></div></div>
+                    <div class="opt multi-opt" id="goal-minimal" onclick="toggleGoal('minimal', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Low Maintenance System</strong><span>Build it once, right. Self-sustaining systems that work without constant attention.</span></div></div>
+                    <div class="opt multi-opt" id="goal-beauty" onclick="toggleGoal('beauty', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Pure Aesthetics — I Want It Beautiful</strong><span>The land should make an impression. Every season, every angle.</span></div></div>
+                </div>
+                <button class="btn-features-next" id="goal-continue-btn" onclick="commitGoals()" style="margin-top:16px;">Continue →</button>
+            </div>
+
+            <!-- STEP: Invasives (Deep Discovery) -->
+            <div id="step-invasives" class="step">
+                <span class="step-eyebrow">Deep Discovery — Site Conditions</span>
+                <h2>Any invasive plants on the property?</h2>
+                <p class="step-desc">Knotweed, multiflora rose, mile-a-minute, garlic mustard — these change Year 1 significantly if present.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setInvasives('none')"><div class="opt-indicator"></div><div class="opt-text"><strong>None That I Know Of</strong><span>Property seems clean or I haven't assessed yet.</span></div></div>
+                    <div class="opt" onclick="setInvasives('minor')"><div class="opt-indicator"></div><div class="opt-text"><strong>Minor Presence</strong><span>A patch of knotweed, some garlic mustard at edges — manageable.</span></div></div>
+                    <div class="opt" onclick="setInvasives('significant')"><div class="opt-indicator"></div><div class="opt-text"><strong>Significant Invasion</strong><span>Large areas affected. Established vines, dense spreading colonies.</span></div></div>
+                    <div class="opt" onclick="setInvasives('unknown')"><div class="opt-indicator"></div><div class="opt-text"><strong>Not Sure — Need Assessment</strong><span>I'd like help identifying what's on my property.</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Farm features -->
+            <div id="step-features" class="step">
+                <span class="step-eyebrow" id="features-eyebrow">About Your Land</span>
+                <h2>Tell us about your land.</h2>
+                <p class="step-desc">Select the working land services you need. These always require a custom consultation — every farm is different.</p>
+                <div id="features-farm">
+                    <span class="farm-section-divider">Working Land</span>
+                    <div class="farm-working-grid">
+                        <div class="farm-card" id="farm-hay" onclick="toggleFarmService('hay', this)"><span class="farm-card-icon">🌾</span><strong>Hay Fields</strong><p>Cutting, timing, and field health management.</p><div class="farm-check"></div></div>
+                        <div class="farm-card" id="farm-cattle" onclick="toggleFarmService('cattle', this)"><span class="farm-card-icon">🐄</span><strong>Cattle / Cows</strong><p>Pasture management, rotation, soil recovery.</p><div class="farm-check"></div></div>
+                        <div class="farm-card" id="farm-sheep" onclick="toggleFarmService('sheep', this)"><span class="farm-card-icon">🐑</span><strong>Sheep</strong><p>Grazing management and pasture health.</p><div class="farm-check"></div></div>
+                        <div class="farm-card" id="farm-chickens" onclick="toggleFarmService('chickens', this)"><span class="farm-card-icon">🐔</span><strong>Chickens / Poultry</strong><p>Range areas, soil nitrogen, run management.</p><div class="farm-check"></div></div>
+                    </div>
+                    <div class="farm-consult-note"><strong>Working land is always custom-quoted.</strong> Acreage, animal load, soil condition, and infrastructure all affect scope. We cover everything on-site.</div>
+                    <span class="farm-section-divider">Around the House</span>
+                    <p style="font-size:0.85rem; color:var(--stone); margin-bottom:14px; line-height:1.6;">Many farm properties have a residential area around the home that deserves its own stewardship — separate from working land, priced independently.</p>
+                    <div class="farm-house-question" id="farm-house-toggle-card" onclick="toggleFarmHouse()">
+                        <div class="farm-house-toggle"></div>
+                        <div class="farm-house-label"><strong>There's a residential area around my home worth maintaining separately</strong><p>Toggle on to describe what's there — we'll include it in your consultation scope.</p></div>
+                    </div>
+                    <div id="farm-house-features" style="display:none; margin-top:16px;">
+                        <div class="option-list" style="gap:0;">
+                            <div class="opt multi-opt" id="ffeat-lawn" onclick="toggleFeature('lawn', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Open Lawn</strong><span>Maintained turf around the home — mowing, edging, biological fertility program.</span></div></div>
+                            <div class="opt multi-opt" id="ffeat-beds" onclick="toggleFeature('beds', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Planted Beds</strong><span>Ornamental beds, shrubs, perennials. Weeding, mulch, seasonal care.</span></div></div>
+                            <div class="opt multi-opt" id="ffeat-trees" onclick="toggleFeature('trees', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Trees & Woody Shrubs</strong><span>Pruning, shaping, root zone management, or large tree work around the home.</span></div></div>
+                            <div class="opt multi-opt" id="ffeat-food" onclick="toggleFeature('food', this)"><div class="opt-indicator"></div><div class="opt-text"><strong>Kitchen Garden / Food Production</strong><span>Vegetable beds, herbs, fruit trees, or integrated edible plantings.</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-features-next" id="features-next-btn" onclick="commitFarmFeatures()">Continue →</button>
+            </div>
+
+            <!-- FARM: Smell tolerance -->
+            <div id="step-farm-smell" class="step">
+                <span class="step-eyebrow">About Your Land</span>
+                <h2>One honest question about smell.</h2>
+                <p class="step-desc">Soil biology and farm work involve organic matter — compost, manure, decomposing material. It's part of the process. Where do you stand?</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setFarmSmell('fine')"><div class="opt-indicator"></div><div class="opt-text"><strong>It's a farm — smell is part of it</strong><span>Earthy, organic, real. We're on the same page.</span></div></div>
+                    <div class="opt" onclick="setFarmSmell('occasional')"><div class="opt-indicator"></div><div class="opt-text"><strong>Occasional is fine — not constant</strong><span>We can work with timing and placement to minimize it around living areas.</span></div></div>
+                    <div class="opt" onclick="setFarmSmell('sensitive')"><div class="opt-indicator"></div><div class="opt-text"><strong>Sensitive area — neighbors or proximity to home</strong><span>We'll plan around it. Some approaches may be limited, but there's still a lot we can do.</span></div></div>
+                    <div class="opt" onclick="setFarmSmell('none')"><div class="opt-indicator"></div><div class="opt-text"><strong>No odor at all — I need it scent-free</strong><span>Worth talking through before we go further.</span></div></div>
+                </div>
+            </div>
+
+            <!-- FARM: Size -->
+            <div id="step-farm-size" class="step">
+                <span class="step-eyebrow">About Your Land</span>
+                <h2>How much working land are we talking?</h2>
+                <p class="step-desc">This is your farming acreage — hay fields, pasture, range. Don't include the residential area around the home.</p>
+                <div class="size-grid">
+                    <div class="size-opt" onclick="setFarmSize('micro', 'Under 1 acre')"><strong>Under 1 Acre</strong><span>Small hobby farm or homestead</span></div>
+                    <div class="size-opt" onclick="setFarmSize('small', '1–5 acres')"><strong>1–5 Acres</strong><span>Small farm operation</span></div>
+                    <div class="size-opt" onclick="setFarmSize('medium', '5–25 acres')"><strong>5–25 Acres</strong><span>Mid-size working farm</span></div>
+                    <div class="size-opt" onclick="setFarmSize('large', '25–100 acres')"><strong>25–100 Acres</strong><span>Established farm operation</span></div>
+                    <div class="size-opt" onclick="setFarmSize('estate', '100+ acres')"><strong>100+ Acres</strong><span>Large-scale agricultural land</span></div>
+                </div>
+            </div>
+
+            <!-- FARM: House size -->
+            <div id="step-farm-house-size" class="step">
+                <span class="step-eyebrow">Around the House</span>
+                <h2>And the residential area?</h2>
+                <p class="step-desc">Roughly how much maintained ground is around the home — lawn, beds, gardens. Quoted separately from the working land.</p>
+                <div class="size-grid">
+                    <div class="size-opt" onclick="setFarmHouseSize('small', 'Under 5,000 sq ft')"><strong>Under 5,000 sq ft</strong><span>Small yard around the home</span></div>
+                    <div class="size-opt" onclick="setFarmHouseSize('medium', '5,000–15,000 sq ft')"><strong>5,000–15,000 sq ft</strong><span>Standard residential area</span></div>
+                    <div class="size-opt" onclick="setFarmHouseSize('large', '15,000–43,000 sq ft')"><strong>15,000 sq ft – 1 acre</strong><span>Larger grounds around the home</span></div>
+                    <div class="size-opt" onclick="setFarmHouseSize('estate', 'Over 1 acre')"><strong>Over 1 Acre</strong><span>Significant residential grounds</span></div>
+                </div>
+            </div>
+
+            <!-- STEP: Save Progress / Email -->
+            <div id="step-email" class="step">
+                <div class="save-image-wrap" id="save-image-wrap">
+                    <span class="save-quote-mark">"</span>
+                    <div class="save-quote-text" id="save-quote-text">Grass feels nice between your toes.</div>
+                    <span class="save-quote-attr" id="save-quote-attr">— Filthy Rich Soil Co.</span>
+                </div>
+                <div class="save-form-area">
+                    <h2>Hold your place.</h2>
+                    <p>Drop your email and we'll save everything so far — answers waiting for you if life interrupts. We don't send newsletters.</p>
+                    <div class="email-row">
+                        <input type="email" id="early-email" placeholder="your@email.com">
+                        <button class="btn-save" onclick="saveEmail()">Save & Continue</button>
+                    </div>
+                    <span class="skip-link" onclick="skipEmail()">Skip this step →</span>
+                </div>
+            </div>
+
+            <!-- STEP: Property Size -->
+            <div id="step-size" class="step">
+                <span class="step-eyebrow" id="size-eyebrow">Step 3 of 4</span>
+                <h2>How much land are we talking?</h2>
+                <p class="step-desc">Rough estimates are fine — this shapes the scope of your summary and the per-visit estimate range.</p>
+                <div class="size-grid">
+                    <div class="size-opt" onclick="setSize('small', 'Under 5,000 sq ft')"><strong>Under 5,000 sq ft</strong><span>Small residential lot</span></div>
+                    <div class="size-opt" onclick="setSize('medium', '5,000–15,000 sq ft')"><strong>5,000–15,000 sq ft</strong><span>Standard estate lot</span></div>
+                    <div class="size-opt" onclick="setSize('large', '15,000–43,000 sq ft')"><strong>15,000 sq ft – 1 acre</strong><span>Large residential estate</span></div>
+                    <div class="size-opt" onclick="setSize('estate', 'Over 1 acre')"><strong>Over 1 Acre</strong><span>Estate, farm, or large grounds</span></div>
+                </div>
+            </div>
+
+            <!-- STEP: Contact -->
+            <div id="step-contact" class="step">
+                <span class="step-eyebrow" id="contact-eyebrow">Step 4 of 4</span>
+                <h2>One last thing.</h2>
+                <p class="step-desc">Your name helps us personalize your summary. We'll follow up only if you ask us to.</p>
+                <div class="contact-form">
+                    <input type="text" id="user-name" placeholder="First & Last Name">
+                    <input type="email" id="user-email" placeholder="Email address">
+                    <input type="tel" id="user-phone" placeholder="Phone (optional)">
+                    <button class="btn-submit" onclick="finish()">Generate My Property Summary →</button>
+                </div>
+            </div>
+
+            <!-- STEP: Partnership -->
+            <div id="step-partnership" class="step">
+                <span class="step-eyebrow">Before Your Summary</span>
+                <h2>Would you consider a partnership?</h2>
+                <p class="step-desc">These aren't upsells. They're ways to deepen the relationship — and each one earns you a meaningful reduction on your rate.</p>
+                <div class="partnership-intro">
+                    <span class="pi-eyebrow">How It Works</span>
+                    <h3>You open the door. We lower the price.</h3>
+                    <p>Each option below gives us something that genuinely helps us grow. In exchange, you get a real discount discussed during your consultation.</p>
+                </div>
+                <div class="partner-cards">
+                    <div class="partner-card" id="pc-trainees" onclick="togglePartner('trainees', this)">
+                        <div class="pc-check"></div>
+                        <div class="pc-body"><strong>Stewards in Training</strong><p>Allow supervised trainees to work alongside our senior Steward on your property. Same expert oversight — they get real-world experience. Full quality guarantee.</p></div>
+                        <div class="pc-discount"><span class="disc-label">Discount</span><span class="disc-value">Meaningful</span></div>
+                    </div>
+                    <div class="partner-card" id="pc-content" onclick="togglePartner('content', this)">
+                        <div class="pc-check"></div>
+                        <div class="pc-body"><strong>Property as Content</strong><p>Allow us to document your property's transformation — video, photography, and soil data — for our educational content and social media. Your identity stays private unless you choose otherwise.</p></div>
+                        <div class="pc-discount"><span class="disc-label">Discount</span><span class="disc-value">Meaningful</span></div>
+                    </div>
+                    <div class="partner-card" id="pc-pilot" onclick="togglePartner('pilot', this)">
+                        <div class="pc-check"></div>
+                        <div class="pc-body"><strong>Pilot Program Participant</strong><p>Open a section of your property as a living laboratory for new biological techniques we're developing. Full documentation of results — scientific transparency, always.</p></div>
+                        <div class="pc-discount"><span class="disc-label">Discount</span><span class="disc-value">Meaningful</span></div>
+                    </div>
+                    <div class="partner-card" id="pc-flexible" onclick="togglePartner('flexible', this)">
+                        <div class="pc-check"></div>
+                        <div class="pc-body"><strong>Full Scheduling Flexibility</strong><p>Give us full flexibility on which weekday we visit — no day restrictions, no preferred windows. Lets us build the most efficient route and pass the savings to you.</p></div>
+                        <div class="pc-discount"><span class="disc-label">Discount</span><span class="disc-value">Slight</span></div>
+                    </div>
+                </div>
+                <div class="partnership-tally" id="partnership-tally">
+                    <div><div class="tally-label">Your Partnership Level</div><div class="tally-value" id="tally-value">None selected</div></div>
+                    <div class="tally-note" id="tally-note">Select any options above that interest you — or skip ahead if none apply.</div>
+                </div>
+                <button class="btn-continue-partner" onclick="finishPartnership()"><span id="partner-btn-text">Continue Without Partnerships →</span></button>
+            </div>
+
+            <!-- QUICK QUOTE: Size -->
+            <div id="step-qq-size" class="step">
+                <span class="step-eyebrow">Quick Quote — Step 2 of 5</span>
+                <h2>How much maintained ground are we talking?</h2>
+                <p class="step-desc">Include lawn, beds, and all maintained areas around the home.</p>
+                <div class="size-grid">
+                    <div class="size-opt" onclick="setQQSize('small','Under 5,000 sq ft')"><strong>Under 5,000 sq ft</strong><span>Small residential yard</span></div>
+                    <div class="size-opt" onclick="setQQSize('medium','5,000–15,000 sq ft')"><strong>5,000–15,000 sq ft</strong><span>Standard residential property</span></div>
+                    <div class="size-opt" onclick="setQQSize('large','15,000 sq ft – 1 Acre')"><strong>15,000 sq ft – 1 Acre</strong><span>Large residential lot</span></div>
+                    <div class="size-opt" onclick="setQQSize('estate','Over 1 Acre')"><strong>Over 1 Acre</strong><span>Estate or multi-acre property</span></div>
+                </div>
+            </div>
+
+            <!-- QUICK QUOTE: Need -->
+            <div id="step-qq-need" class="step">
+                <span class="step-eyebrow">Quick Quote — Step 3 of 5</span>
+                <h2>What are you primarily looking for?</h2>
+                <div class="option-list">
+                    <div class="opt" onclick="setQQNeed('program')"><div class="opt-indicator"></div><div class="opt-text"><strong>Ongoing stewardship program</strong><span>Regular care, soil health, full maintenance</span></div></div>
+                    <div class="opt" onclick="setQQNeed('problem')"><div class="opt-indicator"></div><div class="opt-text"><strong>Help with a specific problem</strong><span>Invasives, drainage, bare lawn, disease pressure</span></div></div>
+                    <div class="opt" onclick="setQQNeed('overhaul')"><div class="opt-indicator"></div><div class="opt-text"><strong>Full property overhaul</strong><span>Starting over or major transformation</span></div></div>
+                    <div class="opt" onclick="setQQNeed('exploring')"><div class="opt-indicator"></div><div class="opt-text"><strong>Just gathering information</strong><span>No commitment — curious what this costs</span></div></div>
+                </div>
+            </div>
+
+            <!-- QUICK QUOTE: Timeline -->
+            <div id="step-qq-timeline" class="step">
+                <span class="step-eyebrow">Quick Quote — Step 4 of 5</span>
+                <h2>When are you looking to move forward?</h2>
+                <div class="option-list">
+                    <div class="opt" onclick="setQQTimeline('now')"><div class="opt-indicator"></div><div class="opt-text"><strong>Ready to start now</strong><span>Looking to get on the schedule soon</span></div></div>
+                    <div class="opt" onclick="setQQTimeline('season')"><div class="opt-indicator"></div><div class="opt-text"><strong>This season</strong><span>Planning for the current growing season</span></div></div>
+                    <div class="opt" onclick="setQQTimeline('next')"><div class="opt-indicator"></div><div class="opt-text"><strong>Planning ahead — next season</strong><span>Not urgent, getting organized early</span></div></div>
+                    <div class="opt" onclick="setQQTimeline('exploring')"><div class="opt-indicator"></div><div class="opt-text"><strong>Just exploring for now</strong><span>No timeline yet</span></div></div>
+                </div>
+            </div>
+
+            <!-- QUICK QUOTE: Result -->
+            <div id="step-qq-result" class="step">
+                <div id="qq-result-body"></div>
+                <button class="site-assessment-btn" onclick="switchToDeepDiscovery()">Get a Precise Estimate — Try Deep Discovery →</button>
+                <button class="btn-reset" style="margin-top:8px;" onclick="resetPortal()">Start Over</button>
+            </div>
+
+            <!-- DEEP DISCOVERY: Services -->
+            <div id="step-services" class="step">
+                <span class="step-eyebrow">Your Current Program</span>
+                <h2>What do you currently pay for separately?</h2>
+                <p class="step-desc">Select everything you're managing or paying for right now — even if it's just one vendor.</p>
+                <div class="service-grid" id="service-grid">
+                    <div class="service-tile" data-key="mowing" onclick="toggleService('mowing', this)">Lawn Mowing</div>
+                    <div class="service-tile" data-key="fert" onclick="toggleService('fert', this)">Fertilizing</div>
+                    <div class="service-tile" data-key="beds" onclick="toggleService('beds', this)">Bed Care</div>
+                    <div class="service-tile" data-key="mulch" onclick="toggleService('mulch', this)">Mulching</div>
+                    <div class="service-tile" data-key="pruning" onclick="toggleService('pruning', this)">Pruning &amp; Shrubs</div>
+                    <div class="service-tile" data-key="trees" onclick="toggleService('trees', this)">Tree Service</div>
+                    <div class="service-tile" data-key="pest" onclick="toggleService('pest', this)">Pest &amp; Weed Control</div>
+                    <div class="service-tile" data-key="soil" onclick="toggleService('soil', this)">Soil Amendments</div>
+                    <div class="service-tile" data-key="irrigation" onclick="toggleService('irrigation', this)">Irrigation</div>
+                </div>
+                <div class="services-include-note">Fertilizing, soil amendments, bed care, and seasonal mulch are <strong>included in every Filthy Rich Soil Co. program</strong> — services most companies bill separately.</div>
+                <button class="service-continue-btn" onclick="commitServices()">Continue →</button>
+            </div>
+
+            <!-- DEEP DISCOVERY: Spend -->
+            <div id="step-spend" class="step">
+                <span class="step-eyebrow">Investment Context</span>
+                <h2>What do you invest annually across all those services?</h2>
+                <p class="step-desc">Include everything — mowing, treatments, one-off jobs, separate vendors. Ballpark is fine.</p>
+                <div class="option-list">
+                    <div class="opt" onclick="setSpend('under2k')"><div class="opt-indicator"></div><div class="opt-text"><strong>Under $2,000 / year</strong><span>Minimal or informal service</span></div></div>
+                    <div class="opt" onclick="setSpend('2to5k')"><div class="opt-indicator"></div><div class="opt-text"><strong>$2,000 – $5,000</strong><span>Basic maintenance program</span></div></div>
+                    <div class="opt" onclick="setSpend('5to15k')"><div class="opt-indicator"></div><div class="opt-text"><strong>$5,000 – $15,000</strong><span>Regular service with some extras</span></div></div>
+                    <div class="opt" onclick="setSpend('15to30k')"><div class="opt-indicator"></div><div class="opt-text"><strong>$15,000 – $30,000</strong><span>Active program, multiple vendors</span></div></div>
+                    <div class="opt" onclick="setSpend('over30k')"><div class="opt-indicator"></div><div class="opt-text"><strong>$30,000+</strong><span>Significant property, full service program</span></div></div>
+                </div>
+            </div>
+
+            <!-- DEEP DISCOVERY: Who -->
+            <div id="step-who" class="step">
+                <span class="step-eyebrow">About You</span>
+                <h2>How do you relate to the property?</h2>
+                <div class="option-list">
+                    <div class="opt" onclick="setWho('homeowner')"><div class="opt-indicator"></div><div class="opt-text"><strong>I own and live here</strong><span>This is my primary or secondary residence</span></div></div>
+                    <div class="opt" onclick="setWho('manager')"><div class="opt-indicator"></div><div class="opt-text"><strong>I manage it for someone else</strong><span>Estate manager, property manager, or caretaker</span></div></div>
+                    <div class="opt" onclick="setWho('developer')"><div class="opt-indicator"></div><div class="opt-text"><strong>Investment or development property</strong><span>Rental, spec, or land investment</span></div></div>
+                    <div class="opt" onclick="setWho('commercial')"><div class="opt-indicator"></div><div class="opt-text"><strong>Commercial or HOA</strong><span>Business property, multi-unit, or association</span></div></div>
+                </div>
+            </div>
+
+            <!-- DEEP DISCOVERY: Source -->
+            <div id="step-source" class="step">
+                <span class="step-eyebrow">One Last Thing</span>
+                <h2>How did you find us?</h2>
+                <div class="option-list">
+                    <div class="opt" onclick="setSource('referral')"><div class="opt-indicator"></div><div class="opt-text"><strong>Referred by a client or friend</strong><span>Someone pointed me here directly</span></div></div>
+                    <div class="opt" onclick="setSource('work')"><div class="opt-indicator"></div><div class="opt-text"><strong>Saw your work in person</strong><span>I noticed a property you maintain</span></div></div>
+                    <div class="opt" onclick="setSource('social')"><div class="opt-indicator"></div><div class="opt-text"><strong>Social media</strong><span>YouTube, Instagram, TikTok</span></div></div>
+                    <div class="opt" onclick="setSource('search')"><div class="opt-indicator"></div><div class="opt-text"><strong>Search engine</strong><span>Found you while researching</span></div></div>
+                </div>
+            </div>
+
+            <!-- STEP: Result -->
+            <div id="step-result" class="step">
+                <div class="result-header" id="result-header">
+                    <span class="eyebrow" id="result-eyebrow"></span>
+                    <h2 id="result-title"></h2>
+                    <p id="result-subtitle"></p>
+                </div>
+                <div id="result-body"></div>
+                <button class="btn-reset" onclick="resetPortal()">Start a New Consultation</button>
+            </div>
+
+        </div><!-- /portal-steps-wrap -->
+    </div><!-- /portal-content -->
+</div><!-- /portal-overlay -->
+
+<script>
+    // Filter tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // ── STATE ──
+    const DEFAULT_STATE = {
+        path: '', property: '', beds: '', mulch: '', pruning: '', canopy: '',
+        history: '', prior: '', involvement: '', timeline: '',
+        blockedDays: [], preferredDays: [], goals: [], farmServices: [],
+        farmHouse: false, farmSmell: '', farmSize: '', houseSize: '', houseSizeLabel: '',
+        features: [], aesthetic: '', soil: '', invasives: '', size: '', sizeLabel: '',
+        email: '', name: '', phone: '', partnerships: [],
+        services: [], spend: '', who: '', source: '', qqNeed: '', qqTimeline: '',
+        nav: [], currentId: 'step-path'
+    };
+
+    let state = JSON.parse(localStorage.getItem('fr_state_v5')) || { ...DEFAULT_STATE };
+    if (!state.nav) state.nav = [];
+
+    const NODE_ORDER = ['path','property','beds','aesthetic','email','size','contact','partnership','result'];
+    const STEP_NODE = {
+        'step-path':'path','step-property':'property','step-beds':'beds','step-mulch':'beds',
+        'step-pruning':'beds','step-canopy':'beds','step-history':'beds','step-prior':'beds',
+        'step-involvement':'beds','step-timeline':'beds','step-scheduling':'beds',
+        'step-features':'beds','step-farm-smell':'beds','step-farm-size':'size',
+        'step-farm-house-size':'size','step-aesthetic':'aesthetic','step-soil':'aesthetic',
+        'step-goal':'aesthetic','step-invasives':'aesthetic','step-email':'email',
+        'step-size':'size','step-contact':'contact','step-partnership':'partnership','step-result':'result'
+    };
+
+    function save() { localStorage.setItem('fr_state_v5', JSON.stringify(state)); }
+
+    function updateProgress(stepId) {
+        const currentNode = STEP_NODE[stepId] || '';
+        const currentIdx = NODE_ORDER.indexOf(currentNode);
+        document.querySelectorAll('.progress-node').forEach((node) => {
+            const nodeName = node.getAttribute('data-node');
+            const nodeIdx = NODE_ORDER.indexOf(nodeName);
+            node.classList.remove('active', 'done');
+            if (nodeIdx < currentIdx) node.classList.add('done');
+            else if (nodeIdx === currentIdx) node.classList.add('active');
+        });
+    }
+
+    function updateTopbar(stepId) {
+        const isFirst = stepId === 'step-path';
+        const isResult = stepId === 'step-result';
+        document.getElementById('btn-back').style.display = (isFirst || isResult) ? 'none' : 'inline-block';
+        document.getElementById('btn-reset').style.display = isFirst ? 'none' : 'inline-block';
+        const badge = document.getElementById('path-badge');
+        if (state.path && !isFirst) {
+            badge.textContent = state.path === 'short' ? 'Quick Quote' : 'Deep Discovery';
+            badge.classList.add('visible');
+        } else { badge.classList.remove('visible'); }
+    }
+
+    function showStep(id) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        const el = document.getElementById(id);
+        if (el) el.classList.add('active');
+        state.currentId = id; save();
+        updateProgress(id); updateTopbar(id);
+    }
+
+    function next(id) { state.nav.push(state.currentId); showStep(id); }
+    function back() { if (state.nav.length > 0) showStep(state.nav.pop()); }
+    function resetPortal() { state = { ...DEFAULT_STATE }; save(); showStep('step-path'); }
+
+    function openPortal() {
+        const overlay = document.getElementById('portal-overlay');
+        overlay.style.display = 'flex';
+        requestAnimationFrame(() => requestAnimationFrame(() => { overlay.style.opacity = '1'; }));
+        document.body.style.overflow = 'hidden';
+        showStep(state.currentId);
+    }
+    function closePortal() {
+        const overlay = document.getElementById('portal-overlay');
+        overlay.style.opacity = '0';
+        setTimeout(() => { overlay.style.display = 'none'; document.body.style.overflow = ''; }, 350);
+    }
+    document.getElementById('portal-overlay').addEventListener('click', function(e) {
+        if (e.target === this) closePortal();
+    });
+
+    const QUOTES = [
+        { text: "The health of soil, plant, animal and man is one and indivisible.", attr: "— Sir Albert Howard" },
+        { text: "I don't have a runoff problem; I have an infiltration problem.", attr: "— Gabe Brown" },
+        { text: "If you have weeds, it's telling you something about your soil.", attr: "— Dr. Elaine Ingham" },
+        { text: "Plants don't eat soil. They eat the waste products of the biology that lives in the soil.", attr: "— Dr. Elaine Ingham" },
+        { text: "The soil is the great connector of lives, the source and destination of all.", attr: "— Wendell Berry" },
+        { text: "The care of the Earth is our most ancient and most worthy responsibility.", attr: "— Wendell Berry" },
+        { text: "In nature, nothing exists alone.", attr: "— Rachel Carson" },
+        { text: "The land loves us back.", attr: "— Robin Wall Kimmerer" },
+        { text: "Mycelium is the Earth's natural Internet.", attr: "— Paul Stamets" },
+        { text: "All the world's problems can be solved in a garden.", attr: "— Geoff Lawton" },
+        { text: "Nature is far more complex than any of us can ever imagine.", attr: "— Gabe Brown" },
+        { text: "We abuse land because we regard it as a commodity belonging to us.", attr: "— Aldo Leopold" },
+    ];
+
+    // ── PATH & PROPERTY ──
+    function setPath(p) { state.path = p; next('step-property'); }
+
+    function setProperty(p) {
+        state.property = p;
+        if (p === 'farm') {
+            state.farmServices = []; state.farmHouse = false; state.features = [];
+            document.querySelectorAll('.farm-card').forEach(c => { c.classList.remove('selected'); const chk = c.querySelector('.farm-check'); if (chk) chk.textContent = ''; });
+            document.getElementById('farm-house-toggle-card').classList.remove('active');
+            document.getElementById('farm-house-features').style.display = 'none';
+            document.getElementById('features-next-btn').textContent = 'Continue →';
+            if (state.path === 'short') { next('step-contact'); return; }
+            next('step-features');
+        } else {
+            if (state.path === 'short') { next('step-qq-size'); return; }
+            next('step-beds');
+        }
+    }
+
+    function setBeds(v) { state.beds = v; if (state.path === 'long') next('step-mulch'); else next('step-pruning'); }
+    function setMulch(v) { state.mulch = v; next('step-pruning'); }
+    function setPruning(v) { state.pruning = v; next('step-canopy'); }
+    function setCanopy(v) { state.canopy = v; if (state.path === 'long') next('step-history'); else next('step-aesthetic'); }
+    function setHistory(v) { state.history = v; next('step-prior'); }
+    function setPrior(v) { state.prior = v; next('step-involvement'); }
+    function setInvolvement(v) { state.involvement = v; next('step-timeline'); }
+    function setTimeline(v) { state.timeline = v; next('step-scheduling'); }
+
+    function toggleDay(day, el) {
+        const idx = state.blockedDays.indexOf(day);
+        const check = el.querySelector('.sched-check');
+        if (idx === -1) {
+            state.blockedDays.push(day); el.classList.add('blocked'); check.textContent = '✕';
+            const pi = state.preferredDays.indexOf(day);
+            if (pi !== -1) {
+                state.preferredDays.splice(pi, 1);
+                const days = ['mon','tue','wed','thu','fri','sat'];
+                const prefEl = document.querySelectorAll('#sched-preferred .sched-day')[days.indexOf(day)];
+                if (prefEl) { prefEl.classList.remove('preferred-active'); prefEl.querySelector('.sched-check').textContent = ''; }
+            }
+        } else { state.blockedDays.splice(idx, 1); el.classList.remove('blocked'); check.textContent = ''; }
+    }
+    function togglePreferred(day, el) {
+        if (state.blockedDays.includes(day)) return;
+        const idx = state.preferredDays.indexOf(day);
+        const check = el.querySelector('.sched-check');
+        if (idx === -1) { state.preferredDays.push(day); el.classList.add('preferred-active'); check.textContent = '✓'; }
+        else { state.preferredDays.splice(idx, 1); el.classList.remove('preferred-active'); check.textContent = ''; }
+    }
+    function commitScheduling() { next('step-aesthetic'); }
+
+    function setAesthetic(a) {
+        state.aesthetic = a;
+        const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+        document.getElementById('save-quote-text').textContent = q.text;
+        document.getElementById('save-quote-attr').textContent = q.attr;
+        if (a === 'pristine') next('step-contact');
+        else if (state.path === 'long') next('step-soil');
+        else next('step-email');
+    }
+
+    function setSoil(s) { state.soil = s; next('step-goal'); }
+
+    function toggleGoal(key, el) {
+        const idx = state.goals.indexOf(key);
+        if (idx === -1) { state.goals.push(key); el.classList.add('selected'); }
+        else { state.goals.splice(idx, 1); el.classList.remove('selected'); }
+        const btn = document.getElementById('goal-continue-btn');
+        btn.textContent = state.goals.length > 0 ? `Continue with ${state.goals.length} goal${state.goals.length > 1 ? 's' : ''} selected →` : 'Continue →';
+    }
+    function commitGoals() { next('step-invasives'); }
+    function setInvasives(i) { state.invasives = i; next('step-email'); }
+
+    function saveEmail() { const val = document.getElementById('early-email').value.trim(); if (val) state.email = val; next('step-size'); }
+    function skipEmail() { next('step-size'); }
+    function setSize(s, label) { state.size = s; state.sizeLabel = label; next('step-services'); }
+
+    function finish() {
+        state.name = document.getElementById('user-name').value.trim();
+        state.email = document.getElementById('user-email').value.trim() || state.email;
+        state.phone = document.getElementById('user-phone').value.trim();
+        save();
+        if (state.path === 'short') {
+            buildQQResult(); next('step-qq-result'); return;
+        }
+        if (state.property === 'farm') {
+            buildResult(); next('step-result');
+        } else if (state.aesthetic === 'pristine') {
+            buildResult(); next('step-result');
+        } else {
+            state.partnerships = [];
+            document.querySelectorAll('.partner-card').forEach(c => c.classList.remove('selected'));
+            updatePartnershipTally();
+            next('step-partnership');
+        }
+    }
+
+    function toggleFarmService(key, cardEl) {
+        const idx = state.farmServices.indexOf(key);
+        const check = cardEl.querySelector('.farm-check');
+        if (idx === -1) { state.farmServices.push(key); cardEl.classList.add('selected'); check.textContent = '✓'; }
+        else { state.farmServices.splice(idx, 1); cardEl.classList.remove('selected'); check.textContent = ''; }
+        const labels = { hay: 'Hay', cattle: 'Cattle', sheep: 'Sheep', chickens: 'Chickens' };
+        document.getElementById('features-next-btn').textContent = state.farmServices.length > 0 ? `Continue with ${state.farmServices.map(s => labels[s]).join(', ')} →` : 'Continue →';
+    }
+    function toggleFarmHouse() {
+        state.farmHouse = !state.farmHouse;
+        document.getElementById('farm-house-toggle-card').classList.toggle('active', state.farmHouse);
+        document.getElementById('farm-house-features').style.display = state.farmHouse ? 'block' : 'none';
+        if (!state.farmHouse) { state.features = []; document.querySelectorAll('#farm-house-features .multi-opt').forEach(c => c.classList.remove('selected')); }
+    }
+    function toggleFeature(key, cardEl) {
+        const idx = state.features.indexOf(key);
+        if (idx === -1) { state.features.push(key); cardEl.classList.add('selected'); }
+        else { state.features.splice(idx, 1); cardEl.classList.remove('selected'); }
+    }
+    function commitFarmFeatures() { next('step-farm-smell'); }
+    function setFarmSmell(v) { state.farmSmell = v; if (v === 'none') { buildFarmSmellMismatch(); next('step-result'); } else { next('step-farm-size'); } }
+    function setFarmSize(v, label) {
+        state.farmSize = v; state.sizeLabel = label;
+        const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+        document.getElementById('save-quote-text').textContent = q.text;
+        document.getElementById('save-quote-attr').textContent = q.attr;
+        if (state.farmHouse && state.features.length > 0) next('step-farm-house-size');
+        else next('step-email');
+    }
+    function setFarmHouseSize(v, label) { state.size = v; state.houseSize = v; state.houseSizeLabel = label; next('step-email'); }
+
+    function buildFarmSmellMismatch() {
+        document.getElementById('result-eyebrow').textContent = 'A Candid Note';
+        document.getElementById('result-title').textContent = "Let's Have an Honest Conversation.";
+        document.getElementById('result-subtitle').textContent = 'We want to work with you — on terms that work for both parties.';
+        document.getElementById('result-body').innerHTML = `<div class="values-mismatch"><h3>Smell-free farm stewardship isn't something we can promise.</h3><p>Healthy soil biology and farm work are inseparable from organic matter — compost, manure, decomposing material. These aren't side effects we can engineer away; they're the foundation of what we build.</p><p>Let's get on a call and talk through the specifics of your situation.</p></div><div class="result-next-steps"><h4>What Happens Next</h4><div class="next-step-item"><div class="next-step-num">1</div><p>We'll reach out within 48 hours to schedule a 20-minute call.</p></div><div class="next-step-item"><div class="next-step-num">2</div><p>We'll walk through your property, your concerns, and what our biological approach actually involves on a working farm.</p></div><div class="next-step-item"><div class="next-step-num">3</div><p>You decide if it's the right fit. No pressure, no obligation.</p></div></div>`;
+    }
+
+    function togglePartner(key, cardEl) {
+        const idx = state.partnerships.indexOf(key);
+        if (idx === -1) { state.partnerships.push(key); cardEl.classList.add('selected'); }
+        else { state.partnerships.splice(idx, 1); cardEl.classList.remove('selected'); }
+        updatePartnershipTally();
+    }
+    function updatePartnershipTally() {
+        const count = state.partnerships.length;
+        const levels = ['None selected', 'Collaborator', 'Partner', 'Senior Partner', 'Full Partner'];
+        const notes = ['Select any options above that interest you — or skip ahead if none apply.', 'A meaningful discount applied to your per-visit rate. Details on your consultation call.', "A significant discount across your stewardship program. We'll work out the specifics together.", "A substantial discount — you've opened serious doors. We appreciate that.", 'Our most significant discount — reserved for property owners who open all four doors.'];
+        document.getElementById('tally-value').textContent = levels[count];
+        document.getElementById('tally-note').textContent = notes[count];
+        const tally = document.getElementById('partnership-tally');
+        const tallyVal = document.getElementById('tally-value');
+        const btnText = document.getElementById('partner-btn-text');
+        if (count > 0) { tally.classList.add('has-selections'); tallyVal.classList.add('active'); btnText.textContent = `See My Summary with ${count === 1 ? 'Partnership Discount' : count + ' Discounts'} →`; }
+        else { tally.classList.remove('has-selections'); tallyVal.classList.remove('active'); btnText.textContent = 'Continue Without Partnerships →'; }
+    }
+    function finishPartnership() { save(); buildResult(); next('step-result'); }
+
+    function buildResult() {
+        const firstName = state.name ? state.name.split(' ')[0] : 'Your Property';
+
+        if (state.property === 'farm') {
+            const farmLabels = { hay: { icon: '🌾', name: 'Hay Fields', desc: 'Cutting schedules, field health, and soil biology management.' }, cattle: { icon: '🐄', name: 'Cattle / Cows', desc: 'Pasture rotation, compaction recovery, and grazing system design.' }, sheep: { icon: '🐑', name: 'Sheep', desc: 'Grazing management, pasture diversity, and soil health under livestock.' }, chickens: { icon: '🐔', name: 'Chickens / Poultry', desc: 'Range management, nitrogen distribution, and soil recovery.' } };
+            const selectedFarm = state.farmServices || [];
+            const farmScopeItems = selectedFarm.length > 0 ? selectedFarm.map(s => `<div class="farm-scope-item"><span class="fsi-icon">${farmLabels[s].icon}</span><div><strong style="font-weight:700;color:var(--text);font-size:0.85rem;">${farmLabels[s].name}</strong><br><span style="font-size:0.8rem;color:var(--stone);">${farmLabels[s].desc}</span></div></div>`).join('') : `<div class="farm-scope-item"><span class="fsi-icon">🌿</span><div><span style="font-size:0.85rem;color:var(--stone);">General farm & pasture assessment</span></div></div>`;
+            const hasHouse = state.farmHouse && state.features.length > 0;
+            const houseFeatNames = { lawn: 'Open Lawn', beds: 'Planted Beds', trees: 'Trees & Shrubs', food: 'Kitchen Garden' };
+            const houseItems = hasHouse ? state.features.map(k => houseFeatNames[k] || k).join(' · ') : null;
+            const houseSizeStr = state.houseSizeLabel ? ` · ${state.houseSizeLabel}` : '';
+            document.getElementById('result-eyebrow').textContent = 'Farm & Pasture — Consultation Required';
+            document.getElementById('result-title').textContent = `${firstName}'s Farm Summary`;
+            document.getElementById('result-subtitle').textContent = selectedFarm.length > 0 ? selectedFarm.map(s => farmLabels[s].name).join(' · ') : 'General Farm & Pasture';
+            document.getElementById('result-body').innerHTML = `<div class="farm-consult-required"><h3>This one needs a site visit.</h3><p>Farm and pasture work is priced by the acre, the animal load, the condition of your land, and the goals you're working toward. No formula does it justice — so we don't pretend there is.</p></div><div class="farm-scope-box"><div class="farm-scope-header">Working Land Services Requested</div><div class="farm-scope-items">${farmScopeItems}</div></div>${hasHouse ? `<div class="farm-scope-box"><div class="farm-scope-header">Residential Stewardship — Around the Home</div><div class="farm-scope-items"><div class="farm-scope-item"><span class="fsi-icon">🏡</span><div><strong style="font-weight:700;color:var(--text);font-size:0.85rem;">Full Stewardship Package${houseSizeStr}</strong><br><span style="font-size:0.8rem;color:var(--stone);">${houseItems} — quoted separately from working land.</span></div></div></div></div>` : ''}<div class="result-next-steps"><h4>What Happens Next</h4><div class="next-step-item"><div class="next-step-num">1</div><p>We'll reach out within 48 hours to schedule a farm walk — no charge, no obligation.</p></div><div class="next-step-item"><div class="next-step-num">2</div><p>We walk the working land together — assess soil condition, existing pasture health, field layout, and your livestock needs.</p></div><div class="next-step-item"><div class="next-step-num">3</div><p>You receive a written scope covering every service selected${hasHouse ? ', including separate residential pricing' : ''} — before any commitment.</p></div></div>`;
+            return;
+        }
+
+        if (state.aesthetic === 'pristine') {
+            document.getElementById('result-eyebrow').textContent = 'A Candid Note';
+            document.getElementById('result-title').textContent = "Let's Have an Honest Conversation.";
+            document.getElementById('result-subtitle').textContent = 'We want to work with you — on terms that work for both parties.';
+            document.getElementById('result-body').innerHTML = `<div class="values-mismatch"><h3>We hear you — and we want to be straight with you.</h3><p>A perfectly weed-free, chemically uniform property is achievable. But it requires a level of intervention that works against the biology we specialize in building.</p><p>What we can offer: a hybrid approach that gets your property <em>very close</em> to that standard using biological methods — often indistinguishable to the eye, built on a foundation that gets <strong>stronger every year</strong> instead of weaker.</p><p>That's a conversation worth having in person. Let's schedule a call.</p></div><div class="result-next-steps"><h4>What Happens Next</h4><div class="next-step-item"><div class="next-step-num">1</div><p>We'll reach out within 48 hours to schedule a 20-minute call.</p></div><div class="next-step-item"><div class="next-step-num">2</div><p>We'll walk you through what a hybrid biological approach actually looks like — and what it costs.</p></div><div class="next-step-item"><div class="next-step-num">3</div><p>You decide. No pressure, no obligation.</p></div></div>`;
+            return;
+        }
+
+        const baseMap = { small: 175, medium: 225, large: 325, estate: 475 };
+        let base = baseMap[state.size] || 225;
+        const aestheticMod = { township: -50, green: 0, mostly: 0, naturalized: 25 }[state.aesthetic] || 0;
+        const bedsMod2 = { minimal: 0, moderate: 25, extensive: 75, bare: 40 }[state.beds] || 0;
+        const canopyMod = { none: 0, moderate: 15, heavy: 35 }[state.canopy] || 0;
+        const invasivesMod = state.path === 'long' ? ({ none: 0, minor: 20, significant: 60, unknown: 20 }[state.invasives] || 0) : 0;
+        const soilMod = state.path === 'long' ? ({ thriving: 0, developing: 0, dusty: 15, compacted: 30 }[state.soil] || 0) : 0;
+        const historyMod = state.path === 'long' ? ({ active: 0, new: 0, neglected: 25, never: 15 }[state.history] || 0) : 0;
+        let rawTotal = base + aestheticMod + bedsMod2 + canopyMod + invasivesMod + soilMod + historyMod;
+        const partnerCount = (state.partnerships || []).length;
+        const discountRate = partnerCount >= 3 ? 0.15 : partnerCount === 2 ? 0.10 : partnerCount === 1 ? 0.05 : 0;
+        const discounted = Math.round((rawTotal * (1 - discountRate)) / 5) * 5;
+        const price = state.size === 'estate' ? (discounted >= 475 ? `Starting at $${discounted.toLocaleString()}` : `Starting at $475`) : `$${discounted.toLocaleString()}`;
+
+        const aestheticLabel = { mostly: 'Lush & Resilient', green: 'Clean & Well-Kept', naturalized: 'Ecology First', township: 'Township Compliant' }[state.aesthetic] || '';
+        const pathLabel = state.path === 'long' ? 'Deep Discovery' : 'Quick Quote';
+        document.getElementById('result-eyebrow').textContent = `${pathLabel} — Residential Estate`;
+        document.getElementById('result-title').textContent = `${firstName}'s Property Summary`;
+        document.getElementById('result-subtitle').textContent = `${state.sizeLabel || 'Estate'} · ${aestheticLabel} Standard`;
+
+        const bedsNote = state.beds === 'extensive' ? ' — extensive bed scope noted' : state.beds === 'bare' ? ' — high weed pressure noted' : '';
+        const bedsLabel = { minimal: 'Minimal borders', moderate: 'Moderate planted beds', extensive: 'Extensive beds', bare: 'Mostly bare/mulched' }[state.beds] || '';
+        const canopyLabel = { none: 'Open canopy', moderate: 'Moderate tree cover', heavy: 'Heavy canopy' }[state.canopy] || '';
+        const profileLine = [bedsLabel, canopyLabel].filter(Boolean).join(' · ') || 'Standard residential';
+
+        let mulchHTML = '';
+        if (state.mulch === 'colored') mulchHTML = `<div class="result-narrative" style="border-left-color: var(--forest); background:#f2f7f4;"><strong>A note on mulch:</strong> We don't use dyed or foreign-source mulch products. What comes off your property stays on your property — we chip and upcycle material we remove, returning it as natural mulch that actually feeds your soil biology.</div>`;
+        else if (state.mulch === 'stone') mulchHTML = `<div class="result-narrative" style="border-left-color:var(--gold);"><strong>On stone mulch:</strong> We can work around existing stone, but we'll likely recommend transitioning some areas to wood chip over time — stone suppresses soil biology and retains heat in ways that stress plant roots.</div>`;
+
+        const pruningLabel = { none: null, maintenance: 'Routine maintenance pruning', elevated: 'Elevated aesthetic — shaped & sculpted', large: 'Large tree work / removal (site assessment required)', all: 'Full pruning program — maintenance, aesthetics, and large tree work' }[state.pruning];
+        const yearOneMap = { compacted: 'Aeration, compost topdressing, and a targeted overseeding program to break the compaction cycle.', dusty: 'Compost amendment and biological inoculants to kickstart microbial diversity.', developing: "Targeted organic inputs and native species integration to accelerate what's already working.", thriving: 'Maintenance of existing health, invasive monitoring, and system optimization.' };
+        const y1 = yearOneMap[state.soil];
+        const goalLabels = { cost: 'Lower long-term costs', value: 'Protect & grow property value', oversight: 'Expert ongoing oversight', ecology: 'Environmental stewardship', minimal: 'Low maintenance system', beauty: 'Pure aesthetics' };
+        const goalTags = (state.goals || []).map(g => `<span class="partner-tag">${goalLabels[g] || g}</span>`).join('');
+        const invasiveNotes = { minor: 'Minor invasive presence noted — Year 1 priority.', significant: 'Significant invasive pressure — Year 1 focus.', unknown: 'Invasive audit on first visit.' };
+        const invasiveNote = invasiveNotes[state.invasives];
+        const invasiveHTML = invasiveNote ? `<div class="result-narrative" style="border-color:#c0392b;background:#fff5f5;">⚠ <strong>Invasive Note:</strong> ${invasiveNote}</div>` : '';
+
+        const dayNames = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday' };
+        let schedHTML = '';
+        if (state.blockedDays.length > 0 || state.preferredDays.length > 0) {
+            const blocked = state.blockedDays.map(d => dayNames[d]).join(', ');
+            const preferred = state.preferredDays.map(d => dayNames[d]).join(', ');
+            schedHTML = `<div class="result-narrative"><strong>Scheduling preferences logged.</strong>${blocked ? ` Days off-limits: <strong>${blocked}</strong>.` : ''} ${preferred ? `Preferred: <strong>${preferred}</strong>.` : ''} We'll do our best to honor these when building your route.</div>`;
+        }
+
+        const contextMap = {
+            history: { neglected: "Year 1 will be remediation and reset before optimization.", new: "Starting from scratch is an advantage — we set the biological foundation right from day one.", never: "A property never systematically cared for often has resilient native biology hiding just beneath the surface." },
+            prior: { "yes-bad": "You've been let down before — we hear that often. We'll show you what intentional stewardship actually looks like.", diy: "You know your land better than anyone. That's a real asset — we build on what you've been doing." },
+            involvement: { handoff: "Full handoff — you'll get a brief update after each visit, nothing more required.", informed: "We'll explain what we're doing and why at each visit, without requiring you to manage us.", collaborative: "We love engaged property owners. Expect questions and recommendations you can actually dig into." },
+            timeline: { now: "We'll prioritize getting you on the schedule.", next: "Starting now is the right call — fall work sets up spring better than anything.", exploring: "No pressure. The summary below gives you a clear picture of what a stewardship relationship looks like." }
+        };
+        const contextHTML = [contextMap.history[state.history], contextMap.prior[state.prior], contextMap.involvement[state.involvement], contextMap.timeline[state.timeline]].filter(Boolean).map(n => `<div class="result-narrative" style="margin-top:-8px;">${n}</div>`).join('');
+
+        const corePkgItems = [
+            { name: 'Full Lawn Maintenance', desc: 'Mowing, edging, and cleanup every visit' },
+            { name: 'Full-Property Fertilization', desc: 'Biological program across all areas' },
+            { name: 'Weed-Free Bed Promise', desc: 'All beds maintained, guaranteed' },
+            { name: 'Mulch & Compost Services', desc: 'Upcycled on-property material + topdressing' },
+            { name: 'Core Aeration', desc: 'Annual, timed to your soil cycle — included' },
+        ];
+        const pkgHTML = corePkgItems.map(i => `<div class="pkg-item"><div class="pkg-dot"></div><span><strong>${i.name}</strong>${i.desc}</span></div>`).join('');
+        const addOns = [];
+        if (pruningLabel) addOns.push(`Tree & Shrub Pruning — ${pruningLabel}`);
+        if (state.canopy === 'heavy' || state.canopy === 'moderate') addOns.push('Tree Zone Management');
+        if (state.beds === 'bare') addOns.push('Intensive Weed Remediation');
+        const addOnHTML = addOns.length > 0 ? `<div class="ala-carte-note" style="margin-top:0;border-top:1px solid #e8e8e4;"><strong>Also on your scope, billed separately:</strong> ${addOns.join(' · ')}</div>` : '';
+
+        const partnerLabels = { trainees: 'Stewards in Training', content: 'Property as Content', pilot: 'Pilot Program Participant', flexible: 'Full Scheduling Flexibility' };
+        let partnerHTML = '';
+        if (state.partnerships && state.partnerships.length > 0) {
+            const count = state.partnerships.length;
+            const disc = count === 1 ? 'a meaningful discount' : count === 2 ? 'a significant discount' : 'our most significant available discount';
+            const tags = state.partnerships.map(p => `<span class="partner-tag">${partnerLabels[p]}</span>`).join('');
+            partnerHTML = `<div class="partner-result-box"><span class="prb-eyebrow">Partnership Selected</span><h4>You've unlocked ${disc}.</h4><div class="partner-tags">${tags}</div><div class="partner-discount-summary">We'll confirm exact terms on your consultation call — you've earned <strong>a real reduction on your stewardship rate</strong>.</div></div>`;
+        }
+
+        const townshipNote = state.aesthetic === 'township' ? `<div class="ala-carte-note"><strong>Township Compliant scope noted.</strong> We'll quote lawn maintenance as the primary service. The Full Stewardship Package is almost always better value — we'll show you both.</div>` : '';
+
+        // Customer profile
+        const profile = getCustomerProfile();
+        const profileLabel = getProfileLabel(profile);
+        const profileNote = getProfileNote(profile);
+        const profileBadgeHTML = `<span class="profile-badge ${profile}">${profileLabel}</span><p style="font-size:0.88rem;color:var(--stone);line-height:1.6;margin-bottom:24px;">${profileNote}</p>`;
+
+        // Annual estimate
+        const annualVisits = 18;
+        const annualBase = rawTotal * annualVisits;
+        const annualDiscounted = Math.round((annualBase * (1 - discountRate)) / 100) * 100;
+        const annualHigh = Math.round((rawTotal * 1.15 * annualVisits) / 100) * 100;
+        const annualDisplay = discountRate > 0
+            ? `$${annualDiscounted.toLocaleString()} – $${Math.round(annualHigh * (1 - discountRate) / 100) * 100 .toLocaleString()}`
+            : `$${annualBase.toLocaleString()} – $${annualHigh.toLocaleString()}`;
+
+        // Spend comparison
+        const spendLabels = { under2k: 'Under $2,000', '2to5k': '$2,000–$5,000', '5to15k': '$5,000–$15,000', '15to30k': '$15,000–$30,000', over30k: '$30,000+' };
+        const includedServices = ['fert', 'beds', 'mulch', 'soil'];
+        const selectedServices = state.services || [];
+        const consolidatedServices = selectedServices.filter(s => includedServices.includes(s));
+        const serviceNames = { mowing: 'Lawn Mowing', fert: 'Fertilizing', beds: 'Bed Care', mulch: 'Mulching', pruning: 'Pruning & Shrubs', trees: 'Tree Service', pest: 'Pest & Weed Control', soil: 'Soil Amendments', irrigation: 'Irrigation' };
+        let spendHTML = '';
+        if (state.spend && state.services.length > 0) {
+            const consolidatedList = consolidatedServices.map(s => serviceNames[s]).join(', ');
+            const consolidatedNote = consolidatedServices.length > 0
+                ? `<div class="spend-row"><span>${consolidatedList}</span><span class="spend-tag">Included</span></div>`
+                : '';
+            spendHTML = `<div class="spend-compare">
+                <span class="spend-compare-label">What you're currently managing</span>
+                <div class="spend-row"><span>Current annual investment across ${selectedServices.length} service${selectedServices.length > 1 ? 's' : ''}</span><span><strong>${spendLabels[state.spend] || ''}</strong></span></div>
+                ${consolidatedNote}
+                <div class="spend-row" style="padding-top:12px;"><span>Filthy Rich Soil Co. all-inclusive program</span><span><strong>${annualDisplay}/year</strong></span></div>
+            </div>`;
+        }
+
+        // Trajectory
+        const trajectoryHTML = `<div class="trajectory-box">
+            <span class="trajectory-box-label">Your Investment Trajectory</span>
+            <div class="traj-row"><span class="traj-year">Year 1</span><div class="traj-bar"><div class="traj-fill" style="width:90%;"></div></div><span class="traj-note">Restoration &amp; biological foundation — highest input year</span></div>
+            <div class="traj-row"><span class="traj-year">Year 2</span><div class="traj-bar"><div class="traj-fill" style="width:70%;"></div></div><span class="traj-note">Reduced amendments as soil biology establishes</span></div>
+            <div class="traj-row"><span class="traj-year">Year 3</span><div class="traj-bar"><div class="traj-fill" style="width:50%;"></div></div><span class="traj-note">Minimal intervention — system strengthening itself</span></div>
+            <div class="traj-row"><span class="traj-year">Year 5+</span><div class="traj-bar"><div class="traj-fill" style="width:30%;"></div></div><span class="traj-note">Self-regulating — lowest ongoing cost</span></div>
+        </div>`;
+
+        // CTA
+        const ctaHTML = `<a href="mailto:info@filthyrichsoil.com?subject=Site%20Assessment%20Request&body=Hi%2C%20I%20completed%20the%20Deep%20Discovery%20and%20would%20like%20to%20schedule%20a%20site%20assessment." class="site-assessment-btn">Schedule Your Site Assessment →</a>`;
+
+        document.getElementById('result-body').innerHTML = `
+            ${profileBadgeHTML}
+            ${partnerHTML}
+            <div class="annual-estimate-box">
+                <div class="ae-header">
+                    <div><span class="ae-label">Estimated Annual Investment</span><div class="ae-price">${annualDisplay}</div></div>
+                    <span class="pkg-badge">All-Inclusive</span>
+                </div>
+                <div class="package-items">${pkgHTML}</div>
+                ${addOnHTML}
+                <div class="ae-visit-note">Based on ${annualVisits} visits/year (bi-weekly program) · ${state.sizeLabel || 'Your property'} · ${aestheticLabel} standard</div>
+            </div>
+            ${spendHTML}
+            ${trajectoryHTML}
+            ${townshipNote}
+            ${state.path === 'long' || state.involvement === 'collaborative' ? `<div class="ala-carte-note"><strong>Prefer à la carte?</strong> Every service is available individually — but bundled is almost always better value. We'll show you both options on our call.</div>` : ''}
+            ${y1 ? `<div class="result-narrative" style="margin-top:-8px;"><strong>Year 1 Focus:</strong> ${y1}</div>` : ''}
+            ${mulchHTML}
+            ${contextHTML}
+            ${invasiveHTML}
+            ${schedHTML}
+            ${goalTags ? `<div class="result-narrative"><strong>Your goals:</strong><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">${(state.goals || []).map(g => `<span style="background:var(--light);border:1px solid #ddd;color:var(--text);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:6px 13px;">${goalLabels[g] || g}</span>`).join('')}</div></div>` : ''}
+            ${ctaHTML}
+            <div class="result-next-steps"><h4>What Happens Next</h4>
+                <div class="next-step-item"><div class="next-step-num">1</div><p>We'll reach out within 48 hours to schedule your on-site visit — no charge, no obligation.</p></div>
+                <div class="next-step-item"><div class="next-step-num">2</div><p>We walk the full property together, assess what we're working with, and develop your estimate on-site.</p></div>
+                <div class="next-step-item"><div class="next-step-num">3</div><p>Upon estimate approval, soil testing begins. You'll receive an in-depth stewardship plan before any work starts.</p></div>
+            </div>
+            <div class="estimate-disclaimer">This estimate is based on your answers and regional market conditions. Final pricing is determined after an on-site assessment — your actual rate may be higher or lower depending on conditions we can only evaluate in person.</div>`;
+    }
+
+    // ── QUICK QUOTE FUNCTIONS ──
+    function setQQSize(s, label) { state.size = s; state.sizeLabel = label; next('step-qq-need'); }
+    function setQQNeed(v) { state.qqNeed = v; next('step-qq-timeline'); }
+    function setQQTimeline(v) { state.qqTimeline = v; next('step-contact'); }
+
+    function switchToDeepDiscovery() {
+        state = { ...DEFAULT_STATE };
+        state.path = 'long';
+        save();
+        showStep('step-property');
+    }
+
+    function buildQQResult() {
+        const baseMap = { small: 175, medium: 225, large: 325, estate: 475 };
+        const base = baseMap[state.size] || 225;
+        const visits = 18;
+        const annualLow = Math.round(base * visits / 100) * 100;
+        const annualHigh = Math.round((base * 1.35) * visits / 100) * 100;
+        const firstName = state.name ? state.name.split(' ')[0] : null;
+        const greeting = firstName ? `${firstName}, here's` : "Here's";
+        const needNote = {
+            program: 'Ongoing stewardship programs run seasonally with bi-weekly visits.',
+            problem: 'Specific problem scopes are assessed on-site — price varies by scope.',
+            overhaul: 'Full overhauls are quoted after a site walk — larger scope, higher first-year investment.',
+            exploring: 'No rush. This range gives you a sense of what to expect.'
+        }[state.qqNeed] || '';
+        const urgencyNote = {
+            now: "You're ready — we'll prioritize reaching out.",
+            season: "Good timing. We can typically fit new clients into the current season.",
+            next: "Starting the conversation now means a seamless start next season.",
+            exploring: "No pressure. Keep this for reference."
+        }[state.qqTimeline] || '';
+        document.getElementById('qq-result-body').innerHTML = `
+            <span class="step-eyebrow">Quick Quote — Your Range</span>
+            <h2>${greeting} your ballpark.</h2>
+            <div class="qq-range-box">
+                <span class="qq-range-label">Estimated Annual Investment</span>
+                <div class="qq-range-price">$${annualLow.toLocaleString()} – $${annualHigh.toLocaleString()}</div>
+                <div class="qq-range-period">${state.sizeLabel || 'Your property'} · bi-weekly program · all-inclusive</div>
+            </div>
+            <div class="qq-included">
+                <span class="qq-included-label">What's included in every program</span>
+                <ul>
+                    <li>Full lawn maintenance — mowing, edging, cleanup</li>
+                    <li>Biological fertilizing program</li>
+                    <li>Bed care and weed management</li>
+                    <li>Mulch &amp; compost topdressing</li>
+                    <li>Core aeration (annual)</li>
+                </ul>
+            </div>
+            <div class="qq-nudge">${needNote}${urgencyNote ? ' ' + urgencyNote : ''} For a precise estimate based on your soil, property condition, and goals — complete the Deep Discovery below.</div>
+            <a href="mailto:info@filthyrichsoil.com?subject=Site%20Assessment%20Request&body=Hi%2C%20I%20completed%20a%20Quick%20Quote%20and%20would%20like%20to%20schedule%20a%20site%20assessment." class="site-assessment-btn">Schedule Your Site Assessment →</a>
+            <div class="estimate-disclaimer">This is a ballpark range based on property size only. Final pricing depends on soil condition, bed complexity, canopy, and scope — determined after an on-site visit.</div>`;
+    }
+
+    // ── DEEP DISCOVERY PROFILING FUNCTIONS ──
+    function toggleService(key, el) {
+        const idx = state.services.indexOf(key);
+        if (idx === -1) { state.services.push(key); el.classList.add('selected'); }
+        else { state.services.splice(idx, 1); el.classList.remove('selected'); }
+    }
+    function commitServices() { next('step-spend'); }
+    function setSpend(v) { state.spend = v; next('step-who'); }
+    function setWho(v) { state.who = v; next('step-source'); }
+    function setSource(v) { state.source = v; next('step-email'); }
+
+    function getCustomerProfile() {
+        const highSpend = ['15to30k', 'over30k'].includes(state.spend);
+        const medSpend = ['5to15k', '15to30k', 'over30k'].includes(state.spend);
+        const lowSpend = ['under2k', '2to5k'].includes(state.spend);
+        const isHomeowner = state.who === 'homeowner';
+        const isManager = ['manager', 'commercial'].includes(state.who);
+        const referred = state.source === 'referral' || state.source === 'work';
+        const readySoon = ['now', 'season'].includes(state.timeline);
+        const manyServices = (state.services || []).length >= 4;
+        const neglected = state.history === 'neglected' || state.history === 'never';
+        if (isManager || state.who === 'commercial') return 'commercial';
+        if (lowSpend && neglected) return 'assessment';
+        if (referred && highSpend && isHomeowner) return 'ideal';
+        if (manyServices && medSpend && readySoon) return 'upgrade';
+        if ((state.goals || []).includes('value') || (state.goals || []).includes('cost')) return 'investor';
+        return 'partner';
+    }
+
+    function getProfileLabel(p) {
+        return {
+            ideal: 'Ideal Stewardship Partner',
+            upgrade: 'Ready to Upgrade',
+            investor: 'Smart Long-Term Investor',
+            assessment: 'Assessment First',
+            commercial: 'Commercial / Estate Management',
+            partner: 'Strong Partnership Candidate'
+        }[p] || 'Strong Partnership Candidate';
+    }
+
+    function getProfileNote(p) {
+        return {
+            ideal: "You're exactly the kind of client we built this program for — values-aligned, invested, and ready to let the land do the work.",
+            upgrade: "You're managing too many vendors for too much money. Our program consolidates all of it — and gets better every year.",
+            investor: "You understand the long-term economics. Our biological model is the only one where your land actually appreciates in value.",
+            assessment: "Before a quote, we'd like to walk the property. Some land needs a reset before it's ready for a full program.",
+            commercial: "Custom programs available for managed and commercial properties. Let's talk scope.",
+            partner: "Our approach aligns well with what you're looking for. An on-site assessment will sharpen the picture."
+        }[p] || '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePortal(); });
+    window.onload = () => { showStep(state.currentId); };
+</script>
+</body>
+</html>

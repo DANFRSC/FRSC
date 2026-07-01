@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Values | Filthy Rich Soil Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --forest: #013220; --forest-mid: #024a30; --gold: #B8860B; --gold-light: #d4a017; --white: #ffffff; --text: #1a1a1a; --light: #f9f9f7; --stone: #666; --border: rgba(0,0,0,0.08); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.7; }
+
+        /* ── NAVIGATION ── */
+        .navbar { background: var(--white); height: 88px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 500; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; text-decoration: none; color: var(--forest); line-height: 1.2; display: flex; flex-direction: column; }
+        .logo .soil { color: var(--gold); }
+        .nav-links { display: flex; list-style: none; gap: 0; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--forest); font-weight: 500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; padding: 0 18px; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a.active { color: var(--gold); }
+        .portal-btn { background: var(--gold); color: white; padding: 13px 28px; border: none; font-family: 'DM Sans', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 2px; cursor: pointer; transition: background 0.2s; margin-left: 10px; text-decoration: none; display: inline-block; }
+        .portal-btn:hover { background: var(--gold-light); }
+
+        /* --- HERO --- */
+        .manifesto-hero { padding: 120px 5% 80px; text-align: center; max-width: 1000px; margin: 0 auto; }
+        .manifesto-hero h1 { font-family: 'Playfair Display'; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--forest); line-height: 1.1; margin-bottom: 35px; }
+        .manifesto-hero p { font-size: 1.3rem; color: var(--stone); font-weight: 300; max-width: 800px; margin: 0 auto; }
+
+        /* --- SYSTEM GRID --- */
+        .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding: 100px 10%; background: var(--light); }
+        .philosophy-text h2 { font-family: 'Playfair Display'; font-size: 2.2rem; color: var(--forest); margin-bottom: 25px; }
+        .philosophy-text p { font-size: 1.05rem; color: #444; margin-bottom: 20px; }
+        .value-highlight { background: white; padding: 20px 25px; border-left: 3px solid var(--gold); margin-top: 25px; font-size: 0.95rem; font-style: italic; color: var(--forest); }
+        
+        /* --- INVESTMENT LOGIC --- */
+        .investment-section { padding: 100px 10%; background: white; }
+        .investment-section h2 { font-family: 'Playfair Display'; font-size: 3rem; color: var(--forest); text-align: center; margin-bottom: 15px; }
+        .investment-section .subtitle { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-weight: 800; font-size: 0.8rem; margin-bottom: 50px; display: block; text-align: center; }
+        
+        .cost-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto; }
+        .cost-card { background: var(--light); padding: 50px; border: 1px solid #e5e5e0; }
+        .cost-card.legacy { opacity: 0.7; }
+        .cost-card h3 { font-family: 'Playfair Display'; font-size: 1.8rem; margin-bottom: 30px; color: var(--forest); }
+        .cost-card h3 span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; display: block; color: var(--gold); font-family: 'Inter'; font-weight: 800; margin-bottom: 10px; }
+        .year-row { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #ddd; font-size: 0.95rem; }
+        .year-row strong { font-weight: 800; }
+        .trajectory { margin-top: 30px; padding-top: 30px; border-top: 2px solid var(--gold); }
+        .trajectory p { font-size: 0.9rem; color: var(--stone); line-height: 1.8; }
+        .trajectory strong { color: var(--forest); display: block; margin-top: 15px; font-size: 1.1rem; }
+        
+        /* --- LAND STEWARDS --- */
+        .labor-ethics { padding: 120px 10%; text-align: center; background: var(--light); }
+        .labor-ethics h2 { font-family: 'Playfair Display'; font-size: 3rem; color: var(--forest); margin-bottom: 15px; }
+        .subtitle { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-weight: 800; font-size: 0.8rem; margin-bottom: 50px; display: block; }
+        
+        .labor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .labor-card { padding: 50px; border: 1px solid #e5e5e0; text-align: left; background: white; transition: all 0.4s ease; }
+        .labor-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .labor-card h4 { font-family: 'Playfair Display'; font-size: 1.5rem; margin-bottom: 20px; color: var(--forest); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }
+        .labor-card p { font-size: 0.95rem; color: var(--stone); line-height: 1.8; }
+
+
+        @media (max-width: 768px) { 
+            .philosophy-grid { grid-template-columns: 1fr; padding: 60px 5%; } 
+            .manifesto-hero { padding: 80px 5% 40px; }
+            .cost-comparison { grid-template-columns: 1fr; gap: 30px; }
+            .investment-section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <span>FILTHY RICH</span>
+            <span><span class="soil">SOIL</span> CO.</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="creations.html">Creations</a></li>
+            <li><a href="values.html" class="active">Values</a></li>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="index.html?consult=1" class="portal-btn">Begin Consultation</a></li>
+        </ul>
+    </nav>
+
+    <section class="manifesto-hero">
+        <h1>The Quiet Dignity <br> of Living Land.</h1>
+        <p>We don't just manage landscapes; we steward them. Our system is built on biological craftsmanship—fostering resilience so your estate can thrive as a self-sustaining sanctuary.</p>
+    </section>
+
+    <section class="philosophy-grid">
+        <div class="philosophy-text">
+            <h2>Biological Integrity</h2>
+            <p>We operate on a whole-system frequency. Rather than treating symptoms with reactive measures, we focus on the complex relationship between soil microbiology and plant life.</p>
+            <p>By restoring the fungal networks and microbial diversity beneath your feet, we build a landscape that possesses its own natural strength. This is sophisticated, science-based care that honors the rhythm of the earth.</p>
+            <div class="value-highlight">
+                Healthy soil requires less water, fewer amendments, and minimal intervention—creating a system that becomes less expensive to maintain each season.
+            </div>
+        </div>
+        <div class="philosophy-text">
+            <h2>The Aesthetic of Vitality</h2>
+            <p>We believe environmental stewardship and high-end aesthetics are not mutually exclusive—they are partners. Our results are measured by the vibrant, lush reality of your land.</p>
+            <p>We are uncompromisingly results-oriented. By keeping ecological health at the forefront, we produce landscapes that look better, last longer, and radiate a vitality that synthetic systems simply cannot replicate.</p>
+            <div class="value-highlight">
+                Our landscapes appreciate in resilience and reduce in maintenance cost, unlike synthetic systems that demand escalating chemical inputs to maintain appearance.
+            </div>
+        </div>
+    </section>
+
+    <section class="investment-section">
+        <span class="subtitle">True Cost Analysis</span>
+        <h2>The Economics of Resilience</h2>
+        
+        <div class="cost-comparison">
+            <div class="cost-card legacy">
+                <h3><span>Legacy Model</span>Recurring Dependency</h3>
+                <div class="year-row">
+                    <span>Year 1</span>
+                    <strong>$$</strong>
+                </div>
+                <div class="year-row">
+                    <span>Year 2</span>
+                    <strong>$$ + inputs</strong>
+                </div>
+                <div class="year-row">
+                    <span>Year 3</span>
+                    <strong>$$$ + repairs</strong>
+                </div>
+                <div class="year-row">
+                    <span>Year 5+</span>
+                    <strong>$$$$ + escalation</strong>
+                </div>
+                <div class="trajectory">
+                    <p>Conventional landscaping creates a dependency cycle. Chemical treatments deplete soil biology, requiring ever-increasing inputs to maintain appearance. Water needs rise. Disease pressure intensifies. The cost curve only moves in one direction.</p>
+                    <strong>Result: Permanent expense, diminishing returns</strong>
+                </div>
+            </div>
+
+            <div class="cost-card">
+                <h3><span>Biological Model</span>Compounding Returns</h3>
+                <div class="year-row">
+                    <span>Year 1</span>
+                    <strong>$$$ (restoration)</strong>
+                </div>
+                <div class="year-row">
+                    <span>Year 2</span>
+                    <strong>$$ (reduced inputs)</strong>
+                </div>
+                <div class="year-row">
+                    <span>Year 3</span>
+                    <strong>$ (minimal intervention)</strong>
+                </div>
+                <div class="year-row">
+                    <span>Year 5+</span>
+                    <strong>$ (self-regulating)</strong>
+                </div>
+                <div class="trajectory">
+                    <p>We front-load investment in soil restoration and biological infrastructure. As microbial communities establish, your landscape requires fewer amendments, less water, and minimal reactive treatments. The system strengthens itself season after season.</p>
+                    <strong>Result: Declining costs, compounding health</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="labor-ethics">
+        <span class="subtitle">The Art of Care</span>
+        <h2>The Land Stewards</h2>
+        <div class="labor-grid">
+            <div class="labor-card">
+                <h4>Professional Agency</h4>
+                <p>Our team members are career practitioners, not seasonal labor. They are trained Stewards with the agency to make real-time, expert decisions that benefit the long-term health of your estate.</p>
+                <p style="margin-top: 15px; font-weight: 600; color: var(--forest);">Expert decision-making prevents costly mistakes and eliminates the waste of reactive, symptomatic treatments that conventional services rely on for recurring revenue.</p>
+            </div>
+            <div class="labor-card">
+                <h4>Discreet Craftsmanship</h4>
+                <p>We believe stewardship is as much about how we work as what we do. Our team operates with a level of care and quiet presence that respects the privacy and atmosphere of your home.</p>
+            </div>
+            <div class="labor-card">
+                <h4>Human Vitality</h4>
+                <p>To care for the earth, one must be cared for. We uphold the dignity of our profession by ensuring our Stewards are supported with professional standards that reflect their high level of expertise.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

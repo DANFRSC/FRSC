@@ -1,0 +1,251 @@
+---
+import Base from '../layouts/Base.astro';
+
+const categories = [
+  {
+    tag: 'Full Program',
+    title: 'Full Ecological Program',
+    img: 'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=900&q=80',
+    desc: 'Soil remediation, native installation, and ongoing stewardship — all of it, under one program. These properties get treated as ecosystems, not lawns. We assess, amend, plant, and return. The result compounds year over year.',
+    filter: 'full-program',
+  },
+  {
+    tag: 'Turf & Edge',
+    title: 'Turf & Edge Craft',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
+    desc: 'Sharp lines are earned, not sprayed. This work is about the edge where mowed meets planted — maintaining it with enough precision that the whole property reads as intentional. Mowing, edging, and seasonal cleanup done right.',
+    filter: 'turf-edge',
+  },
+  {
+    tag: 'Native Plants',
+    title: 'Native Plant Design',
+    img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80',
+    desc: 'Plants that belong here. Native species are adapted to our soils, our rainfall, our pollinators. Once established, they require almost nothing and give almost everything — bloom succession, bird habitat, root depth.',
+    filter: 'native-plants',
+  },
+  {
+    tag: 'Soil Health',
+    title: 'Soil Health & Compost',
+    img: 'https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?auto=format&fit=crop&w=900&q=80',
+    desc: 'Everything we do starts underground. Custom compost applications, biological amendments, and soil testing that tells us what\'s actually there — not just what the bag says to apply. Healthy soil produces healthy plants. There is no shortcut.',
+    filter: 'soil-health',
+  },
+  {
+    tag: 'Meadow',
+    title: 'Meadow & Naturalized Areas',
+    img: 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=900&q=80',
+    desc: 'Converting turf to meadow is one of the highest-impact things a landowner can do. Lower inputs, deeper roots, and a landscape that looks different — and better — every season. We design the seed mix, handle the establishment, and manage the transition.',
+    filter: 'meadow',
+  },
+  {
+    tag: 'Woodland Edge',
+    title: 'Woodland Edge Restoration',
+    img: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=900&q=80',
+    desc: 'The edge between lawn and woods is one of the most ecologically valuable — and most neglected — zones on any property. We clear invasives, plant native shrub layers, and build out a transition that protects both the woodland and the yard.',
+    filter: 'woodland-edge',
+  },
+];
+---
+
+<Base title="Creations" description="Portfolio of ecological landscaping work by Filthy Rich Soil Co. across Chester County, PA.">
+
+<style is:global>
+  .creations-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 5% 80px;
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .creations-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(1,20,10,0.9) 0%, rgba(1,20,10,0.45) 60%, transparent 100%);
+  }
+  .creations-hero .hero-content { position: relative; z-index: 1; max-width: 640px; }
+  .creations-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 900; font-style: italic;
+    color: #FAF7F0; line-height: 1.05; margin-bottom: 20px;
+  }
+  .creations-hero p {
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(250,247,240,0.75); max-width: 500px; line-height: 1.75;
+  }
+
+  .creations-grid-section {
+    background: #080e08;
+    padding: 80px 5% 100px;
+  }
+  .creations-grid-inner { max-width: 1200px; margin: 0 auto; }
+
+  .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 52px; }
+  .filter-btn {
+    padding: 9px 22px; border-radius: 100px;
+    border: 1px solid rgba(184,134,11,0.3);
+    background: transparent; color: rgba(250,247,240,0.55);
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: #B8860B; background: rgba(184,134,11,0.15); color: #d4a017;
+  }
+
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .project-card {
+    background: rgba(1,30,16,0.55);
+    border: 1px solid rgba(184,134,11,0.15);
+    border-radius: 12px; overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s;
+  }
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    border-color: rgba(184,134,11,0.35);
+  }
+  .project-img {
+    height: 240px; background-size: cover; background-position: center;
+    position: relative;
+  }
+  .project-img-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(1,20,10,0.3);
+  }
+  .project-img-placeholder span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 2px; color: rgba(250,247,240,0.4);
+    border: 1px solid rgba(250,247,240,0.2);
+    padding: 6px 14px; border-radius: 4px;
+  }
+  .project-body { padding: 24px 24px 30px; }
+  .project-tag {
+    display: inline-block;
+    background: rgba(184,134,11,0.15);
+    color: #d4a017;
+    font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .project-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: #FAF7F0; margin-bottom: 10px;
+  }
+  .project-body p { font-size: 0.88rem; color: rgba(250,247,240,0.62); line-height: 1.75; }
+
+  .creations-note {
+    background: rgba(1,30,16,0.4);
+    border: 1px solid rgba(184,134,11,0.15);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-top: 60px;
+    max-width: 680px;
+    margin-left: auto; margin-right: auto;
+    text-align: center;
+  }
+  .creations-note p {
+    font-size: 0.9rem;
+    color: rgba(250,247,240,0.5);
+    line-height: 1.85;
+    font-style: italic;
+  }
+
+  .creations-cta {
+    background: #080e08;
+    border-top: 1px solid rgba(184,134,11,0.12);
+    text-align: center; padding: 80px 5% 100px;
+  }
+  .creations-cta h2 {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(1.9rem,3.5vw,3rem); color: #FAF7F0; margin-bottom: 18px;
+  }
+  .creations-cta p {
+    color: rgba(250,247,240,0.6); margin-bottom: 36px;
+    font-size: 1.05rem; max-width: 440px; margin-left: auto; margin-right: auto;
+  }
+
+  @media (max-width: 960px) { .projects-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .creations-hero { background-attachment: scroll; }
+  }
+</style>
+
+<section class="creations-hero">
+  <div class="hero-content">
+    <h1>The Work<br>Itself</h1>
+    <p>Six kinds of ecological work we do — what each one is, what it requires, and what it produces over time.</p>
+  </div>
+</section>
+
+<section class="creations-grid-section">
+  <div class="creations-grid-inner">
+    <span class="section-eyebrow reveal">What We Do</span>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Six categories of craft</h2>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="full-program">Full Program</button>
+      <button class="filter-btn" data-filter="turf-edge">Turf & Edge</button>
+      <button class="filter-btn" data-filter="native-plants">Native Plants</button>
+      <button class="filter-btn" data-filter="soil-health">Soil Health</button>
+      <button class="filter-btn" data-filter="meadow">Meadow</button>
+      <button class="filter-btn" data-filter="woodland-edge">Woodland Edge</button>
+    </div>
+
+    <div class="projects-grid">
+      {categories.map((c, i) => (
+        <div class={`project-card reveal`} data-filter={c.filter} style={`transition-delay:${(i % 3) * 0.1}s`}>
+          <div class="project-img" style={`background-image:url('${c.img}')`}>
+            <div class="project-img-placeholder">
+              <span>Photos coming soon</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <span class="project-tag">{c.tag}</span>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="creations-note reveal">
+      <p>We're in the field now. Real project photography is being documented and will replace placeholders as work is captured on-site.</p>
+    </div>
+  </div>
+</section>
+
+<section class="creations-cta">
+  <h2>Want to see your land on this page?</h2>
+  <p>Start with a consultation. We'll assess what your property needs and what it can become.</p>
+  <a href="/consult" class="btn-primary">Begin Consultation</a>
+</section>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = (btn as HTMLElement).dataset.filter;
+      document.querySelectorAll('.project-card').forEach(card => {
+        const cardFilter = (card as HTMLElement).dataset.filter;
+        if (filter === 'all' || cardFilter === filter) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+</Base>

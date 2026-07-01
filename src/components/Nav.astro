@@ -1,0 +1,60 @@
+---
+interface Props {
+  currentPath: string;
+  transparent?: boolean;
+}
+const { currentPath, transparent = false } = Astro.props;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<nav class={transparent ? '' : 'solid'} id="mainNav">
+  <a href="/" class="nav-logo">Filthy Rich Soil Co.<span>Chester County, PA</span></a>
+  <div class="nav-links">
+    <a href="/creations" class={isActive('/creations') ? 'active' : ''}>Creations</a>
+    <a href="/media" class={isActive('/media') ? 'active' : ''}>Media</a>
+    <a href="/values" class={isActive('/values') ? 'active' : ''}>Values</a>
+    <a href="/careers" class={isActive('/careers') ? 'active' : ''}>Careers</a>
+    <a href="/consult" class="nav-cta">Begin Consultation</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/">Home</a>
+  <a href="/creations">Creations</a>
+  <a href="/media">Media</a>
+  <a href="/values">Values</a>
+  <a href="/careers">Careers</a>
+  <a href="/consult" class="mobile-cta">Begin Consultation</a>
+</div>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  // Scroll glass effect (only when not already solid)
+  if (!nav.classList.contains('solid')) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+  }
+
+  // Hamburger toggle
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+</script>

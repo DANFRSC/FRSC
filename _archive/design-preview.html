@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filthy Rich Soil Co. — Design Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest: #013220;
+      --forest-mid: #024d32;
+      --forest-lite: #2d6a4f;
+      --gold: #B8860B;
+      --gold-lite: #d4a017;
+      --cream: #FAF7F0;
+      --white: #ffffff;
+      --radius: 16px;
+      --overlay-dark: rgba(0,0,0,0.52);
+      --overlay-darker: rgba(0,10,4,0.68);
+      --overlay-forest: rgba(1,50,32,0.72);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #080e08;
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(1, 30, 16, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 14px 5%;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 900;
+      font-size: 1.25rem; color: var(--white);
+      text-decoration: none; line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { display: block; font-size: 0.6rem; font-family: 'DM Sans', sans-serif; font-style: normal; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-lite); margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 0.78rem; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-lite); }
+    .nav-cta {
+      background: var(--gold); color: var(--forest) !important;
+      padding: 10px 22px; border-radius: 100px;
+      font-weight: 700 !important; letter-spacing: 1px !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-lite) !important; transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999;
+      background: rgba(1,20,10,0.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .mobile-menu.open { display: flex; opacity: 1; }
+    .mobile-menu a {
+      color: white; text-decoration: none; font-size: 1.6rem;
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--gold-lite); }
+    .mobile-menu .mobile-cta {
+      font-family: 'DM Sans', sans-serif; font-style: normal;
+      background: var(--gold); color: var(--forest);
+      padding: 16px 40px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat;
+      background-attachment: fixed;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(1,50,32,0.6) 60%, rgba(0,0,0,0.8) 100%);
+    }
+    .hero-inner { position: relative; z-index: 2; padding: 0 5%; max-width: 900px; }
+    .hero-eyebrow {
+      display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold-lite); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900; font-style: italic; line-height: 1.05;
+      color: var(--white); margin-bottom: 24px;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; line-height: 1.75;
+      color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--forest);
+      padding: 16px 36px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold-lite); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: white;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      padding: 16px 36px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.08); }
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.5;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    .scroll-hint span { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; }
+    .scroll-hint svg { width: 20px; height: 20px; }
+    @keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    /* ── PARALLAX QUOTE STRIP ── */
+    .quote-strip {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80') center 30% / cover no-repeat;
+      background-attachment: fixed;
+      padding: 120px 5%;
+      text-align: center;
+    }
+    .quote-strip::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--overlay-forest);
+    }
+    .quote-strip-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+    .quote-strip blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-style: italic; font-weight: 700; line-height: 1.3;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .quote-strip cite {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold-lite); font-style: normal;
+    }
+
+    /* ── SERVICES SECTION ── */
+    .services-section {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center 60% / cover no-repeat;
+      background-attachment: fixed;
+      padding: 120px 5%;
+    }
+    .services-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,8,3,0.82) 0%, rgba(1,50,32,0.75) 100%);
+    }
+    .services-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-block; font-size: 0.62rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold-lite); margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; font-style: italic;
+      color: var(--white); line-height: 1.1; margin-bottom: 60px;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+    }
+    .service-card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius); padding: 36px 32px;
+      transition: background 0.3s, transform 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .service-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .service-card p { font-size: 0.9rem; color: rgba(255,255,255,0.68); line-height: 1.75; }
+
+    /* ── FULL BLEED SPLIT ── */
+    .split-section {
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 600px;
+    }
+    .split-img {
+      background: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=900&q=80') center center / cover no-repeat;
+      position: relative;
+      min-height: 400px;
+    }
+    .split-content {
+      background: var(--forest); padding: 100px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .split-content .section-eyebrow { color: var(--gold-lite); }
+    .split-content .section-title { margin-bottom: 24px; }
+    .split-content p { font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.85; margin-bottom: 16px; }
+    .split-content p:last-of-type { margin-bottom: 32px; }
+    .diff-list { list-style: none; margin-bottom: 40px; }
+    .diff-list li {
+      font-size: 0.9rem; color: rgba(255,255,255,0.8); padding: 8px 0;
+      padding-left: 22px; position: relative; line-height: 1.5; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .diff-list li:last-child { border-bottom: none; }
+    .diff-list li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+    /* ── SOIL SCIENCE STRIP ── */
+    .science-strip {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80') center center / cover no-repeat;
+      background-attachment: fixed;
+      padding: 140px 5%;
+    }
+    .science-strip::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    }
+    .science-inner { position: relative; z-index: 2; max-width: 580px; }
+    .science-inner .section-eyebrow { color: var(--gold-lite); }
+    .science-inner .section-title { margin-bottom: 24px; }
+    .science-inner p { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.85; margin-bottom: 32px; }
+    .stats-row { display: flex; gap: 48px; margin-top: 48px; flex-wrap: wrap; }
+    .stat { }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900;
+      color: var(--gold-lite); line-height: 1; display: block;
+    }
+    .stat-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 6px; display: block; }
+
+    /* ── CREATIONS MOSAIC ── */
+    .creations-section { background: #050a05; padding: 100px 5%; }
+    .creations-header { max-width: 1200px; margin: 0 auto 60px; }
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 12px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .mosaic-item {
+      border-radius: 12px; overflow: hidden;
+      position: relative; cursor: pointer;
+    }
+    .mosaic-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .mosaic-item:hover img { transform: scale(1.05); }
+    .mosaic-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .mosaic-item:hover .mosaic-item-overlay { opacity: 1; }
+    .mosaic-item-overlay span {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.85);
+    }
+    /* Mosaic layout */
+    .mosaic-item:nth-child(1) { grid-column: span 5; grid-row: span 2; height: 460px; }
+    .mosaic-item:nth-child(2) { grid-column: span 4; height: 220px; }
+    .mosaic-item:nth-child(3) { grid-column: span 3; height: 220px; }
+    .mosaic-item:nth-child(4) { grid-column: span 4; height: 228px; }
+    .mosaic-item:nth-child(5) { grid-column: span 3; height: 228px; }
+    .mosaic-item:nth-child(6) { grid-column: span 4; height: 260px; }
+    .mosaic-item:nth-child(7) { grid-column: span 8; height: 260px; }
+
+    /* ── TESTIMONIAL STRIP ── */
+    .testimonial-strip {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=1600&q=80') center 40% / cover no-repeat;
+      background-attachment: fixed;
+      padding: 140px 5%;
+      text-align: center;
+    }
+    .testimonial-strip::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,5,2,0.75);
+    }
+    .testimonial-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+    .stars { color: var(--gold-lite); font-size: 1.1rem; letter-spacing: 4px; margin-bottom: 28px; }
+    .testimonial-inner blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-style: italic; font-weight: 700; line-height: 1.4;
+      color: var(--white); margin-bottom: 28px;
+    }
+    .testimonial-inner cite {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5); font-style: normal;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1600&q=80') center 70% / cover no-repeat;
+      background-attachment: fixed;
+      padding: 160px 5%;
+      text-align: center;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(1,50,32,0.85) 100%);
+    }
+    .cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+    .cta-inner .section-eyebrow { color: var(--gold-lite); }
+    .cta-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 900; font-style: italic;
+      color: var(--white); line-height: 1.1; margin-bottom: 20px;
+    }
+    .cta-inner p { font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.75; margin-bottom: 40px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #020a04;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 5% 40px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand .nav-logo { font-size: 1.1rem; display: inline-block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; color: rgba(255,255,255,0.42); line-height: 1.75; max-width: 280px; }
+    .footer-col h4 { font-size: 0.62rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 20px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.9rem; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold-lite); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.78rem; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.12s; }
+    .reveal-d2 { transition-delay: 0.24s; }
+    .reveal-d3 { transition-delay: 0.36s; }
+
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .split-section { grid-template-columns: 1fr; }
+      .split-img { height: 320px; background-attachment: scroll; }
+      .split-content { padding: 60px 30px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .mosaic {
+        grid-template-columns: 1fr 1fr;
+      }
+      .mosaic-item:nth-child(1) { grid-column: span 2; height: 280px; }
+      .mosaic-item:nth-child(2),
+      .mosaic-item:nth-child(3),
+      .mosaic-item:nth-child(4),
+      .mosaic-item:nth-child(5) { grid-column: span 1; height: 180px; }
+      .mosaic-item:nth-child(6) { grid-column: span 2; height: 200px; }
+      .mosaic-item:nth-child(7) { grid-column: span 2; height: 200px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { background-attachment: scroll; }
+      .quote-strip { background-attachment: scroll; }
+      .services-section { background-attachment: scroll; }
+      .science-strip { background-attachment: scroll; }
+      .testimonial-strip { background-attachment: scroll; }
+      .cta-section { background-attachment: scroll; }
+      .stats-row { gap: 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Filthy Rich Soil Co.<span>West Chester, PA</span></a>
+  <div class="nav-links">
+    <a href="#">About</a>
+    <a href="#">Creations</a>
+    <a href="#">Careers</a>
+    <a href="consult-preview.html" class="nav-cta">Begin Consultation</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#">About</a>
+  <a href="#">Creations</a>
+  <a href="#">Careers</a>
+  <a href="consult-preview.html" class="mobile-cta">Begin Consultation</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Ecological Stewardship · West Chester, PA</span>
+    <h1>Your Land.<br>Truly Alive.</h1>
+    <p>Premium ecological stewardship for properties that deserve more than a lawn service — starting with what's happening below the surface.</p>
+    <div class="hero-btns">
+      <a href="consult-preview.html" class="btn-primary">Begin Consultation</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- PARALLAX QUOTE -->
+<div class="quote-strip reveal">
+  <div class="quote-strip-inner">
+    <blockquote>"The health of the soil, plant, animal and man is one and indivisible."</blockquote>
+    <cite>— Sir Albert Howard, founding father of organic farming</cite>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <span class="section-eyebrow reveal">What We Do</span>
+    <h2 class="section-title reveal reveal-d1">Stewardship, Not Maintenance</h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🌱</span>
+        <h3>Soil Regeneration</h3>
+        <p>Biological amendments, compost integration, and ongoing soil health monitoring to build a living system beneath your lawn.</p>
+      </div>
+      <div class="service-card reveal reveal-d1">
+        <span class="service-icon">🌿</span>
+        <h3>Native Plant Design</h3>
+        <p>Species selection rooted in regional ecology. Plants that belong here — and attract the insects and birds that belong here too.</p>
+      </div>
+      <div class="service-card reveal reveal-d2">
+        <span class="service-icon">💧</span>
+        <h3>Water Management</h3>
+        <p>Rain gardens, grading analysis, and drainage solutions that work with your watershed instead of fighting it.</p>
+      </div>
+      <div class="service-card reveal reveal-d3">
+        <span class="service-icon">🍂</span>
+        <h3>Seasonal Programs</h3>
+        <p>Year-round care calibrated to ecological timing — not a calendar. We know when your land needs attention and when it needs to rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT: THE DIFFERENCE -->
+<section class="split-section">
+  <div class="split-img"></div>
+  <div class="split-content">
+    <span class="section-eyebrow reveal">Our Difference</span>
+    <h2 class="section-title reveal reveal-d1">We actually believe what we say about soil</h2>
+    <p class="reveal">We're not a lawn service company that decided to call itself ecological. Every program we build starts with a soil assessment — because you can't fix what you haven't read.</p>
+    <ul class="diff-list reveal reveal-d1">
+      <li>Soil testing before every new program</li>
+      <li>Biological amendments — not synthetic programs</li>
+      <li>Team trained in ecological systems, not just operations</li>
+      <li>Outcomes measured, not just tasks completed</li>
+      <li>Direct client relationship with your Lead Steward</li>
+    </ul>
+    <a href="consult-preview.html" class="btn-primary">Start Your Consultation</a>
+  </div>
+</section>
+
+<!-- SOIL SCIENCE STRIP -->
+<section class="science-strip">
+  <div class="science-inner">
+    <span class="section-eyebrow reveal">The Science</span>
+    <h2 class="section-title reveal reveal-d1">A teaspoon of healthy soil holds more living organisms than there are people on Earth.</h2>
+    <p class="reveal reveal-d2">That ecosystem is what we're building — and protecting — on every property we steward. When your soil is alive, everything above it follows.</p>
+    <div class="stats-row reveal reveal-d2">
+      <div class="stat">
+        <span class="stat-num">18×</span>
+        <span class="stat-label">Visits / year</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Bio-based inputs</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3yr</span>
+        <span class="stat-label">Avg. transformation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATIONS MOSAIC -->
+<section class="creations-section">
+  <div class="creations-header">
+    <span class="section-eyebrow reveal">Our Work</span>
+    <h2 class="section-title reveal reveal-d1">Properties We've Transformed</h2>
+  </div>
+  <div class="mosaic">
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Garden landscape">
+      <div class="mosaic-item-overlay"><span>West Chester Estate</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=600&q=80" alt="Wildflower meadow">
+      <div class="mosaic-item-overlay"><span>Native Meadow</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=600&q=80" alt="Farmland">
+      <div class="mosaic-item-overlay"><span>Residential Farm</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=600&q=80" alt="Soil health">
+      <div class="mosaic-item-overlay"><span>Soil Restoration</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=600&q=80" alt="Creek restoration">
+      <div class="mosaic-item-overlay"><span>Riparian Buffer</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" alt="Planting">
+      <div class="mosaic-item-overlay"><span>Native Planting</span></div>
+    </div>
+    <div class="mosaic-item">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1000&q=80" alt="Estate grounds">
+      <div class="mosaic-item-overlay"><span>Estate Grounds</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL STRIP -->
+<section class="testimonial-strip">
+  <div class="testimonial-inner">
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <blockquote>"We've had other services for years. Filthy Rich Soil is the first one that actually explained what was wrong with our lawn — and then fixed it."</blockquote>
+    <cite>— Homeowner, Malvern PA</cite>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <span class="section-eyebrow reveal">Get Started</span>
+    <h2 class="reveal reveal-d1">Ready to see what your land can become?</h2>
+    <p class="reveal reveal-d2">Take our two-minute consultation and get a custom stewardship estimate — including what we'd actually recommend for your property.</p>
+    <a href="consult-preview.html" class="btn-primary reveal reveal-d2">Begin Your Consultation →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">Filthy Rich Soil Co.<span>West Chester, PA</span></a>
+        <p>Premium ecological stewardship for residential and commercial properties across Chester County, PA.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="#">Home</a>
+        <a href="#">About & Values</a>
+        <a href="#">Creations</a>
+        <a href="#">Careers</a>
+        <a href="consult-preview.html">Begin Consultation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:Dan@filthyrichsoilco.com">Dan@filthyrichsoilco.com</a>
+        <a href="#">West Chester, PA</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Filthy Rich Soil Co. All rights reserved.</p>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CONSULTATION MODAL MOVED TO consult-preview.html -->
+<!-- <div class="consult-overlay" id="consultOverlay">
+  <div class="consult-modal">
+    <div class="modal-header">
+      <h2>Begin Your Consultation</h2>
+      <button class="modal-close" id="modalClose">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tabQQ" onclick="setMode('qq')">
+          Quick Quote
+          <span class="modal-tab-desc">~2 min · ballpark estimate</span>
+        </button>
+        <button class="modal-tab" id="tabDD" onclick="setMode('dd')">
+          Full Discovery
+          <span class="modal-tab-desc">~6 min · custom profile</span>
+        </button>
+      </div>
+
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16%"></div></div>
+
+      <!-- QQ Steps -->
+      <div class="step active" id="step-qq-path">
+        <h3>What brought you here?</h3>
+        <p class="step-sub">Help us understand where you're starting from.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="qqNext('qq-size')"><span class="opt-icon">🌱</span>New to ecological care</button>
+          <button class="option-btn" onclick="qqNext('qq-size')"><span class="opt-icon">🔄</span>Switching from another service</button>
+          <button class="option-btn" onclick="qqNext('qq-size')"><span class="opt-icon">⬆️</span>Upgrading my current program</button>
+          <button class="option-btn" onclick="qqNext('qq-size')"><span class="opt-icon">🏢</span>Commercial property</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-qq-size">
+        <h3>How large is your property?</h3>
+        <p class="step-sub">Approximate is fine — we'll assess in person.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="qqNext('qq-need')"><span class="opt-icon">🏡</span>Under ¼ acre</button>
+          <button class="option-btn" onclick="qqNext('qq-need')"><span class="opt-icon">🏘️</span>¼ – ½ acre</button>
+          <button class="option-btn" onclick="qqNext('qq-need')"><span class="opt-icon">🌳</span>½ – 1 acre</button>
+          <button class="option-btn" onclick="qqNext('qq-need')"><span class="opt-icon">🗺️</span>Over 1 acre</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-qq-need">
+        <h3>What's your main focus?</h3>
+        <p class="step-sub">Select the area you most want to improve.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="qqNext('qq-timeline')"><span class="opt-icon">🌾</span>Lawn & turf health</button>
+          <button class="option-btn" onclick="qqNext('qq-timeline')"><span class="opt-icon">🌺</span>Native plants & gardens</button>
+          <button class="option-btn" onclick="qqNext('qq-timeline')"><span class="opt-icon">💧</span>Drainage & water</button>
+          <button class="option-btn" onclick="qqNext('qq-timeline')"><span class="opt-icon">🦋</span>Habitat & wildlife</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-qq-timeline">
+        <h3>When are you looking to start?</h3>
+        <p class="step-sub">No commitment — we just want to plan ahead.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="qqNext('qq-contact')"><span class="opt-icon">⚡</span>As soon as possible</button>
+          <button class="option-btn" onclick="qqNext('qq-contact')"><span class="opt-icon">📅</span>This season</button>
+          <button class="option-btn" onclick="qqNext('qq-contact')"><span class="opt-icon">🌤️</span>Next season</button>
+          <button class="option-btn" onclick="qqNext('qq-contact')"><span class="opt-icon">💭</span>Just exploring</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-qq-contact">
+        <h3>Where should we send your estimate?</h3>
+        <p class="step-sub">We'll follow up personally — no spam, ever.</p>
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Jane Smith" id="qqName"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="jane@email.com" id="qqEmail"></div>
+        <div class="form-group"><label>Phone (optional)</label><input type="tel" placeholder="(610) 555-0100" id="qqPhone"></div>
+        <button class="step-btn" onclick="showQQResult()">Get My Estimate →</button>
+        <button class="step-btn ghost-btn" onclick="qqBack()">← Back</button>
+      </div>
+
+      <div class="step" id="step-qq-result">
+        <div class="result-card">
+          <span class="result-badge">Your Estimate</span>
+          <div class="result-estimate"><span>$</span><span id="qqEstimate">3,200</span></div>
+          <div class="result-label">Estimated annual investment</div>
+        </div>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:20px;">
+          This is a ballpark based on your inputs. We'll confirm exact pricing after a free on-site assessment. Dan will be in touch within 24 hours.
+        </p>
+        <button class="step-btn" onclick="closeConsult()">Done — I'll watch for Dan's email</button>
+        <button class="step-btn ghost-btn" onclick="setMode('dd'); showStep('step-dd-size')">Get a more detailed estimate →</button>
+      </div>
+
+      <!-- DD Steps -->
+      <div class="step" id="step-dd-size">
+        <h3>What's your property size?</h3>
+        <p class="step-sub">We'll use this to estimate the scope of your program.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="ddNext('step-dd-services', this, 'size', 'small')"><span class="opt-icon">🏡</span>Under ¼ acre</button>
+          <button class="option-btn" onclick="ddNext('step-dd-services', this, 'size', 'quarter')"><span class="opt-icon">🏘️</span>¼ – ½ acre</button>
+          <button class="option-btn" onclick="ddNext('step-dd-services', this, 'size', 'half')"><span class="opt-icon">🌳</span>½ – 1 acre</button>
+          <button class="option-btn" onclick="ddNext('step-dd-services', this, 'size', 'large')"><span class="opt-icon">🗺️</span>Over 1 acre</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-dd-services">
+        <h3>Which services interest you?</h3>
+        <p class="step-sub">Select all that apply — we'll build around your priorities.</p>
+        <div class="option-grid" id="servicesGrid">
+          <button class="option-btn" onclick="toggleService(this, 'turf')"><span class="opt-icon">🌾</span>Lawn & turf</button>
+          <button class="option-btn" onclick="toggleService(this, 'native')"><span class="opt-icon">🌺</span>Native planting</button>
+          <button class="option-btn" onclick="toggleService(this, 'water')"><span class="opt-icon">💧</span>Water / drainage</button>
+          <button class="option-btn" onclick="toggleService(this, 'habitat')"><span class="opt-icon">🦋</span>Habitat creation</button>
+          <button class="option-btn" onclick="toggleService(this, 'soil')"><span class="opt-icon">🧪</span>Soil testing</button>
+          <button class="option-btn" onclick="toggleService(this, 'seasonal')"><span class="opt-icon">🍂</span>Seasonal care</button>
+        </div>
+        <button class="step-btn" onclick="ddGoTo('step-dd-spend')">Continue →</button>
+      </div>
+
+      <div class="step" id="step-dd-spend">
+        <h3>What's your annual investment comfort?</h3>
+        <p class="step-sub">Helps us design a program that fits your budget.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="ddNext('step-dd-who', this, 'spend', 'low')">Under $2,000</button>
+          <button class="option-btn" onclick="ddNext('step-dd-who', this, 'spend', 'mid')">$2,000 – $5,000</button>
+          <button class="option-btn" onclick="ddNext('step-dd-who', this, 'spend', 'high')">$5,000 – $10,000</button>
+          <button class="option-btn" onclick="ddNext('step-dd-who', this, 'spend', 'premium')">$10,000+</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-dd-who">
+        <h3>Who manages the property decisions?</h3>
+        <p class="step-sub">So we know how to structure our proposal.</p>
+        <div class="option-grid">
+          <button class="option-btn" onclick="ddNext('step-dd-contact', this, 'who', 'owner')"><span class="opt-icon">🏠</span>I own it myself</button>
+          <button class="option-btn" onclick="ddNext('step-dd-contact', this, 'who', 'family')"><span class="opt-icon">👨‍👩‍👧</span>Family / shared</button>
+          <button class="option-btn" onclick="ddNext('step-dd-contact', this, 'who', 'manager')"><span class="opt-icon">🏢</span>Property manager</button>
+          <button class="option-btn" onclick="ddNext('step-dd-contact', this, 'who', 'board')"><span class="opt-icon">🏛️</span>HOA / board</button>
+        </div>
+      </div>
+
+      <div class="step" id="step-dd-contact">
+        <h3>Let's put together your profile</h3>
+        <p class="step-sub">Your custom stewardship summary is almost ready.</p>
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Jane Smith" id="ddName"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="jane@email.com" id="ddEmail"></div>
+        <div class="form-group"><label>Phone (optional)</label><input type="tel" placeholder="(610) 555-0100" id="ddPhone"></div>
+        <div class="form-group"><label>Property address or town</label><input type="text" placeholder="Malvern, PA" id="ddAddress"></div>
+        <button class="step-btn" onclick="showDDResult()">Build My Stewardship Profile →</button>
+        <button class="step-btn ghost-btn" onclick="ddGoTo('step-dd-who')">← Back</button>
+      </div>
+
+      <div class="step" id="step-dd-result">
+        <div class="result-card">
+          <span class="result-badge" id="ddBadge">Ideal Client</span>
+          <div class="result-estimate"><span>$</span><span id="ddEstimate">6,400</span></div>
+          <div class="result-label">Estimated annual program investment</div>
+        </div>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:20px;">
+          Based on your selections, this is our estimated range for a full annual program. Dan will reach out within 24 hours to schedule a free on-site soil assessment and confirm exact pricing.
+        </p>
+        </div>
+
+    </div>
+  </div>
+</div> -->
+
+<script>
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── HAMBURGER ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+</script>
+
+</body>
+</html>

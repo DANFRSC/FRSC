@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media | Filthy Rich Soil Co</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #013220;
+            --forest-mid: #024a30;
+            --gold: #B8860B;
+            --gold-light: #d4a017;
+            --white: #ffffff;
+            --text: #1a1a1a;
+            --light: #f7f6f3;
+            --stone: #888;
+            --border: rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); line-height: 1.6; }
+
+        /* NAV */
+        .navbar { background: var(--white); height: 88px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 500; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; text-decoration: none; color: var(--forest); line-height: 1.2; display: flex; flex-direction: column; }
+        .logo .soil { color: var(--gold); }
+        .nav-links { display: flex; list-style: none; gap: 0; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--forest); font-weight: 500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; padding: 0 18px; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a.active { color: var(--gold); }
+        .portal-btn { background: var(--gold); color: white; padding: 13px 28px; border: none; font-family: 'DM Sans', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 2px; cursor: pointer; transition: background 0.2s; margin-left: 10px; text-decoration: none; display: inline-block; }
+        .portal-btn:hover { background: var(--gold-light); }
+
+        /* FEATURED VIDEO */
+        .video-hero { background: #000; }
+        .video-placeholder { width: 100%; aspect-ratio: 16/9; background: #111; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.2); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* MEDIA GRID */
+        .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: #eee; }
+        .media-item { background: var(--white); cursor: pointer; }
+        .media-item:hover .thumb-overlay { opacity: 1; }
+        .thumb-wrap { position: relative; }
+        .placeholder-img { width: 100%; aspect-ratio: 16/9; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #333; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; }
+        .thumb-overlay { position: absolute; inset: 0; background: rgba(1,50,32,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .play-icon { width: 48px; height: 48px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; padding-left: 4px; }
+        .media-meta { padding: 20px 24px 28px; }
+        .media-tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 6px; }
+        .media-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.4; }
+
+        /* SHORTS ROW */
+        .shorts-row { padding: 60px 5%; background: var(--light); }
+        .shorts-row h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 30px; color: var(--forest); }
+        .shorts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 2px; }
+        .short-item { background: #1a1a1a; aspect-ratio: 9/16; display: flex; align-items: flex-end; cursor: pointer; position: relative; overflow: hidden; }
+        .short-item:hover .short-overlay { opacity: 1; }
+        .short-overlay { position: absolute; inset: 0; background: rgba(1,50,32,0.6); opacity: 0; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .short-play { width: 36px; height: 36px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; padding-left: 3px; }
+        .short-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* FOLLOW */
+        .follow-strip { background: var(--forest); color: white; padding: 50px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
+        .follow-strip p { font-size: 0.8rem; opacity: 0.6; margin-top: 4px; }
+        .follow-strip h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .follow-links { display: flex; gap: 12px; flex-wrap: wrap; }
+        .follow-btn { display: inline-block; padding: 12px 24px; font-weight: 800; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; border: 1px solid rgba(255,255,255,0.3); color: white; transition: 0.2s; }
+        .follow-btn:hover { background: var(--gold); border-color: var(--gold); }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">
+        <span>FILTHY RICH</span>
+        <span><span class="soil">SOIL</span> CO.</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="creations.html">Creations</a></li>
+        <li><a href="values.html">Values</a></li>
+        <li><a href="media.html" class="active">Media</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="index.html?consult=1" class="portal-btn">Begin Consultation</a></li>
+    </ul>
+</nav>
+
+<!-- FEATURED VIDEO -->
+<div class="video-hero">
+    <div class="video-placeholder">Featured Video [Placeholder]</div>
+</div>
+
+<!-- LONG-FORM GRID -->
+<div class="media-grid">
+    <div class="media-item">
+        <div class="thumb-wrap">
+            <div class="placeholder-img">Native Meadow [Placeholder]</div>
+            <div class="thumb-overlay"><div class="play-icon">&#9654;</div></div>
+        </div>
+        <div class="media-meta">
+            <p class="media-tag">Native Meadow</p>
+            <h3 class="media-title">Installation Study</h3>
+        </div>
+    </div>
+    <div class="media-item">
+        <div class="thumb-wrap">
+            <div class="placeholder-img">Pasture [Placeholder]</div>
+            <div class="thumb-overlay"><div class="play-icon">&#9654;</div></div>
+        </div>
+        <div class="media-meta">
+            <p class="media-tag">Pasture</p>
+            <h3 class="media-title">Livestock Management</h3>
+        </div>
+    </div>
+    <div class="media-item">
+        <div class="thumb-wrap">
+            <div class="placeholder-img">Invasive Species [Placeholder]</div>
+            <div class="thumb-overlay"><div class="play-icon">&#9654;</div></div>
+        </div>
+        <div class="media-meta">
+            <p class="media-tag">Invasive Species</p>
+            <h3 class="media-title">What You Actually Have</h3>
+        </div>
+    </div>
+    <div class="media-item">
+        <div class="thumb-wrap">
+            <div class="placeholder-img">Soil Health [Placeholder]</div>
+            <div class="thumb-overlay"><div class="play-icon">&#9654;</div></div>
+        </div>
+        <div class="media-meta">
+            <p class="media-tag">Soil Health</p>
+            <h3 class="media-title">Why Your Drainage Problem Isn't a Drainage Problem</h3>
+        </div>
+    </div>
+    <div class="media-item">
+        <div class="thumb-wrap">
+            <div class="placeholder-img">Transformation [Placeholder]</div>
+            <div class="thumb-overlay"><div class="play-icon">&#9654;</div></div>
+        </div>
+        <div class="media-meta">
+            <p class="media-tag">Customer Transformation</p>
+            <h3 class="media-title">Year One — The Whitmore Property</h3>
+        </div>
+    </div>
+    <div class="media-item">
+        <div class="thumb-wrap">
+            <div class="placeholder-img">Day in the Life [Placeholder]</div>
+            <div class="thumb-overlay"><div class="play-icon">&#9654;</div></div>
+        </div>
+        <div class="media-meta">
+            <p class="media-tag">Field Documentation</p>
+            <h3 class="media-title">A Full Day on a 40-Acre Estate</h3>
+        </div>
+    </div>
+</div>
+
+<!-- SHORTS -->
+<div class="shorts-row">
+    <h2>From the Field</h2>
+    <div class="shorts-grid">
+        <div class="short-item">
+            <div class="short-overlay"><div class="short-play">&#9654;</div></div>
+            <div class="short-label">Brown Lawn?</div>
+        </div>
+        <div class="short-item">
+            <div class="short-overlay"><div class="short-play">&#9654;</div></div>
+            <div class="short-label">Soil Food Web</div>
+        </div>
+        <div class="short-item">
+            <div class="short-overlay"><div class="short-play">&#9654;</div></div>
+            <div class="short-label">No Herbicides</div>
+        </div>
+        <div class="short-item">
+            <div class="short-overlay"><div class="short-play">&#9654;</div></div>
+            <div class="short-label">Water Cycle</div>
+        </div>
+        <div class="short-item">
+            <div class="short-overlay"><div class="short-play">&#9654;</div></div>
+            <div class="short-label">Crabgrass Myth</div>
+        </div>
+    </div>
+</div>
+
+<!-- FOLLOW -->
+<div class="follow-strip">
+    <div>
+        <h3>Follow the work.</h3>
+        <p>YouTube &middot; TikTok &middot; Instagram</p>
+    </div>
+    <div class="follow-links">
+        <a href="#" class="follow-btn">YouTube</a>
+        <a href="#" class="follow-btn">TikTok</a>
+        <a href="#" class="follow-btn">Instagram</a>
+    </div>
+</div>
+
+</body>
+</html>

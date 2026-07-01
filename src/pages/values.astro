@@ -1,0 +1,180 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Values" description="The ecological philosophy behind Filthy Rich Soil Co. We steward land, not maintain it.">
+
+<style is:global>
+  .values-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 5% 80px;
+    background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .values-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(1,20,10,0.92) 0%, rgba(1,20,10,0.5) 55%, transparent 100%);
+  }
+  .values-hero .hero-content { position: relative; z-index: 1; max-width: 640px; }
+  .values-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 900; font-style: italic;
+    color: #FAF7F0; line-height: 1.05; margin-bottom: 20px;
+  }
+  .values-hero p {
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(250,247,240,0.75); max-width: 500px; line-height: 1.75;
+  }
+
+  .values-body {
+    background: #080e08;
+    padding: 100px 5%;
+  }
+  .values-body-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .value-block {
+    padding: 60px 0;
+    border-bottom: 1px solid rgba(184,134,11,0.15);
+  }
+  .value-block:last-child { border-bottom: none; }
+
+  .value-num {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 3.5rem; font-weight: 900;
+    color: rgba(184,134,11,0.15);
+    line-height: 1; margin-bottom: 16px; display: block;
+  }
+  .value-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; font-weight: 700;
+    color: #FAF7F0; margin-bottom: 22px;
+  }
+  .value-block p {
+    font-size: 1.05rem;
+    color: rgba(250,247,240,0.65);
+    line-height: 1.88; margin-bottom: 16px;
+  }
+  .value-block p:last-child { margin-bottom: 0; }
+  .value-em { color: #d4a017; font-weight: 500; }
+
+  .values-quote-section {
+    background: #0a140a;
+    border-top: 1px solid rgba(184,134,11,0.12);
+    border-bottom: 1px solid rgba(184,134,11,0.12);
+    text-align: center;
+    padding: 100px 5%;
+  }
+  .values-quote-section blockquote {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 400;
+    color: #FAF7F0; line-height: 1.55;
+    max-width: 760px; margin: 0 auto 28px;
+  }
+  .values-quote-section cite {
+    font-size: 0.7rem; color: #B8860B;
+    text-transform: uppercase; letter-spacing: 2.5px; font-style: normal;
+  }
+
+  .values-cta {
+    background: #080e08;
+    text-align: center;
+    padding: 90px 5% 100px;
+  }
+  .values-cta h2 {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(1.9rem,3.5vw,3rem);
+    color: #FAF7F0; margin-bottom: 18px;
+  }
+  .values-cta p {
+    color: rgba(250,247,240,0.6); margin-bottom: 36px;
+    font-size: 1.05rem; max-width: 440px;
+    margin-left: auto; margin-right: auto;
+  }
+  .values-careers-link {
+    margin-top: 28px; margin-bottom: 0;
+    font-size: 0.9rem !important;
+  }
+  .values-careers-link a {
+    color: var(--gold-lite); text-decoration: none;
+    border-bottom: 1px solid rgba(212,160,23,0.35);
+    transition: border-color 0.2s;
+  }
+  .values-careers-link a:hover { border-color: var(--gold-lite); }
+
+  @media (max-width: 600px) {
+    .values-hero { background-attachment: scroll; }
+  }
+</style>
+
+<section class="values-hero">
+  <div class="hero-content">
+    <h1>This Work Is Guided by Principles,<br>Not Just Practices.</h1>
+    <p>What drives every decision we make on your land.</p>
+  </div>
+</section>
+
+<section class="values-body">
+  <div class="values-body-inner">
+
+    <div class="value-block reveal">
+      <span class="value-num">01</span>
+      <h2>Soil is the Foundation of Everything</h2>
+      <p>Most landscaping companies never look below the surface. We start there. Before we touch a lawn, a bed, or a border, we assess what's happening in the ground — its structure, its biology, its capacity to hold water and support life. It informs every decision we make above it.</p>
+      <p>When that foundation is healthy, everything above it thrives. <span class="value-em">Most people never see the work. They just see a property that's flourishing.</span></p>
+    </div>
+
+    <div class="value-block reveal">
+      <span class="value-num">02</span>
+      <h2>Biodiversity is Not a Trend</h2>
+      <p><span class="value-em">A diverse system regulates itself.</span> Multiple species, layered canopies, native plants that co-evolved with this landscape — they build on each other season after season. Monoculture lawns work the opposite way. They depend on the next application to hold their appearance — and the moment that stops, so does the result. Diversity breaks that dependency.</p>
+    </div>
+
+    <div class="value-block reveal">
+      <span class="value-num">03</span>
+      <h2>Your Program Should Cost Less Every Year</h2>
+      <p>The longer we work a property, the better we know it. We learn where water moves, where soil needs support, where a plant change saves three visits a year. That knowledge becomes efficiency — and we pass it back to you.</p>
+      <p>Long-term clients pay for a program that keeps getting leaner as the ecology matures. That's not a discount for loyalty. <span class="value-em">It's what happens when a team that knows your land is also the team that designs its future.</span></p>
+    </div>
+
+    <div class="value-block reveal">
+      <span class="value-num">04</span>
+      <h2>The Craft Is in the Detail</h2>
+      <p>Ecological doesn't mean unrefined. We do high-end pruning — sharp edges, deliberate lines, an eye for fullness and how a planting reads against a walkway, a wall, a roofline. The kind of work that takes years to learn to see correctly.</p>
+      <p>And we're not anti-lawn. A well-placed lawn is one of the most effective tools for keeping invasive species at bay across a large property — and it's where your kids play, where the dog runs, where Saturday mornings happen. <span class="value-em">We just don't think a lawn needs to be the entire property to do its job.</span> A lawn with purpose, bordered by native plantings and healthy soil, is a lawn that actually makes sense.</p>
+      <p>The ecology tells us what to plant and where. <span class="value-em">The craft is what makes it look exactly right.</span></p>
+    </div>
+
+    <div class="value-block reveal">
+      <span class="value-num">05</span>
+      <h2>We're In It for the Long Run</h2>
+      <p>A stewardship relationship isn't a contract — it's a commitment. We're invested in what your property becomes over years, not just what it looks like after the first season. The work we do today is designed to matter in ten years.</p>
+      <p>That's what we ask of our clients, and it's what we ask of ourselves. <span class="value-em">The land we tend is the legacy we leave.</span></p>
+    </div>
+
+  </div>
+</section>
+
+<section class="values-quote-section">
+  <blockquote class="reveal">"Land isn't a backdrop. It's a living system — and we're responsible for what happens to it while it's in our care."</blockquote>
+  <cite>— Filthy Rich Soil Co.</cite>
+</section>
+
+<section class="values-cta">
+  <h2>See our values in the ground</h2>
+  <p>Start a conversation about what your property could become under a real stewardship program.</p>
+  <a href="/consult" class="btn-primary">Begin Consultation</a>
+  <p class="values-careers-link">Believe in this work? <a href="/careers">We're always looking for the right people →</a></p>
+</section>
+
+</Base>
