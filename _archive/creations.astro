@@ -1,54 +1,53 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// No stock imagery. Cards render with the placeholder state until real project photography exists.
 const categories = [
   {
     tag: 'Full Program',
-    title: 'Whole-Property Stewardship',
-    desc: 'Assessment, soil remediation, planting, and ongoing care — all of it, under one one-year program. These properties are treated as systems, not lawns. We test, amend, plant, prune, and return. The result compounds year over year.',
+    title: 'Full Ecological Program',
+    img: 'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=900&q=80',
+    desc: 'Soil remediation, native installation, and ongoing stewardship — all of it, under one program. These properties get treated as ecosystems, not lawns. We assess, amend, plant, and return. The result compounds year over year.',
     filter: 'full-program',
-  },
-  {
-    tag: 'Soil Health',
-    title: 'Soil Health & Amendment',
-    desc: 'Everything we do starts underground. Multi-point testing that tells us what\'s actually there — not what the bag says to apply — followed by compost and biological amendments matched to the results. Healthy soil produces healthy plants. There is no shortcut.',
-    filter: 'soil-health',
-  },
-  {
-    tag: 'Pruning',
-    title: 'Pruning & Specimen Care',
-    desc: 'Structural pruning, specimen shaping, and the deliberate lines that make a property read as intentional. This is the part of the trade that takes years to learn to see correctly — and the part most of the industry replaced with a hedge trimmer.',
-    filter: 'pruning',
   },
   {
     tag: 'Turf & Edge',
     title: 'Turf & Edge Craft',
-    desc: 'Sharp lines are earned, not sprayed. This is the edge where mowed meets planted — maintained with enough precision that the whole property reads as intentional. Lawn with a purpose, bordered well, kept without a chemical program.',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80',
+    desc: 'Sharp lines are earned, not sprayed. This work is about the edge where mowed meets planted — maintaining it with enough precision that the whole property reads as intentional. Mowing, edging, and seasonal cleanup done right.',
     filter: 'turf-edge',
   },
   {
     tag: 'Native Plants',
     title: 'Native Plant Design',
+    img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80',
     desc: 'Plants that belong here. Native species are adapted to our soils, our rainfall, our pollinators. Once established, they require almost nothing and give almost everything — bloom succession, bird habitat, root depth.',
     filter: 'native-plants',
   },
   {
+    tag: 'Soil Health',
+    title: 'Soil Health & Compost',
+    img: 'https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?auto=format&fit=crop&w=900&q=80',
+    desc: 'Everything we do starts underground. Custom compost applications, biological amendments, and soil testing that tells us what\'s actually there — not just what the bag says to apply. Healthy soil produces healthy plants. There is no shortcut.',
+    filter: 'soil-health',
+  },
+  {
     tag: 'Meadow',
     title: 'Meadow & Naturalized Areas',
+    img: 'https://images.unsplash.com/photo-1476231682828-37e571bc172f?auto=format&fit=crop&w=900&q=80',
     desc: 'Converting turf to meadow is one of the highest-impact things a landowner can do. Lower inputs, deeper roots, and a landscape that looks different — and better — every season. We design the seed mix, handle the establishment, and manage the transition.',
     filter: 'meadow',
   },
   {
     tag: 'Woodland Edge',
     title: 'Woodland Edge Restoration',
+    img: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=900&q=80',
     desc: 'The edge between lawn and woods is one of the most ecologically valuable — and most neglected — zones on any property. We clear invasives, plant native shrub layers, and build out a transition that protects both the woodland and the yard.',
     filter: 'woodland-edge',
   },
 ];
 ---
 
-<Base title="The Work" description="The kinds of ecological land stewardship Filthy Rich Soil Co. does on Chester County estates — and where real project documentation will appear as it's captured.">
+<Base title="Creations" description="Portfolio of ecological landscaping work by Filthy Rich Soil Co. across Chester County, PA.">
 
 <style is:global>
   .creations-hero {
@@ -183,22 +182,21 @@ const categories = [
 <section class="creations-hero">
   <div class="hero-content">
     <h1>The Work<br>Itself</h1>
-    <p>Seven kinds of work a stewardship program covers — what each one is, what it requires, and what it produces over time. Real projects will appear here as they're documented.</p>
+    <p>Six kinds of ecological work we do — what each one is, what it requires, and what it produces over time.</p>
   </div>
 </section>
 
 <section class="creations-grid-section">
   <div class="creations-grid-inner">
     <span class="section-eyebrow reveal">What We Do</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">Seven categories of craft</h2>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Six categories of craft</h2>
 
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="full-program">Full Program</button>
-      <button class="filter-btn" data-filter="soil-health">Soil Health</button>
-      <button class="filter-btn" data-filter="pruning">Pruning</button>
       <button class="filter-btn" data-filter="turf-edge">Turf & Edge</button>
       <button class="filter-btn" data-filter="native-plants">Native Plants</button>
+      <button class="filter-btn" data-filter="soil-health">Soil Health</button>
       <button class="filter-btn" data-filter="meadow">Meadow</button>
       <button class="filter-btn" data-filter="woodland-edge">Woodland Edge</button>
     </div>
@@ -206,9 +204,9 @@ const categories = [
     <div class="projects-grid">
       {categories.map((c, i) => (
         <div class={`project-card reveal`} data-filter={c.filter} style={`transition-delay:${(i % 3) * 0.1}s`}>
-          <div class="project-img" style="background:rgba(1,50,32,0.35);">
+          <div class="project-img" style={`background-image:url('${c.img}')`}>
             <div class="project-img-placeholder">
-              <span>Documented from 2027</span>
+              <span>Photos coming soon</span>
             </div>
           </div>
           <div class="project-body">
@@ -221,15 +219,15 @@ const categories = [
     </div>
 
     <div class="creations-note reveal">
-      <p>We launch in spring 2027. Every property we take on is photographed at every visit and soil-tested at baseline and twelve months — and the results are published here, including the ones that take longer than we expected. Until then, this page describes the work rather than pretending to show it.</p>
+      <p>We're in the field now. Real project photography is being documented and will replace placeholders as work is captured on-site.</p>
     </div>
   </div>
 </section>
 
 <section class="creations-cta">
   <h2>Want to see your land on this page?</h2>
-  <p>Start with a walkthrough. Our first clients get reduced first-year pricing in exchange for letting us document the work in full.</p>
-  <a href="/contact" class="btn-primary">Request a Walkthrough</a>
+  <p>Start with a consultation. We'll assess what your property needs and what it can become.</p>
+  <a href="/consult" class="btn-primary">Begin Consultation</a>
 </section>
 
 <script>

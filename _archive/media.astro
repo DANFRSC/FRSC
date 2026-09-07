@@ -1,0 +1,218 @@
+---
+import Base from '../layouts/Base.astro';
+
+const videos = [
+  {
+    title: 'What a Thriving Property Actually Looks Like',
+    duration: '4:12',
+    thumb: 'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=800&q=80',
+    desc: 'Most people can feel when a landscape is alive and when it isn\'t — they just can\'t say why. This walks through what biological activity looks like above and below ground, and why it changes everything you see.',
+  },
+  {
+    title: 'Year One: What the First Season Actually Does',
+    duration: '6:30',
+    thumb: 'https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?auto=format&fit=crop&w=800&q=80',
+    desc: 'Year one is mostly invisible. Root establishment, fungal networks, soil structure building — almost none of it shows up above ground until late in the season. Here\'s what we\'re actually watching for.',
+  },
+  {
+    title: 'Why Fertilizing Is Already In Your Program',
+    duration: '3:45',
+    thumb: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
+    desc: 'Most landscapers charge fertilizing as an add-on. We don\'t — and that\'s not generosity, it\'s how we think about soil. If we\'re not feeding the biology, we\'re not doing ecological work. We\'re just mowing.',
+  },
+  {
+    title: 'Native Plants: Built for This Soil, This Rain, This Region',
+    duration: '5:08',
+    thumb: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80',
+    desc: 'Native plants evolved here. That means they\'re not fighting your climate — they\'re designed for it. Once established, most need almost nothing from us. And they give back in ways that exotic species simply can\'t.',
+  },
+];
+---
+
+<Base title="Media" description="Videos and field notes from Filthy Rich Soil Co. — ecological landscaping in Chester County, PA.">
+
+<style is:global>
+  .media-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 5% 80px;
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1800&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .media-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(1,20,10,0.92) 0%, rgba(1,20,10,0.45) 60%, transparent 100%);
+  }
+  .media-hero .hero-content { position: relative; z-index: 1; max-width: 600px; }
+  .media-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 900; font-style: italic;
+    color: #FAF7F0; line-height: 1.05; margin-bottom: 20px;
+  }
+  .media-hero p {
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(250,247,240,0.75); max-width: 480px; line-height: 1.75;
+  }
+
+  .media-video-section {
+    background: #080e08;
+    padding: 80px 5% 100px;
+  }
+  .media-video-inner { max-width: 1200px; margin: 0 auto; }
+
+  .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .video-card {
+    background: rgba(1,30,16,0.55);
+    border: 1px solid rgba(184,134,11,0.15);
+    border-radius: 12px; overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: transform 0.35s, box-shadow 0.35s, border-color 0.3s;
+  }
+  .video-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    border-color: rgba(184,134,11,0.35);
+  }
+  .video-thumb {
+    height: 260px; background-size: cover; background-position: center;
+    position: relative; cursor: pointer; overflow: hidden;
+  }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 68px; height: 68px; border-radius: 50%;
+    background: rgba(250,247,240,0.92); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .play-btn svg { width: 26px; height: 26px; fill: #013220; margin-left: 4px; }
+  .video-card:hover .play-btn { transform: translate(-50%,-50%) scale(1.1); background: white; }
+  .video-duration {
+    position: absolute; bottom: 14px; right: 14px;
+    background: rgba(0,0,0,0.65); color: rgba(250,247,240,0.9);
+    font-size: 0.7rem; padding: 4px 10px; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+  }
+  .video-body { padding: 26px 28px 32px; }
+  .video-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: #FAF7F0; margin-bottom: 10px; line-height: 1.35;
+  }
+  .video-body p { font-size: 0.9rem; color: rgba(250,247,240,0.6); line-height: 1.75; }
+
+  .notes-section {
+    background: #0a140a;
+    border-top: 1px solid rgba(184,134,11,0.12);
+    padding: 80px 5% 100px;
+  }
+  .notes-inner { max-width: 800px; margin: 0 auto; }
+
+  .note-item {
+    padding: 44px 0;
+    border-bottom: 1px solid rgba(184,134,11,0.12);
+  }
+  .note-item:last-child { border-bottom: none; }
+  .note-date {
+    font-size: 0.65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    color: #B8860B; margin-bottom: 10px; display: block;
+  }
+  .note-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem; color: #FAF7F0; margin-bottom: 18px; line-height: 1.3;
+  }
+  .note-item p {
+    font-size: 0.98rem; color: rgba(250,247,240,0.62); line-height: 1.9;
+    margin-bottom: 16px;
+  }
+  .note-item p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 800px) {
+    .video-grid { grid-template-columns: 1fr; }
+    .media-hero { background-attachment: scroll; }
+  }
+</style>
+
+<section class="media-hero">
+  <div class="hero-content">
+    <h1>From the<br>Field</h1>
+    <p>What we're observing on properties, what it means for the work, and how we think about the land we steward.</p>
+  </div>
+</section>
+
+<section class="media-video-section">
+  <div class="media-video-inner">
+    <span class="section-eyebrow reveal">Videos</span>
+    <h2 class="section-title reveal" style="margin-bottom:52px">See the work up close</h2>
+    <div class="video-grid">
+      {videos.map((v, i) => (
+        <div class={`video-card reveal`} style={`transition-delay:${(i % 2) * 0.12}s`}>
+          <div class="video-thumb" style={`background-image:url('${v.thumb}')`}>
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span class="video-duration">{v.duration}</span>
+          </div>
+          <div class="video-body">
+            <h3>{v.title}</h3>
+            <p>{v.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="notes-section">
+  <div class="notes-inner">
+    <span class="section-eyebrow reveal">Field Notes</span>
+    <h2 class="section-title reveal" style="margin-bottom:52px">Observations from the ground</h2>
+
+    <div class="note-item reveal">
+      <span class="note-date">March 2026</span>
+      <h3>What compacted soil is actually costing you</h3>
+      <p>Most people think of compacted soil as an aesthetic problem. The grass looks thin, the beds look rough, maybe there's moss or bare patches. So they dethatch, aerate, overseed, and try again next spring. Same result.</p>
+      <p>Compaction isn't a surface issue. It's a structural one. When soil particles get pressed together — from foot traffic, equipment, heavy clay, or years of conventional lawn care — the pore space disappears. And pore space is where everything happens: water infiltration, root extension, oxygen exchange, microbial activity. Take it away and the soil doesn't just perform poorly. It stops functioning as soil at all.</p>
+      <p>What you're left with is essentially a growing medium that can't move water, can't support deep roots, and can't sustain the biology that makes nutrients available. The grass survives — barely — on what you push into it from above. Remove the inputs and it fails. Which is why it always seems to need more.</p>
+      <p>The fix isn't aggressive aeration followed by more seed. It's restoring structure: biological amendments that rebuild aggregation, organic matter that creates pore space over time, and a shift away from the practices that caused compaction in the first place. It takes a season or two to see it fully. But the soil that comes out the other side doesn't need constant management. It runs itself.</p>
+    </div>
+
+    <div class="note-item reveal">
+      <span class="note-date">February 2026</span>
+      <h3>The March window — and why most people miss it</h3>
+      <p>There's a two-to-three week period in early spring — usually mid-March in Chester County — when the soil is biologically active but plant growth hasn't accelerated yet. Soil temps are climbing. Microbial communities are waking up. But roots haven't started demanding resources at full rate.</p>
+      <p>That window is the best opportunity of the year to put amendments into the ground. Compost applications, biological inoculants, early fertilization — all of it moves faster and works harder when there's active biology to receive it and minimal competition pulling resources away. You're essentially loading the soil's account before the withdrawal season begins.</p>
+      <p>Most homeowners miss it. They're not watching soil temperature — they're watching forsythia, or waiting until it looks like spring. By the time they get the bags out, the window has usually closed. Growth is underway, and amendments are playing catch-up instead of leading.</p>
+      <p>We time our early-season site visits around this window specifically. Soil thermometers go in the ground in late February. When we're consistently over 45°F at four inches, we move. This year we moved early — an unusually warm February pushed most of our properties into that range a full ten days ahead of schedule.</p>
+    </div>
+
+    <div class="note-item reveal">
+      <span class="note-date">January 2026</span>
+      <h3>On invasive species — what removal actually requires</h3>
+      <p>Pulling invasives is one of the most requested things we get, and it's often approached completely wrong. People rip out a stand of Japanese knotweed or English ivy and expect the problem to be solved. Three months later it's back. Sometimes worse.</p>
+      <p>The reason is simple: invasive removal without replacement is just an opportunity. You've cleared the space, reduced competition, and improved growing conditions — for whatever comes back first. If that's native plants you've intentionally established, great. If it's more of the same invasive, or a different one that moves in opportunistically, you've done a lot of work for nothing.</p>
+      <p>Effective invasive management requires treating the removal and the replacement as one project. You clear, you plant, and you monitor. Native ground covers, shrubs, and perennials need to be in the ground fast — dense enough to hold the space and outcompete what's trying to return. On mature stands of woody invasives, that often means multiple removal sessions over two or three years as the root system exhausts itself.</p>
+      <p>It's slower than people want. But cutting knotweed once and hoping is like treating a symptom and ignoring the condition. The biology doesn't care about your timeline. Working with it is the only approach that actually sticks.</p>
+    </div>
+
+    <div class="note-item reveal">
+      <span class="note-date">October 2025</span>
+      <h3>Why we don't do one-time services</h3>
+      <p>We get asked for it. A one-time cleanup, a fall cutback, a mulch refresh. We understand why — it feels like a contained thing, a defined transaction. And there are plenty of landscapers who will show up, do it, and move on.</p>
+      <p>We don't work that way, and it's worth explaining why.</p>
+      <p>Ecological systems aren't static. A property that gets cleaned up in October and left alone until the following spring accumulates six months of deferred decisions — about what to cut back and what to leave standing for overwintering insects, about what to mulch and how deep, about which plants are struggling and which are establishing. None of those decisions are obvious, and all of them matter.</p>
+      <p>When we take on a property, we're not doing tasks. We're building knowledge — about how the soil drains after a wet week, where the deer pressure is heaviest, which native plantings are thriving and which need adjustment. That knowledge compounds. Year two of stewardship is more effective than year one, because we already understand what we're working with.</p>
+      <p>A one-time service starts from zero. It optimizes for what looks right on the day, not for what's actually happening or what the property needs. We're not interested in doing that work, because we don't think it serves you. We'd rather pass and let you find someone who's set up for it.</p>
+    </div>
+
+  </div>
+</section>
+
+</Base>
