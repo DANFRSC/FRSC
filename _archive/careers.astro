@@ -1,35 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
 
+// One opening. The other two rungs are shown so the path is visible — not because we're hiring for them.
 const roles = [
   {
-    title: 'Field Steward',
-    type: 'Full-time · Seasonal',
-    desc: 'The core of what we do. You\'ll be on properties every day — managing ecological programs, learning to read soil health, and developing the kind of attention to land that you can\'t learn anywhere else.',
-    reqs: ['Physical outdoor work in all weather', 'Genuine interest in ecological systems', 'Valid driver\'s license', 'Prior landscaping experience a plus, not required'],
+    title: 'Apprentice Steward',
+    type: 'Hiring now · Spring 2027 start',
+    open: true,
+    desc: 'This is the job we are hiring for. You start with no landscaping experience required and you are trained directly by the owner — soil, plants, pruning, reading a property — on real estate work, alongside a specialist who has done this at the highest level for years. Starting at $25/hr. You will not be handed a mower and left alone.',
+    reqs: [
+      'No landscaping experience required — a real interest in soil, plants, and doing work properly is',
+      'Physically capable and willing to be outside in the weather, spring through fall',
+      'Reliable, on time, and honest about what you don\'t know yet',
+      'Valid driver\'s license',
+      'Chester County or close enough to be on site by 7am',
+    ],
+  },
+  {
+    title: 'Steward',
+    type: 'The next level',
+    open: false,
+    desc: 'A trained practitioner who can read a property and make real decisions on it without being told what to do. Stewards run their own sections of a site, handle the skilled work — pruning, planting, soil programs — and start teaching the next Apprentice. This is where the job becomes a trade.',
+    reqs: [
+      'Reached by demonstrating the skills, not by waiting out a clock',
+      'Each level carries its own pay band — moving up is the only way past a cap',
+    ],
   },
   {
     title: 'Lead Steward',
-    type: 'Full-time · Year-round',
-    desc: 'For experienced field people ready to lead a small crew and own the outcomes of a property portfolio. You\'ll develop field teams, manage client relationships, and help set the standard for what great looks like.',
-    reqs: ['2+ seasons of field experience (ours or comparable)', 'Demonstrated ability to develop junior team members', 'Comfort with direct client communication', 'Soil health knowledge or strong desire to build it'],
-  },
-  {
-    title: 'Ecological Technician',
-    type: 'Full-time · Year-round',
-    desc: 'A science-forward role for people who want to work with soil biology, native plant design, and ecological assessment. You\'ll develop programs, interpret soil tests, and design planting plans alongside our senior team.',
-    reqs: ['Background in ecology, environmental science, or horticulture', 'Experience with native plant ID preferred', 'Comfort with field and office work split', 'Strong analytical and communication skills'],
-  },
-  {
-    title: 'Farm & Nursery Hand',
-    type: 'Full-time · Seasonal',
-    desc: 'Primarily a farming role. You\'ll work directly with livestock, hay fields, and pasture management alongside nursery and propagation work — not a traditional landscaping position. A Steward may work alongside you, but your focus is the farm: animal care, field rotation, soil inputs, and hands-on growing. If you\'re drawn to land because you want to farm it, not just manage it, this role was written for you.',
-    reqs: ['Hands-on experience with livestock or produce/cut-flower farming strongly preferred', 'Comfort working with animals — horses, cattle, or small livestock', 'Physical outdoor work in all conditions', 'Some nursery, propagation, or growing experience a plus', 'Valid driver\'s license required'],
+    type: 'Where the path goes',
+    open: false,
+    desc: 'Runs a crew and owns the outcomes of a property portfolio. Talks to clients directly. Sets the standard for what the work looks like. We will need one of these when we add a second crew — and we would much rather it be someone who came up through the first one.',
+    reqs: [
+      'Grown from within wherever possible',
+      'Not a management-only role — Leads still do the work',
+    ],
   },
 ];
 ---
 
-<Base title="Careers" description="Join the team at Filthy Rich Soil Co. — field stewardship, ecological technician, and lead roles across Chester County, PA.">
+<Base title="Careers — Apprentice Steward, Spring 2027" description="Filthy Rich Soil Co. is hiring one Apprentice Steward for its first season in Chester County, PA. No experience required. Trained by the owner, a real career path, never more than 40 hours a week.">
 
 <style is:global>
   .careers-hero {
@@ -245,8 +255,8 @@ const roles = [
 
 <section class="careers-hero">
   <div class="hero-content">
-    <h1>Grow Something<br>That Matters</h1>
-    <p>We're building a team of people who take land seriously. If that's you, we want to hear from you.</p>
+    <h1>Learn a Trade<br>That's Worth Learning</h1>
+    <p>We're hiring one Apprentice Steward for our first season. No experience required. Real training, a real career path, and a boss who is on site with you.</p>
   </div>
 </section>
 
@@ -254,17 +264,18 @@ const roles = [
   <div class="culture-inner">
     <span class="section-eyebrow reveal">Who We Are</span>
     <h2 class="section-title reveal" style="margin-bottom:36px">Filthy Rich Soil Co. is different</h2>
-    <p class="reveal">We're not a lawn service company that decided to call itself ecological. <span class="culture-em">We actually believe what we say about soil.</span> Every person on our team is expected to understand why we do what we do — not just how.</p>
-    <p class="reveal">That means we train differently. We invest in people's understanding of ecological systems. We develop field teams who can read a property, not just maintain it. If you want a job where you show up, mow, and leave — that's not us.</p>
-    <p class="reveal">Great field work is skilled work. We compensate it that way.</p>
-    <p class="reveal">If you want to learn how land works and spend your days making it better, <span class="culture-em">we might be exactly the right fit.</span></p>
+    <p class="reveal">Landscaping used to be a skilled trade. Somewhere along the way most of the industry stopped treating it like one — and stopped treating the people who do it like skilled workers. <span class="culture-em">We think that's exactly backwards, and we're building a company to prove it.</span></p>
+    <p class="reveal">We do whole-property, soil-first land stewardship for estates in Chester County. No chemical programs. No one-time jobs. One-year agreements with clients who want the work done properly and are willing to let us show how it's done. It's a small crew on purpose — three people who know every property by name.</p>
+    <p class="reveal">You will be trained by the owner, directly, on real properties. You'll work next to a specialist who has done high-end pruning and plant work for years and who is on the crew because he's good at it, not because he's managing it. <span class="culture-em">Skill development isn't a perk here. It's the job.</span></p>
+    <p class="reveal">Nobody works more than 40 hours a week. You go home to your family. We'd rather have someone who can do this for ten years than someone we use up in two.</p>
+    <p class="reveal">Great field work is skilled work. We compensate it that way — and there is a clear path up. <span class="culture-em">Profit sharing and benefits are where this is going; we'll be straight with you about exactly what's in place when we talk.</span></p>
   </div>
 </section>
 
 <section class="roles-section">
   <div class="roles-inner">
-    <span class="section-eyebrow reveal">Open Roles</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">Current Openings</h2>
+    <span class="section-eyebrow reveal">The Path</span>
+    <h2 class="section-title reveal" style="margin-bottom:44px">One opening. Three levels.</h2>
 
     {roles.map((role, i) => (
       <div class={`role-card reveal`} style={`transition-delay:${i * 0.1}s`}>
@@ -276,7 +287,7 @@ const roles = [
         <ul class="role-reqs">
           {role.reqs.map(r => <li>{r}</li>)}
         </ul>
-        <button class="apply-btn" data-role={role.title}>Apply for This Role</button>
+        {role.open && <button class="apply-btn" data-role={role.title}>Apply for This Role</button>}
       </div>
     ))}
   </div>
@@ -294,23 +305,13 @@ const roles = [
       <div class="form-success" id="form-success">
         <span class="check">✦</span>
         <h3>We got it.</h3>
-        <p>Thanks for reaching out. We read every application personally and we'll be in touch if it's a fit.</p>
+        <p>Thanks. Applications are read personally, by the owner, as they come in. If it looks like a fit we'll reach out to talk — and to walk a property together.</p>
       </div>
 
       <!-- Form -->
       <form id="apply-form" action="https://formspree.io/f/xaqdrpnl" method="POST">
 
-        <div class="form-row">
-          <label for="role">Role you're applying for</label>
-          <select id="role" name="role" required>
-            <option value="" disabled selected>Select a role</option>
-            <option value="Field Steward">Field Steward</option>
-            <option value="Lead Steward">Lead Steward</option>
-            <option value="Ecological Technician">Ecological Technician</option>
-            <option value="Farm & Nursery Hand">Farm &amp; Nursery Hand</option>
-            <option value="General Interest">General Interest — Not sure yet</option>
-          </select>
-        </div>
+        <input type="hidden" id="role" name="role" value="Apprentice Steward" />
 
         <div class="form-cols">
           <div class="form-row">
@@ -329,21 +330,21 @@ const roles = [
         </div>
 
         <div class="form-row">
-          <label for="why">Why ecological land care — specifically?</label>
-          <textarea id="why" name="why_ecological" placeholder="E.g. I want a physically active job in a healthy environment where I'm actually well treated. Or: I've always been drawn to soil science and plants and want to build real knowledge in the field. Or: I'm looking for a team with genuine values alignment — profit sharing, long-term thinking, work that means something." required></textarea>
+          <label for="why">Why this — and why now?</label>
+          <textarea id="why" name="why_ecological" placeholder="There's no wrong answer. Maybe you want to work outside and learn something real. Maybe you've done landscaping before and hated how it was run. Maybe you care about soil and plants and want that to be your job. Tell us in your own words." required></textarea>
         </div>
 
         <div class="form-row">
-          <label for="experience">Relevant experience</label>
-          <textarea id="experience" name="experience" placeholder="Land, plants, soil, animals, farming, ecology — anything that's shaped how you think about working outside. Prior landscaping experience isn't required." required></textarea>
+          <label for="experience">What have you done so far?</label>
+          <textarea id="experience" name="experience" placeholder="Work, school, gardening, farming, sports, a trade, a hobby you took seriously — anything that shows how you approach learning something hard. Landscaping experience is not required." required></textarea>
         </div>
 
         <!-- Honeypot spam trap — hidden from real users -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_subject" value="New Application — Filthy Rich Soil Co." />
+        <input type="hidden" name="_subject" value="Apprentice Steward Application — Filthy Rich Soil Co." />
 
         <button type="submit" class="form-submit">Submit Application</button>
-        <p class="form-note">We read every application personally. No automated filters, no black hole.</p>
+        <p class="form-note">Read personally by the owner. No automated filters, no black hole.</p>
         <p style="font-size:0.72rem;color:rgba(255,255,255,0.22);line-height:1.65;margin-top:16px;">By submitting this application, you agree to our <a href="/privacy" style="color:rgba(255,255,255,0.35);text-decoration:underline;">Privacy Policy</a> and <a href="/terms" style="color:rgba(255,255,255,0.35);text-decoration:underline;">Terms of Use</a>.</p>
       </form>
 
@@ -352,12 +353,9 @@ const roles = [
 </section>
 
 <script>
-  // Apply buttons — pre-select role and scroll to form
+  // Apply button — scroll to form
   document.querySelectorAll('.apply-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const role = (btn as HTMLElement).dataset.role ?? '';
-      const select = document.getElementById('role') as HTMLSelectElement;
-      if (select) select.value = role;
       const section = document.getElementById('apply');
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
