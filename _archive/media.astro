@@ -1,35 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const videos = [
-  {
-    title: 'What a Thriving Property Actually Looks Like',
-    duration: '4:12',
-    thumb: 'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4e6?auto=format&fit=crop&w=800&q=80',
-    desc: 'Most people can feel when a landscape is alive and when it isn\'t — they just can\'t say why. This walks through what biological activity looks like above and below ground, and why it changes everything you see.',
-  },
-  {
-    title: 'Year One: What the First Season Actually Does',
-    duration: '6:30',
-    thumb: 'https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?auto=format&fit=crop&w=800&q=80',
-    desc: 'Year one is mostly invisible. Root establishment, fungal networks, soil structure building — almost none of it shows up above ground until late in the season. Here\'s what we\'re actually watching for.',
-  },
-  {
-    title: 'Why Fertilizing Is Already In Your Program',
-    duration: '3:45',
-    thumb: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
-    desc: 'Most landscapers charge fertilizing as an add-on. We don\'t — and that\'s not generosity, it\'s how we think about soil. If we\'re not feeding the biology, we\'re not doing ecological work. We\'re just mowing.',
-  },
-  {
-    title: 'Native Plants: Built for This Soil, This Rain, This Region',
-    duration: '5:08',
-    thumb: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80',
-    desc: 'Native plants evolved here. That means they\'re not fighting your climate — they\'re designed for it. Once established, most need almost nothing from us. And they give back in ways that exotic species simply can\'t.',
-  },
-];
 ---
 
-<Base title="Media" description="Videos and field notes from Filthy Rich Soil Co. — ecological landscaping in Chester County, PA.">
+<Base title="From the Field" description="Field notes, the Testing Garden, and video from Filthy Rich Soil Co. — how we think about soil, plants, and the craft of land stewardship in Chester County, PA.">
 
 <style is:global>
   .media-hero {
@@ -143,73 +116,78 @@ const videos = [
 <section class="media-hero">
   <div class="hero-content">
     <h1>From the<br>Field</h1>
-    <p>What we're observing on properties, what it means for the work, and how we think about the land we steward.</p>
+    <p>How we think about soil, plants, and the work — written down before we do it, so you can hold us to it.</p>
   </div>
 </section>
 
+<!-- ── Video / channel ─────────────────────────────── -->
 <section class="media-video-section">
-  <div class="media-video-inner">
-    <span class="section-eyebrow reveal">Videos</span>
-    <h2 class="section-title reveal" style="margin-bottom:52px">See the work up close</h2>
-    <div class="video-grid">
-      {videos.map((v, i) => (
-        <div class={`video-card reveal`} style={`transition-delay:${(i % 2) * 0.12}s`}>
-          <div class="video-thumb" style={`background-image:url('${v.thumb}')`}>
-            <div class="play-btn">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <span class="video-duration">{v.duration}</span>
-          </div>
-          <div class="video-body">
-            <h3>{v.title}</h3>
-            <p>{v.desc}</p>
-          </div>
-        </div>
-      ))}
+  <div class="media-video-inner" style="max-width:800px;">
+    <span class="section-eyebrow reveal">Video</span>
+    <h2 class="section-title reveal" style="margin-bottom:24px">The work, on camera</h2>
+    <p class="reveal" style="font-size:1rem;color:rgba(250,247,240,0.72);line-height:1.85;margin-bottom:16px;">We publish what we're doing as we do it — soil sampling and what the results mean, pruning decisions, plantings going in, and the Testing Garden as it changes. Not highlight reels. The actual work, including the parts that take longer than we'd like.</p>
+    <p class="reveal" style="font-size:1rem;color:rgba(250,247,240,0.72);line-height:1.85;margin-bottom:32px;">New video most weeks, starting fall 2026.</p>
+    <a href="https://www.youtube.com/@FilthyRichSoilCo" class="btn-primary reveal" target="_blank" rel="noopener">Watch on YouTube</a>
+  </div>
+</section>
+
+<!-- ── The Testing Garden ──────────────────────────── -->
+<section class="notes-section">
+  <div class="notes-inner">
+    <span class="section-eyebrow reveal">The Testing Garden</span>
+    <h2 class="section-title reveal" style="margin-bottom:52px">Same plants. Different methods. Years, not seasons.</h2>
+
+    <div class="note-item reveal">
+      <span class="note-date">Established fall 2026</span>
+      <h3>What it is</h3>
+      <p>Most claims in this industry can't be checked. A company says its program works, shows you a photo of a nice property, and you take it on faith. We'd rather run the comparison in the open.</p>
+      <p>The Testing Garden is a set of long-term, side-by-side trials on a nursery plot at Henslow Farm in Chester County. Identical plants, identical conditions, different care — conventional methods next to ours — photographed on a fixed schedule and left to run for years. Filthy Rich Soil Co. documents the trials; the ground and the growing are Henslow's.</p>
+      <p>The first trial is three rhododendrons. One gets the standard treatment. One gets ours. One gets nothing at all. The point isn't to win. It's to find out what's actually true, and to be able to show you.</p>
+    </div>
+
+    <div class="note-item reveal">
+      <span class="note-date">Ongoing</span>
+      <h3>What you'll see here</h3>
+      <p>Dated photographs from each trial, the soil data behind them, and a plain account of what we're observing — including when a method we expected to work doesn't. Entries begin with the fall 2026 plantings and continue for as long as the plants do.</p>
     </div>
   </div>
 </section>
 
+<!-- ── Field Notes ─────────────────────────────────── -->
 <section class="notes-section">
   <div class="notes-inner">
     <span class="section-eyebrow reveal">Field Notes</span>
-    <h2 class="section-title reveal" style="margin-bottom:52px">Observations from the ground</h2>
+    <h2 class="section-title reveal" style="margin-bottom:52px">How we think about the work</h2>
 
     <div class="note-item reveal">
-      <span class="note-date">March 2026</span>
+      <span class="note-date">September 2026</span>
+      <h3>Why we test soil in the fall — and why we charge for it</h3>
+      <p>Most people think about their soil in April, when they can see what's wrong. By then the window for doing much about it has mostly closed. The useful time to sample is October and November: the season's growth is done, the soil has been through a full year of whatever was done to it, and there are five months ahead to plan amendments and get them in the ground before roots start demanding resources.</p>
+      <p>That's why our first step with any property is a fall assessment — multi-point sampling, a full lab panel, and a written account of what's happening and why. We charge for it, and the fee is credited if we go on to work together. The reason is simple: a free estimate is a sales visit. A paid assessment is a diagnosis. You should know which one you're getting.</p>
+    </div>
+
+    <div class="note-item reveal">
+      <span class="note-date">September 2026</span>
       <h3>What compacted soil is actually costing you</h3>
-      <p>Most people think of compacted soil as an aesthetic problem. The grass looks thin, the beds look rough, maybe there's moss or bare patches. So they dethatch, aerate, overseed, and try again next spring. Same result.</p>
-      <p>Compaction isn't a surface issue. It's a structural one. When soil particles get pressed together — from foot traffic, equipment, heavy clay, or years of conventional lawn care — the pore space disappears. And pore space is where everything happens: water infiltration, root extension, oxygen exchange, microbial activity. Take it away and the soil doesn't just perform poorly. It stops functioning as soil at all.</p>
-      <p>What you're left with is essentially a growing medium that can't move water, can't support deep roots, and can't sustain the biology that makes nutrients available. The grass survives — barely — on what you push into it from above. Remove the inputs and it fails. Which is why it always seems to need more.</p>
-      <p>The fix isn't aggressive aeration followed by more seed. It's restoring structure: biological amendments that rebuild aggregation, organic matter that creates pore space over time, and a shift away from the practices that caused compaction in the first place. It takes a season or two to see it fully. But the soil that comes out the other side doesn't need constant management. It runs itself.</p>
+      <p>Compaction gets treated as a surface problem. The grass looks thin, the beds look rough, so the answer is to dethatch, aerate, overseed, and try again next spring. Same result.</p>
+      <p>It isn't a surface problem. When soil particles get pressed together — from foot traffic, equipment, heavy clay, or years of conventional lawn care — the pore space disappears. And pore space is where everything happens: water infiltration, root extension, oxygen exchange, microbial activity. Take it away and the soil doesn't just perform poorly. It stops functioning as soil at all. What's left is a growing medium that can't move water, can't support deep roots, and can't sustain the biology that makes nutrients available. The grass survives on what's pushed into it from above. Remove the inputs and it fails — which is why it always seems to need more.</p>
+      <p>The fix isn't aggressive aeration followed by more seed. It's restoring structure: biological amendments that rebuild aggregation, organic matter that creates pore space over time, and a stop to the practices that caused it. It takes a season or two to see fully. But soil that comes out the other side doesn't need constant management. It runs itself.</p>
     </div>
 
     <div class="note-item reveal">
-      <span class="note-date">February 2026</span>
-      <h3>The March window — and why most people miss it</h3>
-      <p>There's a two-to-three week period in early spring — usually mid-March in Chester County — when the soil is biologically active but plant growth hasn't accelerated yet. Soil temps are climbing. Microbial communities are waking up. But roots haven't started demanding resources at full rate.</p>
-      <p>That window is the best opportunity of the year to put amendments into the ground. Compost applications, biological inoculants, early fertilization — all of it moves faster and works harder when there's active biology to receive it and minimal competition pulling resources away. You're essentially loading the soil's account before the withdrawal season begins.</p>
-      <p>Most homeowners miss it. They're not watching soil temperature — they're watching forsythia, or waiting until it looks like spring. By the time they get the bags out, the window has usually closed. Growth is underway, and amendments are playing catch-up instead of leading.</p>
-      <p>We time our early-season site visits around this window specifically. Soil thermometers go in the ground in late February. When we're consistently over 45°F at four inches, we move. This year we moved early — an unusually warm February pushed most of our properties into that range a full ten days ahead of schedule.</p>
-    </div>
-
-    <div class="note-item reveal">
-      <span class="note-date">January 2026</span>
+      <span class="note-date">September 2026</span>
       <h3>On invasive species — what removal actually requires</h3>
-      <p>Pulling invasives is one of the most requested things we get, and it's often approached completely wrong. People rip out a stand of Japanese knotweed or English ivy and expect the problem to be solved. Three months later it's back. Sometimes worse.</p>
-      <p>The reason is simple: invasive removal without replacement is just an opportunity. You've cleared the space, reduced competition, and improved growing conditions — for whatever comes back first. If that's native plants you've intentionally established, great. If it's more of the same invasive, or a different one that moves in opportunistically, you've done a lot of work for nothing.</p>
-      <p>Effective invasive management requires treating the removal and the replacement as one project. You clear, you plant, and you monitor. Native ground covers, shrubs, and perennials need to be in the ground fast — dense enough to hold the space and outcompete what's trying to return. On mature stands of woody invasives, that often means multiple removal sessions over two or three years as the root system exhausts itself.</p>
-      <p>It's slower than people want. But cutting knotweed once and hoping is like treating a symptom and ignoring the condition. The biology doesn't care about your timeline. Working with it is the only approach that actually sticks.</p>
+      <p>Pulling invasives is one of the most common things landowners ask for, and it's usually approached wrong. A stand of Japanese knotweed or English ivy gets ripped out and the problem is considered solved. Three months later it's back, sometimes worse.</p>
+      <p>Removal without replacement is just an opportunity. You've cleared the space, reduced competition, and improved growing conditions — for whatever comes back first. If that's native plants you've intentionally established, good. If it's more of the same invasive, or a different one that moves in opportunistically, you've done a lot of work for nothing.</p>
+      <p>Effective invasive management treats the removal and the replacement as one project. You clear, you plant, and you monitor. Native ground covers, shrubs, and perennials go in fast — dense enough to hold the space. On mature stands of woody invasives, that means multiple removal sessions over two or three years as the root system exhausts itself. It's slower than people want. But cutting knotweed once and hoping is treating a symptom and ignoring the condition. The biology doesn't care about your timeline.</p>
     </div>
 
     <div class="note-item reveal">
-      <span class="note-date">October 2025</span>
+      <span class="note-date">September 2026</span>
       <h3>Why we don't do one-time services</h3>
-      <p>We get asked for it. A one-time cleanup, a fall cutback, a mulch refresh. We understand why — it feels like a contained thing, a defined transaction. And there are plenty of landscapers who will show up, do it, and move on.</p>
-      <p>We don't work that way, and it's worth explaining why.</p>
-      <p>Ecological systems aren't static. A property that gets cleaned up in October and left alone until the following spring accumulates six months of deferred decisions — about what to cut back and what to leave standing for overwintering insects, about what to mulch and how deep, about which plants are struggling and which are establishing. None of those decisions are obvious, and all of them matter.</p>
-      <p>When we take on a property, we're not doing tasks. We're building knowledge — about how the soil drains after a wet week, where the deer pressure is heaviest, which native plantings are thriving and which need adjustment. That knowledge compounds. Year two of stewardship is more effective than year one, because we already understand what we're working with.</p>
-      <p>A one-time service starts from zero. It optimizes for what looks right on the day, not for what's actually happening or what the property needs. We're not interested in doing that work, because we don't think it serves you. We'd rather pass and let you find someone who's set up for it.</p>
+      <p>We'll be asked for it. A one-time cleanup, a fall cutback, a mulch refresh. It feels like a contained thing, and there are plenty of landscapers who will show up, do it, and move on.</p>
+      <p>We don't work that way, and it's worth explaining why. A property cleaned up in October and left alone until spring accumulates six months of deferred decisions — what to cut back and what to leave standing for overwintering insects, what to mulch and how deep, which plants are struggling and which are establishing. None of those decisions are obvious, and all of them matter.</p>
+      <p>When we take on a property, we're not doing tasks. We're building knowledge — how the soil drains after a wet week, where the deer pressure is heaviest, which plantings are thriving. That knowledge compounds. A one-time service starts from zero every time and optimizes for what looks right on the day. We'd rather pass and let you find someone set up for that.</p>
     </div>
 
   </div>
