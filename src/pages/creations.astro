@@ -18,7 +18,7 @@ const categories = [
   {
     tag: 'Pruning',
     title: 'Pruning & Specimen Care',
-    desc: 'Structural pruning, specimen shaping, and the deliberate lines that make a property read as intentional. This is the part of the trade that takes years to learn to see correctly — and the part most of the industry replaced with a hedge trimmer.',
+    desc: 'Structural pruning and specimen care done for the long life of the plant — cuts that build strength and form over decades instead of forcing a shape that has to be repeated every season. This is the part of the trade that takes years to learn to see correctly, and the part most of the industry replaced with a hedge trimmer.',
     filter: 'pruning',
   },
   {
@@ -32,6 +32,12 @@ const categories = [
     title: 'Native Plant Design',
     desc: 'Plants that belong here. Native species are adapted to our soils, our rainfall, our pollinators. Once established, they require almost nothing and give almost everything — bloom succession, bird habitat, root depth.',
     filter: 'native-plants',
+  },
+  {
+    tag: 'Edible',
+    title: 'Edible & Productive Plantings',
+    desc: 'Food built into the landscape rather than fenced off behind it. Fruit and nut trees used as specimen and canopy plantings, berry shrubs worked into borders, and raised beds sited and built to actually produce. Designed so the productive parts of a property look as considered as the ornamental ones.',
+    filter: 'edible',
   },
   {
     tag: 'Meadow',
@@ -48,7 +54,7 @@ const categories = [
 ];
 ---
 
-<Base title="The Work" description="The kinds of ecological land stewardship Filthy Rich Soil Co. does on Chester County estates — and where real project documentation will appear as it's captured.">
+<Base title="The Work" description="The kinds of ecological land care Filthy Rich Soil Co. does on Chester County estates — and where real project documentation will appear as it's captured.">
 
 <style is:global>
   .creations-hero {
@@ -183,14 +189,14 @@ const categories = [
 <section class="creations-hero">
   <div class="hero-content">
     <h1>The Work<br>Itself</h1>
-    <p>Seven kinds of work a stewardship program covers — what each one is, what it requires, and what it produces over time. Real projects will appear here as they're documented.</p>
+    <p>Eight kinds of work a stewardship program covers — what each one is, what it requires, and what it produces over time. Real projects will appear here as they're documented.</p>
   </div>
 </section>
 
 <section class="creations-grid-section">
   <div class="creations-grid-inner">
     <span class="section-eyebrow reveal">What We Do</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">Seven categories of craft</h2>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Eight categories of craft</h2>
 
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all">All</button>
@@ -199,6 +205,7 @@ const categories = [
       <button class="filter-btn" data-filter="pruning">Pruning</button>
       <button class="filter-btn" data-filter="turf-edge">Turf & Edge</button>
       <button class="filter-btn" data-filter="native-plants">Native Plants</button>
+      <button class="filter-btn" data-filter="edible">Edible</button>
       <button class="filter-btn" data-filter="meadow">Meadow</button>
       <button class="filter-btn" data-filter="woodland-edge">Woodland Edge</button>
     </div>
