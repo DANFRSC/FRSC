@@ -1,45 +1,73 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// One opening. The other two rungs are shown so the path is visible — not because we're hiring for them.
-const roles = [
+// One posting, rendered as sections using the existing role-card styling.
+const sections = [
   {
-    title: 'Apprentice Steward',
-    type: 'Hiring now · Spring 2027 start',
-    open: true,
-    desc: 'This is the job we are hiring for. You start with no landscaping experience required and you are trained directly by the owner — soil, plants, pruning, reading a property — on real estate work, alongside a specialist who has done this at the highest level for years. Starting at $25/hr. You will not be handed a mower and left alone.',
-    reqs: [
-      'No landscaping experience required — a real interest in soil, plants, and doing work properly is',
-      'Physically capable and willing to be outside in the weather, spring through fall',
+    title: 'The Role',
+    type: 'Chester County, PA · Spring 2027 start',
+    desc: 'You\'ll work on a three-person crew on private estates — the owner and a specialist alongside you — and learn the trade from the ground up: soil, plants, pruning, and how to read a property. This is a structured four-year apprenticeship with scheduled raises and a defined next level. You will not be handed a mower and left alone.',
+    list_label: 'What you\'ll do',
+    items: [
+      'Prepare, amend, and maintain soil, beds, and turf on client properties',
+      'Plant, mulch, edge, and run seasonal cleanups; prune under instruction',
+      'Assist with soil sampling and property documentation (photos and notes)',
+      'Load, maintain, and care for tools and equipment',
+      'Work safely, show up on time, and learn something every day',
+    ],
+  },
+  {
+    title: 'Pay & Schedule',
+    type: 'Starting at $20–$22/hr',
+    desc: 'A paid apprenticeship with a defined ladder. Raises are scheduled into the position, not left to chance.',
+    list_label: 'The terms',
+    items: [
+      '$20–$22/hr to start, depending on experience',
+      'Scheduled annual raises through the four-year apprenticeship',
+      'Promotion to Gardener when the skills are there — typically three to four years',
+      'Never more than 40 hours a week. You go home to your family.',
+    ],
+  },
+  {
+    title: 'Benefits',
+    type: 'From day one',
+    desc: 'Not a long list, but everything on it is real and starts immediately — no waiting period, no accrual games.',
+    list_label: 'What\'s included',
+    items: [
+      'Paid time off, increasing with tenure',
+      'All tools, boots, and safety equipment provided — you don\'t buy your own',
+      'Training and certifications paid for, on the clock: pesticide applicator license, arborist coursework, native plant identification, safety certifications',
+      'Mileage reimbursed if you drive your own vehicle between sites',
+    ],
+  },
+  {
+    title: 'What We\'re Looking For',
+    type: 'No landscaping experience required',
+    desc: 'We hire for attitude and train for technique. If you\'ve done something hard well — farming, gardening, a trade, a sport, a job you took seriously — that counts.',
+    list_label: 'Requirements',
+    items: [
+      'A real interest in soil, plants, and doing work properly',
+      'Physically able to do outdoor work in the weather',
       'Reliable, on time, and honest about what you don\'t know yet',
-      'Valid driver\'s license',
-      'Chester County or close enough to be on site by 7am',
+      'Valid driver\'s license; able to be on site in Chester County by 7 a.m.',
+      'Comfortable being on camera occasionally — we document our work',
     ],
   },
   {
-    title: 'Steward',
-    type: 'The next level',
-    open: false,
-    desc: 'A trained practitioner who can read a property and make real decisions on it without being told what to do. Stewards run their own sections of a site, handle the skilled work — pruning, planting, soil programs — and start teaching the next Apprentice. This is where the job becomes a trade.',
-    reqs: [
-      'Reached by demonstrating the skills, not by waiting out a clock',
-      'Each level carries its own pay band — moving up is the only way past a cap',
-    ],
-  },
-  {
-    title: 'Lead Steward',
-    type: 'Where the path goes',
-    open: false,
-    desc: 'Runs a crew and owns the outcomes of a property portfolio. Talks to clients directly. Sets the standard for what the work looks like. We will need one of these when we add a second crew — and we would much rather it be someone who came up through the first one.',
-    reqs: [
-      'Grown from within wherever possible',
-      'Not a management-only role — Leads still do the work',
+    title: 'The Path',
+    type: 'Three levels',
+    desc: 'Every position has its own pay band. Moving up is the only way past the cap — and moving up is the point.',
+    list_label: 'Where this goes',
+    items: [
+      'Apprentice Gardener — learns the trade on real properties. This opening.',
+      'Gardener — a trained practitioner who runs their own sections of a property and makes the calls',
+      'Head Gardener — runs a crew, owns client outcomes, and sets the standard for the work',
     ],
   },
 ];
 ---
 
-<Base title="Careers — Apprentice Steward, Spring 2027" description="Filthy Rich Soil Co. is hiring one Apprentice Steward for its first season in Chester County, PA. No experience required. Trained by the owner, a real career path, never more than 40 hours a week.">
+<Base title="Now Hiring: Apprentice Gardener — Spring 2027" description="Filthy Rich Soil Co. is hiring one Apprentice Gardener in Chester County, PA for spring 2027. $20–$22/hr to start, no experience required, a four-year paid apprenticeship with scheduled raises, paid training, and a defined path to Gardener and Head Gardener.">
 
 <style is:global>
   .careers-hero {
@@ -255,39 +283,37 @@ const roles = [
 
 <section class="careers-hero">
   <div class="hero-content">
-    <h1>Learn a Trade<br>That's Worth Learning</h1>
-    <p>We're hiring one Apprentice Steward for our first season. No experience required. Real training, a real career path, and a boss who is on site with you.</p>
+    <h1>Now Hiring:<br>Apprentice Gardener</h1>
+    <p>Chester County, PA · Spring 2027 start · $20–$22/hr to start · No experience required. Learn a trade that's worth learning, from people who do it properly.</p>
   </div>
 </section>
 
 <section class="culture-section">
   <div class="culture-inner">
-    <span class="section-eyebrow reveal">Who We Are</span>
-    <h2 class="section-title reveal" style="margin-bottom:36px">Filthy Rich Soil Co. is different</h2>
-    <p class="reveal">Landscaping used to be a skilled trade. Somewhere along the way most of the industry stopped treating it like one — and stopped treating the people who do it like skilled workers. <span class="culture-em">We think that's exactly backwards, and we're building a company to prove it.</span></p>
-    <p class="reveal">We do whole-property, soil-first land stewardship for estates in Chester County. No chemical programs. No one-time jobs. One-year agreements with clients who want the work done properly and are willing to let us show how it's done. It's a small crew on purpose — three people who know every property by name.</p>
-    <p class="reveal">You will be trained by the owner, directly, on real properties. You'll work next to a specialist who has done high-end pruning and plant work for years and who is on the crew because he's good at it, not because he's managing it. <span class="culture-em">Skill development isn't a perk here. It's the job.</span></p>
-    <p class="reveal">Nobody works more than 40 hours a week. You go home to your family. We'd rather have someone who can do this for ten years than someone we use up in two.</p>
-    <p class="reveal">Great field work is skilled work. We compensate it that way — and there is a clear path up. <span class="culture-em">Profit sharing and benefits are where this is going; we'll be straight with you about exactly what's in place when we talk.</span></p>
+    <span class="section-eyebrow reveal">About the Company</span>
+    <h2 class="section-title reveal" style="margin-bottom:36px">Filthy Rich Soil Co.</h2>
+    <p class="reveal">We provide whole-property, soil-first land care for estates in Chester County — no synthetic chemical programs, no one-time jobs, one-year agreements with clients who want the work done properly. <span class="culture-em">We treat this as the skilled trade it used to be, and we pay and train accordingly.</span></p>
+    <p class="reveal">We launch our first full season in spring 2027 with a three-person crew. This is our first hire. <span class="culture-em">You'll be trained directly by the owner, on real properties, from day one.</span></p>
   </div>
 </section>
 
 <section class="roles-section">
   <div class="roles-inner">
-    <span class="section-eyebrow reveal">The Path</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">One opening. Three levels.</h2>
+    <span class="section-eyebrow reveal">The Posting</span>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Apprentice Gardener</h2>
 
-    {roles.map((role, i) => (
+    {sections.map((s, i) => (
       <div class={`role-card reveal`} style={`transition-delay:${i * 0.1}s`}>
         <div class="role-header">
-          <h3>{role.title}</h3>
-          <span class="role-type">{role.type}</span>
+          <h3>{s.title}</h3>
+          <span class="role-type">{s.type}</span>
         </div>
-        <p class="role-desc">{role.desc}</p>
+        <p class="role-desc">{s.desc}</p>
+        <p class="role-desc" style="margin-bottom:8px;font-weight:600;">{s.list_label}</p>
         <ul class="role-reqs">
-          {role.reqs.map(r => <li>{r}</li>)}
+          {s.items.map(r => <li>{r}</li>)}
         </ul>
-        {role.open && <button class="apply-btn" data-role={role.title}>Apply for This Role</button>}
+        {i === sections.length - 1 && <button class="apply-btn" data-role="Apprentice Gardener">Apply for This Position</button>}
       </div>
     ))}
   </div>
@@ -297,21 +323,21 @@ const roles = [
 <section class="apply-section" id="apply">
   <div class="apply-inner">
     <span class="section-eyebrow reveal">Apply</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">Tell us about yourself</h2>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Application</h2>
 
     <div class="apply-form reveal">
 
       <!-- Success state -->
       <div class="form-success" id="form-success">
         <span class="check">✦</span>
-        <h3>We got it.</h3>
-        <p>Thanks. Applications are read personally, by the owner, as they come in. If it looks like a fit we'll reach out to talk — and to walk a property together.</p>
+        <h3>Application received.</h3>
+        <p>Thank you. Applications are read personally by the owner as they come in. If it looks like a fit, we'll reach out to talk — and to walk a property together.</p>
       </div>
 
       <!-- Form -->
       <form id="apply-form" action="https://formspree.io/f/xaqdrpnl" method="POST">
 
-        <input type="hidden" id="role" name="role" value="Apprentice Steward" />
+        <input type="hidden" id="role" name="role" value="Apprentice Gardener" />
 
         <div class="form-cols">
           <div class="form-row">
@@ -330,18 +356,18 @@ const roles = [
         </div>
 
         <div class="form-row">
-          <label for="why">Why this — and why now?</label>
-          <textarea id="why" name="why_ecological" placeholder="There's no wrong answer. Maybe you want to work outside and learn something real. Maybe you've done landscaping before and hated how it was run. Maybe you care about soil and plants and want that to be your job. Tell us in your own words." required></textarea>
+          <label for="why">Why do you want this job?</label>
+          <textarea id="why" name="why_ecological" placeholder="A few sentences in your own words. There's no wrong answer." required></textarea>
         </div>
 
         <div class="form-row">
-          <label for="experience">What have you done so far?</label>
-          <textarea id="experience" name="experience" placeholder="Work, school, gardening, farming, sports, a trade, a hobby you took seriously — anything that shows how you approach learning something hard. Landscaping experience is not required." required></textarea>
+          <label for="experience">Relevant experience</label>
+          <textarea id="experience" name="experience" placeholder="Work, school, gardening, farming, a trade, a sport — anything that shows how you approach learning something hard. Landscaping experience is not required." required></textarea>
         </div>
 
         <!-- Honeypot spam trap — hidden from real users -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_subject" value="Apprentice Steward Application — Filthy Rich Soil Co." />
+        <input type="hidden" name="_subject" value="Apprentice Gardener Application — Filthy Rich Soil Co." />
 
         <button type="submit" class="form-submit">Submit Application</button>
         <p class="form-note">Read personally by the owner. No automated filters, no black hole.</p>
