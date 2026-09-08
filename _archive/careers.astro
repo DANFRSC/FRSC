@@ -1,73 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// One posting, rendered as sections using the existing role-card styling.
-const sections = [
+// EVERGREEN PAGE — nothing here is dated and nothing needs seasonal updating.
+// Three standing positions; the application form takes applications for any of them.
+const roles = [
   {
-    title: 'The Role',
-    type: 'Chester County, PA · Spring 2027 start',
-    desc: 'You\'ll work on a three-person crew on private estates — the owner and a specialist alongside you — and learn the trade from the ground up: soil, plants, pruning, and how to read a property. This is a structured four-year apprenticeship with scheduled raises and a defined next level. You will not be handed a mower and left alone.',
-    list_label: 'What you\'ll do',
+    title: 'Apprentice Gardener',
+    pay: 'Starting at $20–$22/hr',
+    desc: 'Where most people start with us, and where no experience is required. You learn the trade from the ground up — soil, plants, pruning, and how to read a property — trained directly by the owner on real estate work. A four-year apprenticeship with raises scheduled into the position, not left to chance.',
     items: [
-      'Prepare, amend, and maintain soil, beds, and turf on client properties',
-      'Plant, mulch, edge, and run seasonal cleanups; prune under instruction',
-      'Assist with soil sampling and property documentation (photos and notes)',
-      'Load, maintain, and care for tools and equipment',
-      'Work safely, show up on time, and learn something every day',
+      'Prepare, amend, and maintain soil, beds, and turf',
+      'Plant, mulch, edge, run seasonal cleanups, and prune under instruction',
+      'Assist with soil sampling and property documentation',
+      'Care for tools and equipment',
+      'No landscaping experience required — a real interest in the work is',
     ],
   },
   {
-    title: 'Pay & Schedule',
-    type: 'Starting at $20–$22/hr',
-    desc: 'A paid apprenticeship with a defined ladder. Raises are scheduled into the position, not left to chance.',
-    list_label: 'The terms',
+    title: 'Gardener',
+    pay: 'Its own pay band',
+    desc: 'A trained practitioner. You run your own sections of a property and make the calls on them — what needs pruning and how, what the soil is telling you, what to do about the thing nobody planned for. You also start teaching the apprentice, because that is how the trade gets passed down.',
     items: [
-      '$20–$22/hr to start, depending on experience',
-      'Scheduled annual raises through the four-year apprenticeship',
-      'Promotion to Gardener when the skills are there — typically three to four years',
-      'Never more than 40 hours a week. You go home to your family.',
+      'Independent judgment on planting, pruning, and soil decisions',
+      'Skilled work: structural pruning, specimen care, diagnostics',
+      'Mentoring apprentices in the field',
+      'Reached by demonstrating the skills — typically three to four years as an apprentice — or hired directly with the experience',
     ],
   },
   {
-    title: 'Benefits',
-    type: 'From day one',
-    desc: 'Not a long list, but everything on it is real and starts immediately — no waiting period, no accrual games.',
-    list_label: 'What\'s included',
+    title: 'Head Gardener',
+    pay: 'Its own pay band',
+    desc: 'Runs a crew and owns the outcomes on a portfolio of properties. Talks to clients directly. Sets the standard for what our work looks like. This is not a desk job — Head Gardeners are still on the property, doing the work, because that is the only way the standard holds.',
     items: [
-      'Paid time off, increasing with tenure',
-      'All tools, boots, and safety equipment provided — you don\'t buy your own',
-      'Training and certifications paid for, on the clock: pesticide applicator license, arborist coursework, native plant identification, safety certifications',
-      'Mileage reimbursed if you drive your own vehicle between sites',
-    ],
-  },
-  {
-    title: 'What We\'re Looking For',
-    type: 'No landscaping experience required',
-    desc: 'We hire for attitude and train for technique. If you\'ve done something hard well — farming, gardening, a trade, a sport, a job you took seriously — that counts.',
-    list_label: 'Requirements',
-    items: [
-      'A real interest in soil, plants, and doing work properly',
-      'Physically able to do outdoor work in the weather',
-      'Reliable, on time, and honest about what you don\'t know yet',
-      'Valid driver\'s license; able to be on site in Chester County by 7 a.m.',
-      'Comfortable being on camera occasionally — we document our work',
-    ],
-  },
-  {
-    title: 'The Path',
-    type: 'Three levels',
-    desc: 'Every position has its own pay band. Moving up is the only way past the cap — and moving up is the point.',
-    list_label: 'Where this goes',
-    items: [
-      'Apprentice Gardener — learns the trade on real properties. This opening.',
-      'Gardener — a trained practitioner who runs their own sections of a property and makes the calls',
-      'Head Gardener — runs a crew, owns client outcomes, and sets the standard for the work',
+      'Crew leadership and property portfolio ownership',
+      'Direct client relationships',
+      'Setting and holding the quality standard',
+      'The path continues from here as the company grows',
     ],
   },
 ];
 ---
 
-<Base title="Now Hiring: Apprentice Gardener — Spring 2027" description="Filthy Rich Soil Co. is hiring one Apprentice Gardener in Chester County, PA for spring 2027. $20–$22/hr to start, no experience required, a four-year paid apprenticeship with scheduled raises, paid training, and a defined path to Gardener and Head Gardener.">
+<Base title="Careers" description="Careers at Filthy Rich Soil Co. — a published ladder from Apprentice Gardener to Head Gardener, above-market pay for the trade, paid training and certifications, and never more than 40 hours a week. Chester County, PA.">
 
 <style is:global>
   .careers-hero {
@@ -76,7 +50,7 @@ const sections = [
     display: flex;
     align-items: flex-end;
     padding: 80px 5% 80px;
-    background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80');
+    background-image: url('https://images.unsplash.com/photo-1621272156568-7306716648df?auto=format&fit=crop&w=1800&q=80');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -283,39 +257,46 @@ const sections = [
 
 <section class="careers-hero">
   <div class="hero-content">
-    <h1>Now Hiring:<br>Apprentice Gardener</h1>
-    <p>Chester County, PA · Spring 2027 start · $20–$22/hr to start · No experience required. Learn a trade that's worth learning, from people who do it properly.</p>
+    <h1>Learn a Trade<br>That's Worth Learning</h1>
+    <p>Land care used to be skilled work. We still treat it that way — and we pay, train, and promote accordingly.</p>
   </div>
 </section>
 
 <section class="culture-section">
   <div class="culture-inner">
-    <span class="section-eyebrow reveal">About the Company</span>
-    <h2 class="section-title reveal" style="margin-bottom:36px">Filthy Rich Soil Co.</h2>
-    <p class="reveal">We provide whole-property, soil-first land care for estates in Chester County — no synthetic chemical programs, no one-time jobs, one-year agreements with clients who want the work done properly. <span class="culture-em">We treat this as the skilled trade it used to be, and we pay and train accordingly.</span></p>
-    <p class="reveal">We launch our first full season in spring 2027 with a three-person crew. This is our first hire. <span class="culture-em">You'll be trained directly by the owner, on real properties, from day one.</span></p>
+    <span class="section-eyebrow reveal">What to Expect</span>
+    <h2 class="section-title reveal" style="margin-bottom:36px">Working here</h2>
+
+    <p class="reveal"><span class="culture-em">You'll be trained, not used.</span> Most of this industry hires cheap, teaches nothing, and replaces people when their bodies give out. We do the opposite: small crews, real instruction from the owner on real properties, and a published ladder with its own pay band at every level. Moving up is the only way past a cap — and moving up is the point.</p>
+
+    <p class="reveal"><span class="culture-em">Nobody works more than 40 hours a week.</span> You go home to your family. We would rather have someone who can do this for ten years than someone we burn through in two.</p>
+
+    <p class="reveal"><span class="culture-em">We pay above the market for this trade</span>, at every level, because the work requires more than the market usually asks for.</p>
+
+    <p class="reveal">From your first day: paid time off that grows with tenure. All tools, boots, and safety equipment provided — you don't buy your own. Training and certifications paid for and on the clock, including your pesticide applicator license, arborist coursework, native plant identification, and safety certifications. Mileage reimbursed if you drive between sites.</p>
+
+    <p class="reveal">Our crews work on private estates across Chester County doing whole-property, soil-first land care — no synthetic chemical programs, no one-time jobs. We document what we do, so being on camera occasionally comes with the job. <span class="culture-em">This list grows as the company does.</span></p>
   </div>
 </section>
 
 <section class="roles-section">
   <div class="roles-inner">
-    <span class="section-eyebrow reveal">The Posting</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">Apprentice Gardener</h2>
+    <span class="section-eyebrow reveal">The Path</span>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Three positions, one ladder</h2>
 
-    {sections.map((s, i) => (
+    {roles.map((role, i) => (
       <div class={`role-card reveal`} style={`transition-delay:${i * 0.1}s`}>
         <div class="role-header">
-          <h3>{s.title}</h3>
-          <span class="role-type">{s.type}</span>
+          <h3>{role.title}</h3>
         </div>
-        <p class="role-desc">{s.desc}</p>
-        <p class="role-desc" style="margin-bottom:8px;font-weight:600;">{s.list_label}</p>
+        <p class="role-desc" style="color:#d4a017;font-weight:600;margin-bottom:12px;">{role.pay}</p>
+        <p class="role-desc">{role.desc}</p>
         <ul class="role-reqs">
-          {s.items.map(r => <li>{r}</li>)}
+          {role.items.map(r => <li>{r}</li>)}
         </ul>
-        {i === sections.length - 1 && <button class="apply-btn" data-role="Apprentice Gardener">Apply for This Position</button>}
       </div>
     ))}
+
   </div>
 </section>
 
@@ -323,21 +304,30 @@ const sections = [
 <section class="apply-section" id="apply">
   <div class="apply-inner">
     <span class="section-eyebrow reveal">Apply</span>
-    <h2 class="section-title reveal" style="margin-bottom:44px">Application</h2>
+    <h2 class="section-title reveal" style="margin-bottom:44px">Tell us about yourself</h2>
 
     <div class="apply-form reveal">
 
       <!-- Success state -->
       <div class="form-success" id="form-success">
         <span class="check">✦</span>
-        <h3>Application received.</h3>
-        <p>Thank you. Applications are read personally by the owner as they come in. If it looks like a fit, we'll reach out to talk — and to walk a property together.</p>
+        <h3>We got it.</h3>
+        <p>Thank you. Applications are read personally by the owner as they come in. If it looks like a fit — now or when a position opens — we'll reach out to talk, and to walk a property together.</p>
       </div>
 
       <!-- Form -->
       <form id="apply-form" action="https://formspree.io/f/xaqdrpnl" method="POST">
 
-        <input type="hidden" id="role" name="role" value="Apprentice Gardener" />
+        <div class="form-row">
+          <label for="role">Which position?</label>
+          <select id="role" name="role" required>
+            <option value="">Select a position…</option>
+            <option value="Apprentice Gardener">Apprentice Gardener</option>
+            <option value="Gardener">Gardener</option>
+            <option value="Head Gardener">Head Gardener</option>
+            <option value="General interest">General interest — whatever opens next</option>
+          </select>
+        </div>
 
         <div class="form-cols">
           <div class="form-row">
@@ -356,18 +346,18 @@ const sections = [
         </div>
 
         <div class="form-row">
-          <label for="why">Why do you want this job?</label>
+          <label for="why">Why do you want this work?</label>
           <textarea id="why" name="why_ecological" placeholder="A few sentences in your own words. There's no wrong answer." required></textarea>
         </div>
 
         <div class="form-row">
           <label for="experience">Relevant experience</label>
-          <textarea id="experience" name="experience" placeholder="Work, school, gardening, farming, a trade, a sport — anything that shows how you approach learning something hard. Landscaping experience is not required." required></textarea>
+          <textarea id="experience" name="experience" placeholder="Work, school, gardening, farming, a trade, a sport — anything that shows how you approach learning something hard. For the apprentice position, landscaping experience is not required." required></textarea>
         </div>
 
         <!-- Honeypot spam trap — hidden from real users -->
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_subject" value="Apprentice Gardener Application — Filthy Rich Soil Co." />
+        <input type="hidden" name="_subject" value="Application — Filthy Rich Soil Co." />
 
         <button type="submit" class="form-submit">Submit Application</button>
         <p class="form-note">Read personally by the owner. No automated filters, no black hole.</p>
@@ -379,19 +369,6 @@ const sections = [
 </section>
 
 <script>
-  // Apply button — scroll to form
-  document.querySelectorAll('.apply-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = document.getElementById('apply');
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(() => {
-          (document.getElementById('name') as HTMLInputElement)?.focus();
-        }, 600);
-      }
-    });
-  });
-
   // Formspree AJAX submit — keeps user on the page
   const form = document.getElementById('apply-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
